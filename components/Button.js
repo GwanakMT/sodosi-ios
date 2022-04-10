@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Pressable, Text, StyleSheet} from 'react-native';
 
 function Button(props) {
-  const {type, title, customStyles, onPress} = props;
+  const {type, children, customStyles, onPress} = props;
 
   return (
     <Pressable
@@ -14,7 +15,7 @@ function Button(props) {
       ]}
       onPress={onPress}>
       <Text style={[styles.text, type === 'primary' && styles.bold]}>
-        {title}
+        {children}
       </Text>
     </Pressable>
   );
@@ -47,5 +48,14 @@ const styles = StyleSheet.create({
     fontFamily: 'Pretendard-Bold',
   },
 });
+
+Button.defaultProps = {};
+
+Button.propTypes = {
+  type: PropTypes.string,
+  children: PropTypes.any,
+  customStyles: PropTypes.object,
+  onPress: PropTypes.func,
+};
 
 export default Button;
