@@ -20,7 +20,7 @@ function Typography(props) {
         variant === 'subheadline' && styles.subheadline,
         variant === 'body' && styles.body,
         variant === 'caption' && styles.caption,
-        bold === true &&
+        bold &&
           (variant === 'callout' ||
           variant === 'subheadline' ||
           variant === 'body' ||
