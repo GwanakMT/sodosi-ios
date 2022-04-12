@@ -9,10 +9,13 @@ function Input(props) {
     defaultValue,
     onChangeText,
     placeholder,
+    secureTextEntry,
+    keyboardType,
     editable,
     customStyles,
     isError,
     autoFocus,
+    returnKeyType,
     onPress,
   } = props;
 
@@ -23,10 +26,12 @@ function Input(props) {
       onChangeText={onChangeText}
       placeholder={placeholder}
       placeholderTextColor={Colors.text_tertiary}
+      secureTextEntry={secureTextEntry}
+      keyboardType={keyboardType}
       selectionColor={Colors.system_tint_blue}
       style={[styles.input, isError && styles.error, customStyles]}
       onSubmitEditing={onPress}
-      returnKeyType="done"
+      returnKeyType={returnKeyType}
       editable={editable}
       autoFocus={autoFocus}
     />
@@ -54,6 +59,8 @@ const styles = StyleSheet.create({
 
 Input.defaultProps = {
   isError: false,
+  secureTextEntry: false,
+  returnKeyType: 'done',
 };
 
 Input.propTypes = {
@@ -61,10 +68,13 @@ Input.propTypes = {
   defaultValue: PropTypes.string,
   onChangeText: PropTypes.func,
   placeholder: PropTypes.string,
+  secureTextEntry: PropTypes.bool,
+  keyboardType: PropTypes.string,
   editable: PropTypes.bool,
   customStyles: PropTypes.object,
   isError: PropTypes.bool,
   autoFocus: PropTypes.bool,
+  returnKeyType: PropTypes.string,
   onPress: PropTypes.func,
 };
 
