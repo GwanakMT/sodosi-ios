@@ -25,7 +25,7 @@ function Button(props) {
 
 const styles = StyleSheet.create({
   button: {
-    height: 52,
+    height: 56,
     justifyContent: 'center',
     alignItems: 'center',
     fontSize: 16,
@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
+    lineHeight: 24,
     color: 'white',
   },
   bold: {

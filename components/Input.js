@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
     height: 52,
     fontSize: 18,
     color: Colors.text_primary,
-    lineHeight: 24,
     letterSpacing: -0.408,
     paddingHorizontal: 16,
     borderRadius: 8,
