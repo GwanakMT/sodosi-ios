@@ -71,7 +71,6 @@ function PhoneScreen({navigation}) {
                   variant="caption"
                   color={Colors.system_tint_pink}
                   customStyles={styles.errorText}>
-                  {/* <Image source={WarningIcon} /> */}
                   올바른 휴대폰번호 양식이 아니에요!
                 </Typography>
               </View>
