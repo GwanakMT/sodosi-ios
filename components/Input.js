@@ -16,6 +16,7 @@ function Input(props) {
     isError,
     autoFocus,
     returnKeyType,
+    textAlign,
     onPress,
   } = props;
 
@@ -32,6 +33,7 @@ function Input(props) {
       style={[styles.input, isError && styles.error, customStyles]}
       onSubmitEditing={onPress}
       returnKeyType={returnKeyType}
+      textAlign={textAlign}
       editable={editable}
       autoFocus={autoFocus}
     />
@@ -74,6 +76,7 @@ Input.propTypes = {
   isError: PropTypes.bool,
   autoFocus: PropTypes.bool,
   returnKeyType: PropTypes.string,
+  textAlign: PropTypes.string,
   onPress: PropTypes.func,
 };
 
