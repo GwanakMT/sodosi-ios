@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import StartScreen from './screens/StartScreen';
 import PhoneScreen from './screens/PhoneScreen';
+import PasswordScreen from './screens/PasswordScreen';
 import NicknameScreen from './screens/NicknameScreen';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {NavigationContainer} from '@react-navigation/native';
@@ -30,6 +31,13 @@ const App = () => {
           <Stack.Screen
             name="Phone"
             component={PhoneScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Password"
+            component={PasswordScreen}
             options={{
               headerShown: false,
             }}
