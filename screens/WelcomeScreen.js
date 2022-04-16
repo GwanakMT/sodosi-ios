@@ -3,7 +3,7 @@ import Colors from '../assets/theme/colors';
 import {StatusBar, View, StyleSheet} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Marker} from '../components/animations';
-import {Typography} from '../components';
+import {Typography} from '../components/common';
 
 function WelcomeScreen() {
   return (

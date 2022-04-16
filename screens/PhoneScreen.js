@@ -11,7 +11,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Typography, Input, Button} from '../components';
+import {Typography, Input, Button} from '../components/common';
 
 function PhoneScreen({navigation}) {
   const [phone, setPhone] = useState('');

@@ -2,7 +2,7 @@ import React from 'react';
 import CafeGif from '../assets/images/cafe.gif';
 import {StatusBar, View, Image, StyleSheet} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Typography, Button} from '../components';
+import {Typography, Button} from '../components/common';
 
 function StartScreen({navigation}) {
   return (
