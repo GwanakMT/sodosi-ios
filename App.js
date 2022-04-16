@@ -4,13 +4,14 @@ import StartScreen from './screens/StartScreen';
 import PhoneScreen from './screens/PhoneScreen';
 import PasswordScreen from './screens/PasswordScreen';
 import NicknameScreen from './screens/NicknameScreen';
+import WelcomeScreen from './screens/WelcomeScreen';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
 
-const App = () => {
+function App() {
   useEffect(() => {
     setTimeout(() => {
       SplashScreen.hide();
@@ -49,10 +50,17 @@ const App = () => {
               headerShown: false,
             }}
           />
+          <Stack.Screen
+            name="Welcome"
+            component={WelcomeScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
   );
-};
+}
 
 export default App;

@@ -19,6 +19,7 @@ function NicknameScreen({navigation}) {
 
   const handleOnSubmit = () => {
     setIsError(false);
+    navigation.navigate('Welcome');
   };
 
   return (
