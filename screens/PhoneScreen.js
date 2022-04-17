@@ -21,7 +21,7 @@ function PhoneScreen({navigation}) {
     if (phone.replace(/[^0-9]/g).length === 11) {
       console.log('전화번호 유효성 검사 완료');
       setIsError(false);
-      navigation.navigate('Password');
+      navigation.navigate('CertificationNumber');
     } else {
       setIsError(true);
     }
@@ -141,18 +141,6 @@ const styles = StyleSheet.create({
   },
   description: {
     paddingBottom: 18,
-  },
-
-  buttonWrap: {
-    width: '100%',
-  },
-  gif: {
-    width: 260,
-    height: 260,
-    marginBottom: 32,
-  },
-  startButton: {
-    marginBottom: 14,
   },
 });
 

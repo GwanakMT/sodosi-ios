@@ -129,21 +129,6 @@ const styles = StyleSheet.create({
   errorText: {
     marginLeft: 6,
   },
-  description: {
-    paddingBottom: 18,
-  },
-
-  buttonWrap: {
-    width: '100%',
-  },
-  gif: {
-    width: 260,
-    height: 260,
-    marginBottom: 32,
-  },
-  startButton: {
-    marginBottom: 14,
-  },
 });
 
 export default PasswordScreen;
