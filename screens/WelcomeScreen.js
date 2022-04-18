@@ -1,8 +1,8 @@
 import React from 'react';
 import Colors from '../assets/theme/colors';
+import Marker from '../assets/images/marker.svg';
 import {StatusBar, View, StyleSheet} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Marker} from '../components/animations';
 import {Typography} from '../components/common';
 
 function WelcomeScreen() {
