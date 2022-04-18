@@ -17,6 +17,7 @@ function Input(props) {
     autoFocus,
     returnKeyType,
     textAlign,
+    maxLength,
     onPress,
   } = props;
 
@@ -34,6 +35,7 @@ function Input(props) {
       onSubmitEditing={onPress}
       returnKeyType={returnKeyType}
       textAlign={textAlign}
+      maxLength={maxLength}
       editable={editable}
       autoFocus={autoFocus}
     />
@@ -77,6 +79,7 @@ Input.propTypes = {
   autoFocus: PropTypes.bool,
   returnKeyType: PropTypes.string,
   textAlign: PropTypes.string,
+  maxLength: PropTypes.number,
   onPress: PropTypes.func,
 };
 

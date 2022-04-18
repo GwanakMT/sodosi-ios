@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import StartScreen from './screens/StartScreen';
 import PhoneScreen from './screens/PhoneScreen';
+import CertificationNumberScreen from './screens/CertificationNumberScreen';
 import PasswordScreen from './screens/PasswordScreen';
 import NicknameScreen from './screens/NicknameScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
@@ -32,6 +33,13 @@ function App() {
           <Stack.Screen
             name="Phone"
             component={PhoneScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="CertificationNumber"
+            component={CertificationNumberScreen}
             options={{
               headerShown: false,
             }}
