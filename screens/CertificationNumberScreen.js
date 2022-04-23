@@ -1,18 +1,16 @@
 import React, {useEffect, useState, useMemo, useRef} from 'react';
 import Colors from '../assets/theme/colors';
-import BackArrow from '../assets/images/icon/backArrow.svg';
 import WarningIcon from '../assets/images/icon/warning.svg';
 import {
   StatusBar,
   KeyboardAvoidingView,
   Platform,
   View,
-  StyleSheet,
-  TouchableWithoutFeedback,
   Pressable,
+  StyleSheet,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Typography, Input, Button} from '../components/common';
+import {Header, Typography, Input, Button} from '../components/common';
 
 function useInterval(callback, delay) {
   const savedCallback = useRef();
@@ -31,7 +29,9 @@ function useInterval(callback, delay) {
   }, [delay]);
 }
 
-function CertificationNumberScreen({navigation}) {
+function CertificationNumberScreen(props) {
+  const {navigation} = props;
+
   const [certificationNumber, setCertificationNumber] = useState('');
   const [isError, setIsError] = useState(false);
   const [time, setTime] = useState(60 * 3);
@@ -73,11 +73,7 @@ function CertificationNumberScreen({navigation}) {
       <KeyboardAvoidingView
         behavior={Platform.select({ios: 'padding'})}
         style={styles.avoid}>
-        <View style={styles.header}>
-          <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
-            <BackArrow />
-          </TouchableWithoutFeedback>
-        </View>
+        <Header onPress={() => navigation.goBack()} />
         <View style={styles.container}>
           <View>
             <Typography
@@ -213,12 +209,6 @@ const styles = StyleSheet.create({
   },
   avoid: {
     flex: 1,
-  },
-  header: {
-    height: 56,
-    justifyContent: 'center',
-    paddingHorizontal: 20,
-    backgroundColor: Colors.base_white,
   },
   container: {
     flex: 1,

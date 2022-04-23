@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import Colors from '../assets/theme/colors';
-import BackArrow from '../assets/images/icon/backArrow.svg';
 import WarningIcon from '../assets/images/icon/warning.svg';
 import {
   StatusBar,
@@ -8,12 +7,13 @@ import {
   Platform,
   View,
   StyleSheet,
-  TouchableWithoutFeedback,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Typography, Input, Button} from '../components/common';
+import {Header, Typography, Input, Button} from '../components/common';
 
-function NicknameScreen({navigation}) {
+function NicknameScreen(props) {
+  const {navigation} = props;
+
   const [nickname, setNickName] = useState('');
   const [isError, setIsError] = useState(false);
 
@@ -28,11 +28,7 @@ function NicknameScreen({navigation}) {
       <KeyboardAvoidingView
         behavior={Platform.select({ios: 'padding'})}
         style={styles.avoid}>
-        <View style={styles.header}>
-          <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
-            <BackArrow />
-          </TouchableWithoutFeedback>
-        </View>
+        <Header onPress={() => navigation.goBack()} />
         <View style={styles.container}>
           <View>
             <Typography
@@ -85,12 +81,6 @@ const styles = StyleSheet.create({
   },
   avoid: {
     flex: 1,
-  },
-  header: {
-    height: 56,
-    justifyContent: 'center',
-    paddingHorizontal: 20,
-    backgroundColor: Colors.base_white,
   },
   container: {
     flex: 1,
