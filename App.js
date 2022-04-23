@@ -65,6 +65,7 @@ function App() {
             component={WelcomeScreen}
             options={{
               headerShown: false,
+              gestureEnabled: false,
             }}
           />
         </Stack.Navigator>
