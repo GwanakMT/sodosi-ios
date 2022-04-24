@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.38,
   },
   headline: {
-    fontSize: 16,
+    fontSize: 18,
     lineHeight: 22,
     letterSpacing: -0.32,
     fontFamily: 'Pretendard-Bold',
@@ -124,7 +124,7 @@ Typography.propTypes = {
   bold: PropTypes.bool,
   align: PropTypes.string,
   color: PropTypes.string,
-  customStyles: PropTypes.object,
+  customStyles: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   children: PropTypes.any,
 };
 
