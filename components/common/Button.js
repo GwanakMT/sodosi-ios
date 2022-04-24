@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Colors from '../../assets/theme/colors';
 import {Pressable, Text, StyleSheet} from 'react-native';
+import Typography from './Typography';
 
 function Button(props) {
-  const {type, children, customStyles, disabled, onPress} = props;
+  const {type, size, children, customStyles, disabled, onPress} = props;
 
   return (
     <Pressable
@@ -12,24 +14,30 @@ function Button(props) {
         type === 'primary' && styles.primary,
         type === 'outlined' && styles.outlined,
         type === 'primary' && disabled && styles.disabled,
+        size === 'small' && styles.small,
+        size === 'large' && styles.large,
         customStyles,
       ]}
       disabled={disabled}
       onPress={onPress}>
-      <Text style={[styles.text, type === 'primary' && styles.bold]}>
+      <Typography
+        variant={size === 'small' ? 'caption' : ''}
+        color={type === 'primary' ? Colors.base_white : Colors.text_secondary}
+        customStyles={[
+          size === 'large' && styles.largeText,
+          size === 'large' && type === 'primary' && styles.bold,
+        ]}>
         {children}
-      </Text>
+      </Typography>
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   button: {
-    height: 56,
     justifyContent: 'center',
     alignItems: 'center',
-    fontSize: 16,
-    borderRadius: 8,
+    backgroundColor: Colors.system_grey_6,
   },
   primary: {
     backgroundColor: '#01DE00',
@@ -42,10 +50,23 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     letterSpacing: -0.32,
   },
+  small: {
+    height: 32,
+    borderRadius: 4,
+    paddingHorizontal: 12,
+  },
+  large: {
+    height: 56,
+    borderRadius: 8,
+  },
   disabled: {
     backgroundColor: 'rgba(1, 222, 0, 0.3)',
   },
-  text: {
+  smallText: {
+    fontSize: 13,
+    lineHeight: 20,
+  },
+  largeText: {
     fontSize: 16,
     lineHeight: 24,
     color: 'white',
@@ -57,10 +78,12 @@ const styles = StyleSheet.create({
 
 Button.defaultProps = {
   disabled: false,
+  size: 'large',
 };
 
 Button.propTypes = {
   type: PropTypes.string,
+  size: PropTypes.oneOf(['small', 'large']),
   children: PropTypes.any,
   customStyles: PropTypes.object,
   disabled: PropTypes.bool,

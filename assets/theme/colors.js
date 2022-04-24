@@ -21,7 +21,7 @@ const Colors = {
 
   system_bg_primary: '#FFFFFF',
   system_bg_secondary: '#F2F2F7',
-  system_bg_tertiary: '#FAFAFA',
+  system_bg_tertiary: '#F7F7F7',
 
   text_primary: '#0F0F10',
   text_secondary: '#8A8A8E',

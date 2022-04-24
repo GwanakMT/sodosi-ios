@@ -1,5 +1,10 @@
 import React, {useEffect} from 'react';
 import SplashScreen from 'react-native-splash-screen';
+import Logo from './assets/images/logo.svg';
+import AddIcon from './assets/images/icon/add.svg';
+import NavigationIcon from './assets/images/icon/navigation.svg';
+import UserIcon from './assets/images/icon/user.svg';
+import {View, StyleSheet} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -10,6 +15,7 @@ import {
   PasswordScreen,
   NicknameScreen,
   WelcomeScreen,
+  HomeScreen,
 } from './screens';
 
 const Stack = createNativeStackNavigator();
@@ -68,10 +74,40 @@ function App() {
               gestureEnabled: false,
             }}
           />
+
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{
+              headerTitle: '',
+              headerLeft: () => <Logo />,
+              headerRight: () => {
+                return (
+                  <View style={styles.iconWrap}>
+                    <AddIcon style={styles.icon} />
+                    <NavigationIcon style={styles.icon} />
+                    <UserIcon />
+                  </View>
+                );
+              },
+              headerShadowVisible: false,
+              gestureEnabled: false,
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  iconWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  icon: {
+    marginRight: 20,
+  },
+});
 
 export default App;

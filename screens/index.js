@@ -4,3 +4,5 @@ export {default as CertificationNumberScreen} from './CertificationNumberScreen'
 export {default as PasswordScreen} from './PasswordScreen';
 export {default as NicknameScreen} from './NicknameScreen';
 export {default as WelcomeScreen} from './WelcomeScreen';
+
+export {default as HomeScreen} from './HomeScreen';
