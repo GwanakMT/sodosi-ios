@@ -48,7 +48,7 @@ const ListItem = props => {
 
 function HomeScreen() {
   return (
-    <SafeAreaView style={styles.safeArea} edges={['bottom']}>
+    <SafeAreaView style={styles.safeArea} edges={['left', 'right', 'bottom']}>
       <StatusBar barStyle="dark-content" />
       <ScrollView>
         <View style={styles.container}>
@@ -125,14 +125,55 @@ function HomeScreen() {
               style={{
                 flexDirection: 'row',
                 justifyContent: 'space-between',
+                marginBottom: 24,
               }}>
-              <Typography variant="headline" customStyles={styles.title}>
-                내 관심 소도시 👍
-              </Typography>
+              <Typography variant="headline">내 관심 소도시 👍</Typography>
               <Typography variant="subheadline" color={Colors.text_secondary}>
                 전체 보기
               </Typography>
             </View>
+            <FlatList
+              data={[
+                {
+                  id: 0,
+                  icon: '🦉',
+                  title: '올빼미들을 위한 새벽 바이브',
+                  moment: 50,
+                },
+                {
+                  id: 1,
+                  icon: '🥯',
+                  title: '심장이 스콘스콘',
+                  moment: 50,
+                },
+                {
+                  id: 2,
+                  icon: '🌽',
+                  title: '비건들아 모여봐라',
+                  moment: 34,
+                },
+              ]}
+              renderItem={({item}) => (
+                <View>
+                  <View style={styles.saveBox}>
+                    <Typography>{item.icon}</Typography>
+                  </View>
+                  <Typography
+                    variant="body"
+                    color={Colors.text_primary}
+                    customStyle={{paddingBottom: 2}}
+                    bold>
+                    {item.title}
+                  </Typography>
+                  <Typography variant="caption" color={Colors.text_secondary}>
+                    {item.moment}개의 순간
+                  </Typography>
+                </View>
+              )}
+              keyExtractor={item => item.id.toString()}
+              ItemSeparatorComponent={() => <View style={{marginRight: 10}} />}
+              horizontal
+            />
           </View>
 
           <View style={styles.sodosiContent}>
@@ -307,6 +348,15 @@ const styles = StyleSheet.create({
   separator: {
     backgroundColor: Colors.system_grey_6,
     height: 1,
+  },
+  saveBox: {
+    width: 154,
+    height: 106,
+    borderRadius: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Colors.system_grey_6,
+    marginBottom: 12,
   },
   footer: {
     backgroundColor: Colors.system_bg_tertiary,
