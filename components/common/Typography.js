@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Text, StyleSheet} from 'react-native';
 
 function Typography(props) {
-  const {variant, bold, align, color, customStyles, children} = props;
+  const {variant, bold, semiBold, align, color, customStyles, children} = props;
 
   return (
     <Text
@@ -27,6 +27,7 @@ function Typography(props) {
           variant === 'caption'
             ? styles.semiBold
             : styles.bold),
+        semiBold && styles.semiBold,
         align === 'left' && styles.left,
         align === 'center' && styles.center,
         align === 'right' && styles.right,
@@ -116,12 +117,14 @@ const styles = StyleSheet.create({
 
 Typography.defaultProps = {
   bold: false,
+  semiBold: false,
   align: 'left',
 };
 
 Typography.propTypes = {
   variant: PropTypes.string,
   bold: PropTypes.bool,
+  semiBold: PropTypes.bool,
   align: PropTypes.string,
   color: PropTypes.string,
   customStyles: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),

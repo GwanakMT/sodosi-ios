@@ -33,7 +33,9 @@ function StartScreen({navigation}) {
             onPress={() => navigation.navigate('Phone')}>
             시작하기
           </Button>
-          <Button type="outlined">이미 소도시 회원이에요!</Button>
+          <Button customStyles={styles.outlinedButton}>
+            이미 소도시 회원이에요!
+          </Button>
         </View>
       </View>
     </SafeAreaView>
@@ -76,6 +78,13 @@ const styles = StyleSheet.create({
   },
   startButton: {
     marginBottom: 14,
+  },
+  outlinedButton: {
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: '#FFFFFF99',
+    lineHeight: 22,
+    letterSpacing: -0.32,
   },
 });
 

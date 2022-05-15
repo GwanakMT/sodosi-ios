@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Colors from '../../assets/theme/colors';
-import {Pressable, Text, StyleSheet} from 'react-native';
+import {Pressable, StyleSheet} from 'react-native';
 import Typography from './Typography';
 
 function Button(props) {
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   outlined: {
     backgroundColor: 'transparent',
     borderWidth: 1,
-    borderColor: '#FFFFFF99',
+    borderColor: Colors.system_grey_6,
     lineHeight: 22,
     letterSpacing: -0.32,
   },
@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
   largeText: {
     fontSize: 16,
     lineHeight: 24,
-    color: 'white',
   },
   bold: {
     fontFamily: 'Pretendard-Bold',
