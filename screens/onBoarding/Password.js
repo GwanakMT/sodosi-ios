@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import Colors from '../assets/theme/colors';
-import WarningIcon from '../assets/images/icon/warning.svg';
+import Colors from '../../assets/theme/colors';
+import WarningIcon from '../../assets/images/icon/warning.svg';
 import {
   StatusBar,
   KeyboardAvoidingView,
@@ -9,9 +9,9 @@ import {
   StyleSheet,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Header, Typography, Input, Button} from '../components/common';
+import {Header, Typography, Input, Button} from '../../components/common';
 
-function PasswordScreen(props) {
+function Password(props) {
   const {navigation} = props;
 
   const [password, setPassword] = useState('');
@@ -121,4 +121,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PasswordScreen;
+export default Password;

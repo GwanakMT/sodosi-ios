@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
-import Colors from '../assets/theme/colors';
-import Marker from '../assets/images/marker.svg';
+import Colors from '../../assets/theme/colors';
+import Marker from '../../assets/images/marker.svg';
 import {StatusBar, View, StyleSheet} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Typography} from '../components/common';
+import {Typography} from '../../components/common';
 
-function WelcomeScreen(props) {
+function Welcome(props) {
   const {navigation} = props;
 
   useEffect(() => {
@@ -47,4 +47,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WelcomeScreen;
+export default Welcome;

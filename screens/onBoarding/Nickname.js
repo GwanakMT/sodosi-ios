@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import Colors from '../assets/theme/colors';
-import WarningIcon from '../assets/images/icon/warning.svg';
+import Colors from '../../assets/theme/colors';
+import WarningIcon from '../../assets/images/icon/warning.svg';
 import {
   StatusBar,
   KeyboardAvoidingView,
@@ -9,22 +9,17 @@ import {
   StyleSheet,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Header, Typography, Input, Button} from '../components/common';
+import {Header, Typography, Input, Button} from '../../components/common';
 
-function PhoneScreen(props) {
+function Nickname(props) {
   const {navigation} = props;
 
-  const [phone, setPhone] = useState('');
+  const [nickname, setNickName] = useState('');
   const [isError, setIsError] = useState(false);
 
   const handleOnSubmit = () => {
-    if (phone.replace(/[^0-9]/g).length === 11) {
-      console.log('전화번호 유효성 검사 완료');
-      setIsError(false);
-      navigation.navigate('CertificationNumber');
-    } else {
-      setIsError(true);
-    }
+    setIsError(false);
+    navigation.navigate('Welcome');
   };
 
   return (
@@ -41,22 +36,17 @@ function PhoneScreen(props) {
               color={Colors.text_primary}
               customStyles={styles.title}
               bold>
-              휴대폰 번호를 입력해주세요
+              시민님을 뭐라고 부를까요?
             </Typography>
             <View style={styles.inputWrap}>
               <Input
-                defaultValue="+82"
-                editable={false}
-                customStyles={styles.countryCode}
-                isError={isError}
-              />
-              <Input
-                value={phone}
-                onChangeText={setPhone}
-                placeholder="01012345678"
-                keyboardType="number-pad"
+                value={nickname}
+                onChangeText={setNickName}
+                placeholder="호랑이는 가죽을 남기고..."
+                keyboardType="default"
                 customStyles={styles.input}
                 isError={isError}
+                textAlign="center"
                 autoFocus
               />
             </View>
@@ -67,26 +57,17 @@ function PhoneScreen(props) {
                   variant="caption"
                   color={Colors.system_tint_pink}
                   customStyles={styles.errorText}>
-                  올바른 휴대폰번호 양식이 아니에요!
+                  이미 있는 별명이에요!
                 </Typography>
               </View>
             )}
           </View>
-          <View>
-            <Typography
-              variant="caption"
-              align="center"
-              color={Colors.text_secondary}
-              customStyles={styles.description}>
-              안전한 소도시 커뮤니티를 위해 휴대폰 번호로 가입해요
-            </Typography>
-            <Button
-              type="primary"
-              disabled={phone.length < 11}
-              onPress={handleOnSubmit}>
-              다음
-            </Button>
-          </View>
+          <Button
+            type="primary"
+            disabled={nickname.length < 1}
+            onPress={handleOnSubmit}>
+            입주하기
+          </Button>
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -115,10 +96,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingBottom: 10,
   },
-  countryCode: {
-    width: 68,
-    marginRight: 8,
-  },
   input: {
     flex: 1,
   },
@@ -129,9 +106,6 @@ const styles = StyleSheet.create({
   errorText: {
     marginLeft: 6,
   },
-  description: {
-    paddingBottom: 18,
-  },
 });
 
-export default PhoneScreen;
+export default Nickname;

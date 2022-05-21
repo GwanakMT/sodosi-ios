@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useMemo, useRef} from 'react';
-import Colors from '../assets/theme/colors';
-import WarningIcon from '../assets/images/icon/warning.svg';
+import Colors from '../../assets/theme/colors';
+import WarningIcon from '../../assets/images/icon/warning.svg';
 import {
   StatusBar,
   KeyboardAvoidingView,
@@ -10,7 +10,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Header, Typography, Input, Button} from '../components/common';
+import {Header, Typography, Input, Button} from '../../components/common';
 
 function useInterval(callback, delay) {
   const savedCallback = useRef();
@@ -29,7 +29,7 @@ function useInterval(callback, delay) {
   }, [delay]);
 }
 
-function CertificationNumberScreen(props) {
+function CertificationNumber(props) {
   const {navigation} = props;
 
   const [certificationNumber, setCertificationNumber] = useState('');
@@ -257,4 +257,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CertificationNumberScreen;
+export default CertificationNumber;

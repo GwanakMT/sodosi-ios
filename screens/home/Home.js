@@ -1,10 +1,11 @@
 import React, {useState, useRef} from 'react';
-import Colors from '../assets/theme/colors';
-import Camera from '../assets/images/camera.png';
-import Cafe from '../assets/images/cafe.png';
-import Qwanak from '../assets/images/qwanak.svg';
-import BookmarkIcon from '../assets/images/icon/bookmark.svg';
-import TopButton from '../assets/images/icon/topButton.svg';
+import Colors from '../../assets/theme/colors';
+import Camera from '../../assets/images/camera.png';
+import Cafe from '../../assets/images/cafe.png';
+import Qwanak from '../../assets/images/qwanak.svg';
+import BookmarkIcon from '../../assets/images/icon/bookmark.svg';
+import TopButton from '../../assets/images/icon/topButton.svg';
+import ListItem from './ListItem';
 import {
   StatusBar,
   ScrollView,
@@ -15,55 +16,9 @@ import {
   StyleSheet,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Typography, Button} from '../components/common';
+import {Typography, Button} from '../../components/common';
 
-const ListItem = props => {
-  const {key, index, data, isShowRank, isShowBookmark} = props;
-  return (
-    <View style={styles.sodosiItem} key={key}>
-      <View style={styles.itemContent}>
-        {isShowRank && (
-          <Typography
-            variant="callout"
-            color={Colors.text_tertiary}
-            customStyles={styles.rank}
-            bold>
-            {index + 1}
-          </Typography>
-        )}
-        <View style={styles.img}>
-          <Typography>🐥</Typography>
-        </View>
-        <View>
-          <Typography variant="callout" color={Colors.text_primary} bold>
-            {data.name}
-          </Typography>
-          <View style={styles.description}>
-            <Typography variant="caption" color={Colors.system_grey_2}>
-              {data.people}명의 소시민들
-            </Typography>
-            <Typography
-              variant="caption"
-              color={Colors.system_grey_2}
-              customStyles={{paddingHorizontal: 6}}>
-              |
-            </Typography>
-            <Typography variant="caption" color={Colors.system_grey_2}>
-              {data.moment}개의 순간
-            </Typography>
-          </View>
-        </View>
-      </View>
-      {isShowBookmark && (
-        <View>
-          <BookmarkIcon />
-        </View>
-      )}
-    </View>
-  );
-};
-
-function HomeScreen() {
+function Home() {
   const scrollView = useRef();
 
   const [page, setPage] = useState(0);
@@ -478,36 +433,6 @@ const styles = StyleSheet.create({
   title: {
     marginBottom: 8,
   },
-  sodosiItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 20,
-  },
-  itemContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  rank: {
-    marginRight: 10,
-  },
-  img: {
-    width: 72,
-    height: 72,
-    backgroundColor: Colors.system_grey_6,
-    borderRadius: 37,
-    marginRight: 14,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  description: {
-    flexDirection: 'row',
-    paddingTop: 4,
-  },
-  separator: {
-    backgroundColor: Colors.system_grey_6,
-    height: 1,
-  },
   saveBox: {
     width: 154,
     height: 106,
@@ -551,4 +476,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default Home;
