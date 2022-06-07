@@ -1,11 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Colors from '../../assets/theme/colors';
 import BookmarkIcon from '../../assets/images/icon/bookmark.svg';
 import {View, StyleSheet} from 'react-native';
-import {Typography} from '../../components/common';
+import {Typography, Checkbox} from '../../components/common';
 
 function ListItem(props) {
-  const {key, index, data, isShowRank, isShowBookmark} = props;
+  const {
+    key,
+    index,
+    data,
+    isShowRank,
+    isShowCheckbox,
+    isShowBookmark,
+    onClickCheckbox,
+  } = props;
   return (
     <>
       <View style={styles.sodosiItem} key={key}>
@@ -18,6 +27,14 @@ function ListItem(props) {
               bold>
               {index + 1}
             </Typography>
+          )}
+          {isShowCheckbox && (
+            <Checkbox
+              boxType={'circle'}
+              active={data.selected}
+              customStyles={styles.checkbox}
+              onPress={onClickCheckbox}
+            />
           )}
           <View style={styles.img}>
             <Typography>🐥</Typography>
@@ -33,7 +50,7 @@ function ListItem(props) {
               <Typography
                 variant="caption"
                 color={Colors.system_grey_2}
-                customStyles={{paddingHorizontal: 6}}>
+                customStyles={styles.separator}>
                 |
               </Typography>
               <Typography variant="caption" color={Colors.system_grey_2}>
@@ -67,6 +84,9 @@ const styles = StyleSheet.create({
   rank: {
     marginRight: 10,
   },
+  checkbox: {
+    marginRight: 16,
+  },
   img: {
     width: 72,
     height: 72,
@@ -80,6 +100,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingTop: 4,
   },
+  separator: {
+    paddingHorizontal: 6,
+  },
 });
+
+ListItem.defaultProps = {};
+
+ListItem.propTypes = {
+  key: PropTypes.any,
+  index: PropTypes.number,
+  data: PropTypes.object,
+  isShowRank: PropTypes.bool,
+  isShowCheckbox: PropTypes.bool,
+  isShowBookmark: PropTypes.bool,
+  onClickCheckbox: PropTypes.func,
+};
 
 export default ListItem;

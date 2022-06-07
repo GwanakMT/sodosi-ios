@@ -18,7 +18,9 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Typography, Button} from '../../components/common';
 
-function Home() {
+function Home(props) {
+  const {navigation} = props;
+
   const scrollView = useRef();
 
   const [page, setPage] = useState(0);
@@ -242,9 +244,12 @@ function Home() {
                 marginBottom: 24,
               }}>
               <Typography variant="headline">내 관심 소도시 👍</Typography>
-              <Typography variant="subheadline" color={Colors.text_secondary}>
-                전체 보기
-              </Typography>
+              <Pressable
+                onPress={() => navigation.navigate('InterestedSodosi')}>
+                <Typography variant="subheadline" color={Colors.text_secondary}>
+                  전체 보기
+                </Typography>
+              </Pressable>
             </View>
             <FlatList
               data={[

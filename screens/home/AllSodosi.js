@@ -11,7 +11,6 @@ function AllSodosi(props) {
   return (
     <SafeAreaView style={styles.safeArea} edges={['left', 'right', 'bottom']}>
       <StatusBar barStyle="dark-content" />
-
       <View style={styles.container}>
         <FlatList
           ListHeaderComponent={() => (

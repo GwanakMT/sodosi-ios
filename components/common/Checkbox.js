@@ -1,23 +1,22 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Colors from '../../assets/theme/colors';
 import CheckIcon from '../../assets/images/icon/check.svg';
 import {Pressable, StyleSheet} from 'react-native';
 
 function Checkbox(props) {
-  const {boxType} = props;
-
-  const [active, setActive] = useState(false);
+  const {active, boxType, onPress, customStyles} = props;
 
   return (
     <Pressable
       boxType={boxType}
+      onPress={onPress}
       style={[
         styles.checkbox,
         active && styles.active,
         boxType === 'circle' && styles.circle,
-      ]}
-      onPress={() => setActive(!active)}>
+        customStyles,
+      ]}>
       <CheckIcon color={active ? Colors.base_white : Colors.system_grey_5} />
     </Pressable>
   );
@@ -47,9 +46,10 @@ Checkbox.defaultProps = {
 };
 
 Checkbox.propTypes = {
-  value: PropTypes.string,
+  active: PropTypes.bool,
   boxType: PropTypes.string,
   onPress: PropTypes.func,
+  customStyles: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
 export default Checkbox;
