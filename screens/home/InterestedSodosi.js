@@ -57,8 +57,8 @@ function InterestedSodosi(props) {
             <ListItem
               index={i}
               data={item}
-              isShowCheckbox={isModify}
-              isShowBookmark={isAdd}
+              hasCheckbox={isModify}
+              hasBookmark={isAdd}
               onClickCheckbox={() => {
                 const index = interestedSodosiList.findIndex(
                   sodosi => sodosi.id === item.id,

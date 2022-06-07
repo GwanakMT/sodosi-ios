@@ -6,20 +6,13 @@ import {View, StyleSheet} from 'react-native';
 import {Typography, Checkbox} from '../../components/common';
 
 function ListItem(props) {
-  const {
-    key,
-    index,
-    data,
-    isShowRank,
-    isShowCheckbox,
-    isShowBookmark,
-    onClickCheckbox,
-  } = props;
+  const {key, index, data, hasRank, hasCheckbox, hasBookmark, onClickCheckbox} =
+    props;
   return (
     <>
       <View style={styles.sodosiItem} key={key}>
         <View style={styles.itemContent}>
-          {isShowRank && (
+          {hasRank && (
             <Typography
               variant="callout"
               color={Colors.text_tertiary}
@@ -28,7 +21,7 @@ function ListItem(props) {
               {index + 1}
             </Typography>
           )}
-          {isShowCheckbox && (
+          {hasCheckbox && (
             <Checkbox
               boxType={'circle'}
               active={data.selected}
@@ -59,7 +52,7 @@ function ListItem(props) {
             </View>
           </View>
         </View>
-        {isShowBookmark && (
+        {hasBookmark && (
           <View>
             <BookmarkIcon />
           </View>
@@ -111,9 +104,9 @@ ListItem.propTypes = {
   key: PropTypes.any,
   index: PropTypes.number,
   data: PropTypes.object,
-  isShowRank: PropTypes.bool,
-  isShowCheckbox: PropTypes.bool,
-  isShowBookmark: PropTypes.bool,
+  hasRank: PropTypes.bool,
+  hasCheckbox: PropTypes.bool,
+  hasBookmark: PropTypes.bool,
   onClickCheckbox: PropTypes.func,
 };
 

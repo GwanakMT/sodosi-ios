@@ -323,8 +323,8 @@ function Home(props) {
               <ListItem
                 index={i}
                 data={data}
-                isShowRank={true}
-                isShowBookmark={true}
+                hasRank={true}
+                hasBookmark={true}
               />
             ))}
             <Button type="outlined" customStyles={{marginTop: 8}}>
@@ -356,7 +356,7 @@ function Home(props) {
                 moment: 50,
               },
             ].map((data, i) => (
-              <ListItem key={i} data={data} isShowBookmark={true} />
+              <ListItem key={i} data={data} hasBookmark={true} />
             ))}
             <Button type="outlined" customStyles={{marginTop: 8}}>
               더보기

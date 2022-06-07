@@ -126,8 +126,8 @@ function AllSodosi(props) {
             <ListItem
               index={i}
               data={item}
-              isShowRank={false}
-              isShowBookmark={true}
+              hasRank={false}
+              hasBookmark={true}
             />
           )}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
