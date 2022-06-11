@@ -32,7 +32,7 @@ const Colors = {
   green_900: '#019400',
   green_800: '#01AD00',
   green_700: '#01D900',
-  green_600: '#01D700',
+  green_600: '#01DE00',
   green_500: '#01F700',
   green_400: '#2FFF2E',
   green_300: '#59FF58',

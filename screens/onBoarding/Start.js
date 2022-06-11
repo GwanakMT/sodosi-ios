@@ -1,4 +1,5 @@
 import React from 'react';
+import Colors from '../../assets/theme/colors';
 import CafeGif from '../../assets/images/cafe.gif';
 import {StatusBar, View, Image, StyleSheet} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -33,7 +34,9 @@ function Start({navigation}) {
             onPress={() => navigation.navigate('Phone')}>
             시작하기
           </Button>
-          <Button customStyles={styles.outlinedButton}>
+          <Button
+            customStyles={styles.outlinedButton}
+            textColor={Colors.base_white}>
             이미 소도시 회원이에요!
           </Button>
         </View>

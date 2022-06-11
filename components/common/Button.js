@@ -1,17 +1,31 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import PropTypes from 'prop-types';
 import Colors from '../../assets/theme/colors';
 import {Pressable, StyleSheet} from 'react-native';
 import Typography from './Typography';
 
 function Button(props) {
-  const {type, size, children, customStyles, disabled, onPress} = props;
+  const {type, size, textColor, children, customStyles, disabled, onPress} =
+    props;
+
+  const color = useMemo(() => {
+    if (textColor) {
+      return textColor;
+    } else if (type === 'primary') {
+      return Colors.base_white;
+    } else if (type === 'secondary') {
+      return Colors.green_600;
+    } else {
+      return Colors.text_secondary;
+    }
+  }, [textColor, type]);
 
   return (
     <Pressable
       style={[
         styles.button,
         type === 'primary' && styles.primary,
+        type === 'secondary' && styles.secondary,
         type === 'outlined' && styles.outlined,
         type === 'primary' && disabled && styles.disabled,
         size === 'small' && styles.small,
@@ -22,7 +36,7 @@ function Button(props) {
       onPress={onPress}>
       <Typography
         variant={size === 'small' ? 'caption' : ''}
-        color={type === 'primary' ? Colors.base_white : Colors.text_secondary}
+        color={color}
         customStyles={[
           size === 'large' && styles.largeText,
           size === 'large' && type === 'primary' && styles.bold,
@@ -40,8 +54,13 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.system_grey_6,
   },
   primary: {
-    backgroundColor: '#01DE00',
+    backgroundColor: Colors.green_600,
     lineHeight: 24,
+  },
+  secondary: {
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: Colors.green_600,
   },
   outlined: {
     backgroundColor: 'transparent',
@@ -83,6 +102,7 @@ Button.defaultProps = {
 Button.propTypes = {
   type: PropTypes.string,
   size: PropTypes.oneOf(['small', 'large']),
+  textColor: PropTypes.string,
   children: PropTypes.any,
   customStyles: PropTypes.object,
   disabled: PropTypes.bool,
