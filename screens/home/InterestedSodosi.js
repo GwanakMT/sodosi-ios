@@ -79,19 +79,22 @@ function InterestedSodosi(props) {
           ListFooterComponent={
             !isAdd &&
             !isModify && (
-              <Pressable
-                onPress={() => {
-                  setAdd(true);
-                }}>
-                <View style={styles.addItem}>
-                  <View style={styles.circle}>
-                    <AddIcon color={Colors.green_600} />
+              <>
+                <View style={styles.separator} />
+                <Pressable
+                  onPress={() => {
+                    setAdd(true);
+                  }}>
+                  <View style={styles.addItem}>
+                    <View style={styles.circle}>
+                      <AddIcon color={Colors.green_600} />
+                    </View>
+                    <Typography color={Colors.text_secondary} bold>
+                      관심 소도시 추가하기
+                    </Typography>
                   </View>
-                  <Typography color={Colors.text_secondary} bold>
-                    관심 소도시 추가하기
-                  </Typography>
-                </View>
-              </Pressable>
+                </Pressable>
+              </>
             )
           }
         />
@@ -100,7 +103,7 @@ function InterestedSodosi(props) {
             완료
           </Button>
         )}
-        {isModify && <Button type="outlined">삭제</Button>}
+        {isModify && <Button type="secondary">삭제</Button>}
       </View>
     </SafeAreaView>
   );
@@ -124,6 +127,7 @@ const styles = StyleSheet.create({
   addItem: {
     flexDirection: 'row',
     alignItems: 'center',
+    paddingVertical: 20,
   },
   circle: {
     width: 72,

@@ -59,7 +59,7 @@ function App() {
         <Stack.Navigator
           initialRouteName="Start"
           screenOptions={{
-            headerHideShadow: true,
+            headerShadowVisible: false,
           }}>
           <Stack.Screen
             name="Start"
@@ -122,7 +122,6 @@ function App() {
                   </View>
                 );
               },
-              headerShadowVisible: false,
               gestureEnabled: false,
             })}
           />
@@ -191,7 +190,6 @@ function App() {
                   );
                 }
               },
-              headerShadowVisible: false,
             })}>
             {props => (
               <InterestedSodosiScreen
