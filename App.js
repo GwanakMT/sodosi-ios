@@ -22,6 +22,7 @@ import {
   WelcomeScreen,
   HomeScreen,
   AllSodosiScreen,
+  CreateSodosiScreen,
   InterestedSodosiScreen,
 } from './screens';
 
@@ -32,6 +33,15 @@ function App() {
   const [isAdd, setAdd] = useState(false);
   const [isModify, setModify] = useState(false);
   const [interestedSodosiList, setInterestedSodosiList] = useState([]);
+
+  // 소도시 생성
+  const [createSodosiValues, setCreateSodosiValues] = useState({
+    emoji: null,
+    sodosiName: '',
+    isPublic: true,
+  });
+  const [isExpectOpen, setExpectOpen] = useState(false);
+  const [isCelebrationOpen, setCelebrationOpen] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -114,7 +124,10 @@ function App() {
               headerRight: () => {
                 return (
                   <View style={styles.iconWrap}>
-                    <AddIcon style={styles.icon} color={Colors.base_black} />
+                    <Pressable
+                      onPress={() => navigation.navigate('CreateSodosi')}>
+                      <AddIcon style={styles.icon} color={Colors.base_black} />
+                    </Pressable>
                     <Pressable onPress={() => navigation.navigate('AllSodosi')}>
                       <NavigationIcon style={styles.icon} />
                     </Pressable>
@@ -137,6 +150,59 @@ function App() {
               headerTitle: '전체 소도시',
             })}
           />
+          <Stack.Screen
+            name="CreateSodosi"
+            options={({navigation}) => ({
+              headerLeft: () => (
+                <Pressable
+                  onPress={() => {
+                    if (
+                      createSodosiValues.emoji !== null ||
+                      createSodosiValues.sodosiName !== ''
+                    ) {
+                      setExpectOpen(true);
+                    } else {
+                      navigation.goBack();
+                    }
+                  }}>
+                  <BackArrow />
+                </Pressable>
+              ),
+              headerTitle: '새로운 소도시',
+              headerTitleStyle: {
+                fontSize: 16,
+                lineHeight: 22,
+                letterSpacing: -0.32,
+                fontWeight: 'bold',
+                color: Colors.text_primary,
+              },
+              headerRight: () => (
+                <Pressable onPress={() => setCelebrationOpen(true)}>
+                  <Typography
+                    variant="callout"
+                    color={
+                      createSodosiValues.emoji !== null &&
+                      createSodosiValues.sodosiName !== ''
+                        ? Colors.text_primary
+                        : Colors.text_tertiary
+                    }>
+                    완료
+                  </Typography>
+                </Pressable>
+              ),
+            })}>
+            {props => (
+              <CreateSodosiScreen
+                values={createSodosiValues}
+                setValues={setCreateSodosiValues}
+                isExpectOpen={isExpectOpen}
+                setExpectOpen={setExpectOpen}
+                isCelebrationOpen={isCelebrationOpen}
+                setCelebrationOpen={setCelebrationOpen}
+                navigation={props.navigation}
+              />
+            )}
+          </Stack.Screen>
           <Stack.Screen
             name="InterestedSodosi"
             options={({navigation}) => ({

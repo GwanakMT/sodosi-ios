@@ -49,7 +49,8 @@ function Home(props) {
               <Button
                 type="primary"
                 size="small"
-                customStyles={{marginRight: 8}}>
+                customStyles={{marginRight: 8}}
+                onPress={() => navigation.navigate('CreateSodosi')}>
                 지금 시작하기
               </Button>
               <Button size="small">일단 구경하기</Button>
