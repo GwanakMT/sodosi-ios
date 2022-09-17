@@ -26,6 +26,7 @@ import {
   CreateSodosiScreen,
   InterestedSodosiScreen,
   MyPageScreen,
+  SettingScreen,
 } from './screens';
 
 const Stack = createNativeStackNavigator();
@@ -72,6 +73,14 @@ function App() {
           initialRouteName="Start"
           screenOptions={{
             headerShadowVisible: false,
+            headerTitleStyle: {
+              fontFamily: 'Pretendard-Regular',
+              fontSize: 16,
+              fontWeight: 'bold',
+              lineHeight: 22,
+              letterSpacing: -0.32,
+              color: Colors.text_primary,
+            },
           }}>
           <Stack.Screen
             name="Start"
@@ -173,13 +182,6 @@ function App() {
                 </Pressable>
               ),
               headerTitle: '새로운 소도시',
-              headerTitleStyle: {
-                fontSize: 16,
-                lineHeight: 22,
-                letterSpacing: -0.32,
-                fontWeight: 'bold',
-                color: Colors.text_primary,
-              },
               headerRight: () => (
                 <Pressable onPress={() => setCelebrationOpen(true)}>
                   <Typography
@@ -231,13 +233,6 @@ function App() {
                 );
               },
               headerTitle: InterestedSodosiHeaderTitle,
-              headerTitleStyle: {
-                fontSize: 16,
-                lineHeight: 22,
-                letterSpacing: -0.32,
-                fontWeight: 'bold',
-                color: Colors.text_primary,
-              },
               headerRight: () => {
                 if (isAdd) {
                   return <></>;
@@ -272,6 +267,7 @@ function App() {
               />
             )}
           </Stack.Screen>
+
           <Stack.Screen
             name="MyPage"
             component={MyPageScreen}
@@ -283,8 +279,21 @@ function App() {
                 </Pressable>
               ),
               headerRight: () => (
-                <Pressable>
+                <Pressable onPress={() => navigation.navigate('Setting')}>
                   <SettingIcon />
+                </Pressable>
+              ),
+            })}
+          />
+
+          <Stack.Screen
+            name="Setting"
+            component={SettingScreen}
+            options={({navigation}) => ({
+              headerTitle: '설정',
+              headerLeft: () => (
+                <Pressable onPress={() => navigation.goBack()}>
+                  <BackArrow />
                 </Pressable>
               ),
             })}
