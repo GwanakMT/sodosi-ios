@@ -7,6 +7,7 @@ import AddIcon from './assets/images/icon/add.svg';
 import NavigationIcon from './assets/images/icon/navigation.svg';
 import UserIcon from './assets/images/icon/user.svg';
 import BackArrow from './assets/images/icon/backArrow.svg';
+import SettingIcon from './assets/images/icon/setting.svg';
 import Close from './assets/images/icon/close.svg';
 import {View, Pressable, StyleSheet} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
@@ -24,6 +25,7 @@ import {
   AllSodosiScreen,
   CreateSodosiScreen,
   InterestedSodosiScreen,
+  MyPageScreen,
 } from './screens';
 
 const Stack = createNativeStackNavigator();
@@ -131,7 +133,9 @@ function App() {
                     <Pressable onPress={() => navigation.navigate('AllSodosi')}>
                       <NavigationIcon style={styles.icon} />
                     </Pressable>
-                    <UserIcon />
+                    <Pressable onPress={() => navigation.navigate('MyPage')}>
+                      <UserIcon color={Colors.base_black} />
+                    </Pressable>
                   </View>
                 );
               },
@@ -268,6 +272,23 @@ function App() {
               />
             )}
           </Stack.Screen>
+          <Stack.Screen
+            name="MyPage"
+            component={MyPageScreen}
+            options={({navigation}) => ({
+              headerTitle: '',
+              headerLeft: () => (
+                <Pressable onPress={() => navigation.goBack()}>
+                  <BackArrow />
+                </Pressable>
+              ),
+              headerRight: () => (
+                <Pressable>
+                  <SettingIcon />
+                </Pressable>
+              ),
+            })}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
