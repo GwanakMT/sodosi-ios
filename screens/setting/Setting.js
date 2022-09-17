@@ -1,44 +1,56 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Colors from '../../assets/theme/colors';
 import GlobalStyles from '../../assets/theme/globalStyles';
-import {StatusBar, View, SectionList, StyleSheet} from 'react-native';
+import {
+  StatusBar,
+  View,
+  SectionList,
+  Pressable,
+  StyleSheet,
+} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Typography, Icons} from '../../components/common';
-
-const SETTING_LIST = [
-  {
-    title: '계정 설정',
-    data: [
-      {key: 'phone', label: '전화번호'},
-      {key: 'password', label: '비밀번호 변경'},
-      {key: 'push', label: '앱 알림 설정'},
-    ],
-  },
-  {
-    title: '약관 및 정책',
-    data: [
-      {key: '', label: '이용약관'},
-      {key: '', label: '개인정보 처리 방침'},
-      {key: '', label: '오픈소스 고지'},
-    ],
-  },
-  {
-    title: '앱 버전 정보',
-    data: [
-      {key: 'version', label: '버전 정보'},
-      {key: '', label: '소도시를 만든 사람들'},
-    ],
-  },
-  {
-    title: null,
-    data: [
-      {key: '', label: '로그아웃'},
-      {key: '', label: '탈퇴하기'},
-    ],
-  },
-];
+import {Typography, Modal, Icons} from '../../components/common';
 
 function Setting(props) {
+  const [isQuitOpen, setQuitOpen] = useState(false);
+
+  const SETTING_LIST = [
+    {
+      title: '계정 설정',
+      data: [
+        {key: 'phone', label: '전화번호'},
+        {key: 'password', label: '비밀번호 변경'},
+        {key: 'push', label: '앱 알림 설정'},
+      ],
+    },
+    {
+      title: '약관 및 정책',
+      data: [
+        {key: '', label: '이용약관'},
+        {key: '', label: '개인정보 처리 방침'},
+        {key: '', label: '오픈소스 고지'},
+      ],
+    },
+    {
+      title: '앱 버전 정보',
+      data: [
+        {key: 'version', label: '버전 정보'},
+        {key: '', label: '소도시를 만든 사람들'},
+      ],
+    },
+    {
+      title: null,
+      data: [
+        {key: '', label: '로그아웃'},
+        {key: '', label: '탈퇴하기', callback: () => setQuitOpen(true)},
+      ],
+    },
+  ];
+
+  const handleClose = () => {
+    setQuitOpen(false);
+  };
+
   return (
     <SafeAreaView style={styles.safeArea} edges={['left', 'right', 'bottom']}>
       <StatusBar barStyle="dark-content" />
@@ -65,7 +77,8 @@ function Setting(props) {
             );
           }}
           renderItem={({item}) => (
-            <View
+            <Pressable
+              onPress={item.callback ? () => item.callback() : () => {}}
               style={[
                 GlobalStyles.flexRow,
                 GlobalStyles.flexSpaceBetween,
@@ -98,18 +111,53 @@ function Setting(props) {
                   <View
                     style={[GlobalStyles.flexRow, GlobalStyles.centerVertical]}>
                     <View style={styles.symbol} />
-                    <Typography variant="subheadline" bold>
+                    <Typography
+                      variant="subheadline"
+                      color={Colors.text_primary}
+                      bold>
                       0.1.5
                     </Typography>
                   </View>
                 )}
               </View>
-            </View>
+            </Pressable>
           )}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           showsVerticalScrollIndicator={false}
           stickySectionHeadersEnabled={false}
         />
+
+        <Modal isVisible={isQuitOpen}>
+          <View style={styles.quitTitleWrap}>
+            <Typography
+              variant="headline"
+              color={Colors.base_black}
+              customStyles={styles.modalTitle}
+              bold>
+              떠나신다니 아쉬워요
+            </Typography>
+            <Typography variant="body" color={Colors.text_secondary}>
+              함께 만들었던 모든 기록들이 사라져요.{'\n'}정말 탈퇴하실 건까요?
+            </Typography>
+          </View>
+          <View style={GlobalStyles.flexRow}>
+            <Pressable
+              textColor={Colors.text_primary}
+              style={styles.quitButton}>
+              <Typography variant="callout" color={Colors.text_primary} bold>
+                탈퇴하기
+              </Typography>
+            </Pressable>
+            <Pressable
+              textColor={Colors.green_600}
+              style={styles.quitButton}
+              onPress={handleClose}>
+              <Typography variant="callout" color={Colors.green_600} bold>
+                아니오
+              </Typography>
+            </Pressable>
+          </View>
+        </Modal>
       </View>
     </SafeAreaView>
   );
@@ -151,6 +199,19 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     marginRight: 8,
     backgroundColor: Colors.green_600,
+  },
+  quitTitleWrap: {
+    paddingTop: 24,
+    paddingHorizontal: 24,
+    paddingBottom: 8,
+  },
+  quitButton: {
+    flex: 1,
+    alignItems: 'center',
+    padding: 24,
+  },
+  modalTitle: {
+    marginBottom: 12,
   },
 });
 
