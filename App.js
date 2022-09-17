@@ -27,6 +27,7 @@ import {
   InterestedSodosiScreen,
   MyPageScreen,
   SettingScreen,
+  PushSettingScreen,
 } from './screens';
 
 const Stack = createNativeStackNavigator();
@@ -291,6 +292,18 @@ function App() {
             component={SettingScreen}
             options={({navigation}) => ({
               headerTitle: '설정',
+              headerLeft: () => (
+                <Pressable onPress={() => navigation.goBack()}>
+                  <BackArrow />
+                </Pressable>
+              ),
+            })}
+          />
+          <Stack.Screen
+            name="PushSetting"
+            component={PushSettingScreen}
+            options={({navigation}) => ({
+              headerTitle: '앱 알림 설정',
               headerLeft: () => (
                 <Pressable onPress={() => navigation.goBack()}>
                   <BackArrow />

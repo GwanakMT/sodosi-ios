@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 import Colors from '../../assets/theme/colors';
 import GlobalStyles from '../../assets/theme/globalStyles';
 import {
@@ -12,6 +13,8 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {Typography, Modal, Icons} from '../../components/common';
 
 function Setting(props) {
+  const {navigation} = props;
+
   const [isQuitOpen, setQuitOpen] = useState(false);
 
   const SETTING_LIST = [
@@ -20,7 +23,11 @@ function Setting(props) {
       data: [
         {key: 'phone', label: '전화번호'},
         {key: 'password', label: '비밀번호 변경'},
-        {key: 'push', label: '앱 알림 설정'},
+        {
+          key: 'push',
+          label: '앱 알림 설정',
+          callback: () => navigation.navigate('PushSetting'),
+        },
       ],
     },
     {
@@ -214,5 +221,11 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
 });
+
+Setting.defaultProps = {};
+
+Setting.propTypes = {
+  navigation: PropTypes.object,
+};
 
 export default Setting;
