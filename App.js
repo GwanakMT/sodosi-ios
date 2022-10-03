@@ -9,11 +9,13 @@ import UserIcon from './assets/images/icon/user.svg';
 import BackArrow from './assets/images/icon/backArrow.svg';
 import SettingIcon from './assets/images/icon/setting.svg';
 import Close from './assets/images/icon/close.svg';
+import Toast from 'react-native-toast-message';
 import {View, Pressable, StyleSheet} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Typography} from './components/common';
+import {Common} from './structure';
 import {
   StartScreen,
   PhoneScreen,
@@ -27,12 +29,15 @@ import {
   InterestedSodosiScreen,
   MyPageScreen,
   SettingScreen,
+  ChangePasswordScreen,
   PushSettingScreen,
 } from './screens';
 
 const Stack = createNativeStackNavigator();
 
 function App() {
+  const {toastConfig} = Common.toJSON();
+
   // 관심 소도시
   const [isAdd, setAdd] = useState(false);
   const [isModify, setModify] = useState(false);
@@ -46,6 +51,18 @@ function App() {
   });
   const [isExpectOpen, setExpectOpen] = useState(false);
   const [isCelebrationOpen, setCelebrationOpen] = useState(false);
+
+  // 비밀번호 변경
+  const [changePasswordValue, setChangePasswordValue] = useState({
+    password: '',
+    newPassword: '',
+    reNewPassword: '',
+  });
+  const [isChangePasswordError, setChangePasswordError] = useState({
+    password: false,
+    newPassword: false,
+    reNewPassword: false,
+  });
 
   useEffect(() => {
     setTimeout(() => {
@@ -300,6 +317,61 @@ function App() {
             })}
           />
           <Stack.Screen
+            name="ChangePassword"
+            options={({navigation}) => ({
+              headerTitle: '비밀번호 변경',
+              headerLeft: () => (
+                <Pressable onPress={() => navigation.goBack()}>
+                  <BackArrow />
+                </Pressable>
+              ),
+              headerRight: () => (
+                <Pressable
+                  disabled={
+                    changePasswordValue.password === '' ||
+                    changePasswordValue.newPassword === '' ||
+                    changePasswordValue.reNewPassword === ''
+                  }
+                  onPress={() => {
+                    navigation.goBack();
+                    setChangePasswordValue({
+                      password: '',
+                      newPassword: '',
+                      reNewPassword: '',
+                    });
+                    setChangePasswordError({
+                      password: false,
+                      newPassword: false,
+                      reNewPassword: false,
+                    });
+                    Toast.show({
+                      text1: '비밀번호가 변경됐어요.',
+                    });
+                  }}>
+                  <Typography
+                    variant="callout"
+                    color={
+                      changePasswordValue.password !== '' &&
+                      changePasswordValue.newPassword !== '' &&
+                      changePasswordValue.reNewPassword !== ''
+                        ? Colors.text_primary
+                        : Colors.text_tertiary
+                    }>
+                    완료
+                  </Typography>
+                </Pressable>
+              ),
+            })}>
+            {props => (
+              <ChangePasswordScreen
+                values={changePasswordValue}
+                setValues={setChangePasswordValue}
+                isError={isChangePasswordError}
+                setError={setChangePasswordError}
+              />
+            )}
+          </Stack.Screen>
+          <Stack.Screen
             name="PushSetting"
             component={PushSettingScreen}
             options={({navigation}) => ({
@@ -313,6 +385,7 @@ function App() {
           />
         </Stack.Navigator>
       </NavigationContainer>
+      <Toast position={'bottom'} config={toastConfig} />
     </SafeAreaProvider>
   );
 }

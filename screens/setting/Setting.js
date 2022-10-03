@@ -22,7 +22,11 @@ function Setting(props) {
       title: '계정 설정',
       data: [
         {key: 'phone', label: '전화번호'},
-        {key: 'password', label: '비밀번호 변경'},
+        {
+          key: 'password',
+          label: '비밀번호 변경',
+          callback: () => navigation.navigate('ChangePassword'),
+        },
         {
           key: 'push',
           label: '앱 알림 설정',

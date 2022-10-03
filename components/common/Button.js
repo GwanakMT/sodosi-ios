@@ -1,8 +1,8 @@
 import React, {useMemo} from 'react';
 import PropTypes from 'prop-types';
 import Colors from '../../assets/theme/colors';
+import {Typography} from '../common';
 import {Pressable, StyleSheet} from 'react-native';
-import Typography from './Typography';
 
 function Button(props) {
   const {type, size, textColor, children, customStyles, disabled, onPress} =
