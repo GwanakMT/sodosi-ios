@@ -1,17 +1,32 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Colors from '../../assets/theme/colors';
-import BookmarkIcon from '../../assets/images/icon/bookmark.svg';
-import {View, StyleSheet} from 'react-native';
-import {Typography, Checkbox} from '../../components/common';
+import React from 'react'
+import PropTypes from 'prop-types'
+import BookmarkIcon from '../../assets/images/icon/bookmark.svg'
+import { GlobalStyles, Colors } from '../../assets/theme'
+import { View, StyleSheet } from 'react-native'
+import { Typography, Checkbox } from '../../components/common'
 
 function ListItem(props) {
-  const {key, index, data, hasRank, hasCheckbox, hasBookmark, onClickCheckbox} =
-    props;
+  const {
+    key,
+    index,
+    data,
+    hasRank,
+    hasCheckbox,
+    hasBookmark,
+    onClickCheckbox
+  } = props
+
   return (
     <>
-      <View style={styles.sodosiItem} key={key}>
-        <View style={styles.itemContent}>
+      <View
+        style={[
+          GlobalStyles.flexRow,
+          GlobalStyles.flexSpaceBetween,
+          GlobalStyles.centerVertical,
+          styles.sodosiItem
+        ]}
+        key={key}>
+        <View style={[GlobalStyles.flexRow, GlobalStyles.centerVertical]}>
           {hasRank && (
             <Typography
               variant="callout"
@@ -29,14 +44,14 @@ function ListItem(props) {
               onPress={onClickCheckbox}
             />
           )}
-          <View style={styles.img}>
+          <View style={[GlobalStyles.center, styles.img]}>
             <Typography>🐥</Typography>
           </View>
           <View>
             <Typography variant="callout" color={Colors.text_primary} bold>
               {data.name}
             </Typography>
-            <View style={styles.description}>
+            <View style={GlobalStyles.flexRow}>
               <Typography variant="caption" color={Colors.system_grey_2}>
                 {data.people}명의 소시민들
               </Typography>
@@ -60,45 +75,35 @@ function ListItem(props) {
       </View>
       {/* <View style={styles.separator} /> */}
     </>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   sodosiItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 20,
-  },
-  itemContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    paddingVertical: 20
   },
   rank: {
-    marginRight: 10,
+    marginRight: 10
   },
   checkbox: {
-    marginRight: 16,
+    marginRight: 16
   },
   img: {
     width: 72,
     height: 72,
     backgroundColor: Colors.system_grey_6,
     borderRadius: 37,
-    marginRight: 14,
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginRight: 14
   },
   description: {
-    flexDirection: 'row',
-    paddingTop: 4,
+    paddingTop: 4
   },
   separator: {
-    paddingHorizontal: 6,
-  },
-});
+    paddingHorizontal: 6
+  }
+})
 
-ListItem.defaultProps = {};
+ListItem.defaultProps = {}
 
 ListItem.propTypes = {
   key: PropTypes.any,
@@ -107,7 +112,7 @@ ListItem.propTypes = {
   hasRank: PropTypes.bool,
   hasCheckbox: PropTypes.bool,
   hasBookmark: PropTypes.bool,
-  onClickCheckbox: PropTypes.func,
-};
+  onClickCheckbox: PropTypes.func
+}
 
-export default ListItem;
+export default ListItem

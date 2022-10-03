@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Colors from '../../assets/theme/colors';
-import {TextInput, StyleSheet} from 'react-native';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Colors } from '../../assets/theme'
+import { TextInput, StyleSheet } from 'react-native'
 
 function Input(props) {
   const {
@@ -18,8 +18,8 @@ function Input(props) {
     returnKeyType,
     textAlign,
     maxLength,
-    onPress,
-  } = props;
+    onPress
+  } = props
 
   return (
     <TextInput
@@ -39,7 +39,7 @@ function Input(props) {
       editable={editable}
       autoFocus={autoFocus}
     />
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -51,20 +51,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 8,
     backgroundColor: '#F6F6F6',
-    fontFamily: 'Pretendard-Bold',
+    fontFamily: 'Pretendard-Bold'
   },
   error: {
     borderWidth: 1,
     borderColor: Colors.system_tint_pink,
-    backgroundColor: '#FFF5F7',
-  },
-});
+    backgroundColor: '#FFF5F7'
+  }
+})
 
 Input.defaultProps = {
   isError: false,
   secureTextEntry: false,
-  returnKeyType: 'done',
-};
+  returnKeyType: 'done'
+}
 
 Input.propTypes = {
   value: PropTypes.string,
@@ -74,13 +74,13 @@ Input.propTypes = {
   secureTextEntry: PropTypes.bool,
   keyboardType: PropTypes.string,
   editable: PropTypes.bool,
-  customStyles: PropTypes.object,
+  customStyles: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   isError: PropTypes.bool,
   autoFocus: PropTypes.bool,
   returnKeyType: PropTypes.string,
   textAlign: PropTypes.string,
   maxLength: PropTypes.number,
-  onPress: PropTypes.func,
-};
+  onPress: PropTypes.func
+}
 
-export default Input;
+export default Input

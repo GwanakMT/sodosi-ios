@@ -1,37 +1,43 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native'
 
 const globalStyles = StyleSheet.create({
   flex1: {
-    flex: 1,
+    flex: 1
   },
   flexRow: {
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
   center: {
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   centerJustify: {
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   flexSpaceBetween: {
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
   flex_end: {
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-end'
   },
   flexStartVertical: {
-    alignItems: 'flex-start',
+    alignItems: 'flex-start'
   },
   centerVertical: {
-    alignItems: 'center',
+    alignItems: 'center'
   },
   flexEndVertical: {
-    alignItems: 'flex-end',
+    alignItems: 'flex-end'
   },
   none: {
-    display: 'none',
+    display: 'none'
   },
-});
+  semiBold: {
+    fontFamily: 'Pretendard-SemiBold'
+  },
+  bold: {
+    fontFamily: 'Pretendard-Bold'
+  }
+})
 
-export default globalStyles;
+export default globalStyles

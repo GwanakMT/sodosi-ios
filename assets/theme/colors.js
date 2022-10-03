@@ -38,7 +38,7 @@ const Colors = {
   green_300: '#59FF58',
   green_200: '#80FF80',
   green_100: '#A5FFA5',
-  green_50: '#BBFFBB',
-};
+  green_50: '#BBFFBB'
+}
 
-export default Colors;
+export default Colors

@@ -1,1 +1,1 @@
-export {default as MyPageScreen} from './MyPage';
+export { default as MyPageScreen } from './MyPage'

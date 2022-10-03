@@ -1,18 +1,19 @@
-import React, {useEffect} from 'react';
-import Colors from '../../assets/theme/colors';
-import Marker from '../../assets/images/marker.svg';
-import {StatusBar, View, StyleSheet} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {Typography} from '../../components/common';
+import React, { useEffect } from 'react'
+import PropTypes from 'prop-types'
+import Marker from '../../assets/images/marker.svg'
+import { Colors } from '../../assets/theme'
+import { StatusBar, View, StyleSheet } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { Typography } from '../../components/common'
 
 function Welcome(props) {
-  const {navigation} = props;
+  const { navigation } = props
 
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate('Home');
-    }, 2000);
-  }, [navigation]);
+      navigation.navigate('Home')
+    }, 2000)
+  }, [navigation])
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -26,25 +27,31 @@ function Welcome(props) {
         </Typography>
       </View>
     </SafeAreaView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: Colors.base_white,
+    backgroundColor: Colors.base_white
   },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.base_white,
+    backgroundColor: Colors.base_white
   },
   markerWrap: {
     width: 42,
     height: 70,
-    marginBottom: 24,
-  },
-});
+    marginBottom: 24
+  }
+})
 
-export default Welcome;
+Welcome.defaultProps = {}
+
+Welcome.propTypes = {
+  navigation: PropTypes.object
+}
+
+export default Welcome

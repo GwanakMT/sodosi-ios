@@ -1,69 +1,77 @@
-import React, {useEffect, useState, useRef, useMemo, useCallback} from 'react';
-import Colors from '../../assets/theme/colors';
-import WarningIcon from '../../assets/images/icon/warning.svg';
+import React, { useEffect, useState, useRef, useMemo, useCallback } from 'react'
+import PropTypes from 'prop-types'
+import WarningIcon from '../../assets/images/icon/warning.svg'
+import { GlobalStyles, Colors } from '../../assets/theme'
 import {
   StatusBar,
   KeyboardAvoidingView,
   Platform,
   View,
-  StyleSheet,
-} from 'react-native';
-import {BottomSheetModalProvider, BottomSheetModal} from '@gorhom/bottom-sheet';
-import {SafeAreaView} from 'react-native-safe-area-context';
+  StyleSheet
+} from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import {
+  BottomSheetModalProvider,
+  BottomSheetModal
+} from '@gorhom/bottom-sheet'
+import {
+  Extrapolate,
+  interpolate,
+  useAnimatedStyle
+} from 'react-native-reanimated'
 import {
   Header,
   Typography,
   Input,
   Button,
-  Checkbox,
-} from '../../components/common';
-import {
-  Extrapolate,
-  interpolate,
-  useAnimatedStyle,
-} from 'react-native-reanimated';
+  Checkbox
+} from '../../components/common'
 
-const CustomBackdrop = ({animatedIndex, style}) => {
+const CustomBackdrop = (props) => {
+  const { animatedIndex, style } = props
+
   const containerAnimatedStyle = useAnimatedStyle(() => ({
-    opacity: interpolate(
-      animatedIndex.value,
-      [0, 1],
-      [0, 1],
-      Extrapolate.CLAMP,
-    ),
-  }));
+    opacity: interpolate(animatedIndex.value, [0, 1], [0, 1], Extrapolate.CLAMP)
+  }))
 
   const containerStyle = useMemo(
     () => [
       style,
       {
         backgroundColor: Colors.base_black,
-        opacity: 0.5,
+        opacity: 0.5
       },
-      containerAnimatedStyle,
+      containerAnimatedStyle
     ],
-    [style, containerAnimatedStyle],
-  );
+    [style, containerAnimatedStyle]
+  )
 
-  return <View style={containerStyle} />;
-};
+  return <View style={containerStyle} />
+}
+
+CustomBackdrop.defaultProps = {}
+
+CustomBackdrop.propTypes = {
+  animatedIndex: PropTypes.object,
+  style: PropTypes.object
+}
 
 function Password(props) {
-  const {navigation} = props;
+  const { navigation } = props
 
-  const [password, setPassword] = useState('');
-  const [rePassword, setRePassword] = useState('');
-  const [isError, setIsError] = useState(false);
+  const [password, setPassword] = useState('')
+  const [rePassword, setRePassword] = useState('')
+  const [isError, setIsError] = useState(false)
   const [values, setValues] = useState({
     all: false,
     service: false,
     personalInfo: false,
-    marketing: false,
-  });
+    marketing: false
+  })
 
-  const bottomSheetModalRef = useRef(null);
+  const bottomSheetModalRef = useRef(null)
 
-  const snapPoints = useMemo(() => [350], []);
+  const snapPoints = useMemo(() => [350], [])
 
   useEffect(() => {
     if (
@@ -72,28 +80,28 @@ function Password(props) {
       values.personalInfo &&
       values.marketing
     ) {
-      setValues({...values, all: true});
+      setValues({ ...values, all: true })
     } else if (
       values.all &&
       (!values.service || !values.personalInfo || !values.marketing)
     ) {
-      setValues({...values, all: false});
+      setValues({ ...values, all: false })
     }
-  }, [values]);
+  }, [values])
 
   const handleOnSubmit = () => {
     if (password === rePassword) {
-      console.log('비밀번호 유효성 검사 완료');
-      setIsError(false);
-      handlePresentModalPress();
+      console.log('비밀번호 유효성 검사 완료')
+      setIsError(false)
+      handlePresentModalPress()
     } else {
-      setIsError(true);
+      setIsError(true)
     }
-  };
+  }
 
   const handlePresentModalPress = useCallback(() => {
-    bottomSheetModalRef.current?.present();
-  }, []);
+    bottomSheetModalRef.current?.present()
+  }, [])
 
   const handleOnChangeCheck = (name, value) => {
     if (name === 'all') {
@@ -101,19 +109,19 @@ function Password(props) {
         all: value,
         service: value,
         personalInfo: value,
-        marketing: value,
-      });
+        marketing: value
+      })
     } else {
-      setValues({...values, [name]: value});
+      setValues({ ...values, [name]: value })
     }
-  };
+  }
 
   return (
     <BottomSheetModalProvider>
       <SafeAreaView style={styles.safeArea}>
         <StatusBar barStyle="dark-content" />
         <KeyboardAvoidingView
-          behavior={Platform.select({ios: 'padding'})}
+          behavior={Platform.select({ ios: 'padding' })}
           style={styles.avoid}>
           <Header onPress={() => navigation.goBack()} />
           <View style={styles.container}>
@@ -146,7 +154,8 @@ function Password(props) {
                 />
               </View>
               {isError && (
-                <View style={styles.errorWrap}>
+                <View
+                  style={[GlobalStyles.flexRow, GlobalStyles.centerVertical]}>
                   <WarningIcon />
                   <Typography
                     variant="caption"
@@ -170,12 +179,17 @@ function Password(props) {
           ref={bottomSheetModalRef}
           snapPoints={snapPoints}
           enableContentPanningGesture={false}
-          handleStyle={styles.bottomSheetHandle}
-          backdropComponent={backdropProps => (
+          handleStyle={GlobalStyles.none}
+          backdropComponent={(backdropProps) => (
             <CustomBackdrop {...backdropProps} enableTouchThrough={true} />
           )}>
-          <View style={styles.bottomSheetContainer}>
-            <View style={[styles.outlined]}>
+          <View style={[GlobalStyles.flex1, styles.bottomSheetContainer]}>
+            <View
+              style={[
+                GlobalStyles.flexRow,
+                GlobalStyles.centerVertical,
+                styles.outlined
+              ]}>
               <Checkbox
                 active={values.all}
                 onPress={() => handleOnChangeCheck('all', !values.all)}
@@ -189,7 +203,12 @@ function Password(props) {
               </Typography>
             </View>
             <View style={styles.checkboxWrap}>
-              <View style={styles.checkboxContainer}>
+              <View
+                style={[
+                  GlobalStyles.flexRow,
+                  GlobalStyles.centerVertical,
+                  styles.checkboxContainer
+                ]}>
                 <Checkbox
                   active={values.service}
                   onPress={() =>
@@ -203,7 +222,12 @@ function Password(props) {
                   [필수] 서비스 이용약관 동의
                 </Typography>
               </View>
-              <View style={styles.checkboxContainer}>
+              <View
+                style={[
+                  GlobalStyles.flexRow,
+                  GlobalStyles.centerVertical,
+                  styles.checkboxContainer
+                ]}>
                 <Checkbox
                   active={values.personalInfo}
                   onPress={() =>
@@ -217,7 +241,12 @@ function Password(props) {
                   [필수] 개인정보 처리방침 동의
                 </Typography>
               </View>
-              <View style={styles.checkboxContainer}>
+              <View
+                style={[
+                  GlobalStyles.flexRow,
+                  GlobalStyles.centerVertical,
+                  styles.checkboxContainer
+                ]}>
                 <Checkbox
                   active={values.marketing}
                   onPress={() =>
@@ -236,8 +265,8 @@ function Password(props) {
               type="primary"
               disabled={!(values.service && values.personalInfo)}
               onPress={() => {
-                bottomSheetModalRef.current.close();
-                navigation.navigate('Nickname');
+                bottomSheetModalRef.current.close()
+                navigation.navigate('Nickname')
               }}>
               확인
             </Button>
@@ -245,76 +274,70 @@ function Password(props) {
         </BottomSheetModal>
       </SafeAreaView>
     </BottomSheetModalProvider>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: Colors.base_white,
+    backgroundColor: Colors.base_white
   },
   avoid: {
-    flex: 1,
+    flex: 1
   },
   container: {
     flex: 1,
     justifyContent: 'space-between',
     backgroundColor: Colors.base_white,
     paddingTop: 36,
-    padding: 20,
+    padding: 20
   },
   title: {
-    paddingBottom: 24,
+    paddingBottom: 24
   },
   inputWrap: {
-    paddingBottom: 10,
+    paddingBottom: 10
   },
   input: {
-    marginBottom: 10,
-  },
-  errorWrap: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    marginBottom: 10
   },
   errorText: {
-    marginLeft: 6,
-  },
-  bottomSheetHandle: {
-    display: 'none',
+    marginLeft: 6
   },
   bottomSheetContainer: {
-    flex: 1,
     paddingTop: 16,
     paddingHorizontal: 16,
-    paddingBottom: 20,
+    paddingBottom: 20
   },
   outlined: {
-    flexDirection: 'row',
-    alignItems: 'center',
     borderWidth: 1,
     borderColor: Colors.system_grey_5,
     borderRadius: 8,
     paddingHorizontal: 16,
     paddingVertical: 17,
-    marginBottom: 20,
+    marginBottom: 20
   },
   checkboxWrap: {
     paddingHorizontal: 16,
-    marginBottom: 28,
+    marginBottom: 28
   },
   checkboxContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 18,
+    marginBottom: 18
   },
   allAgreeText: {
-    paddingLeft: 8.51,
+    paddingLeft: 8.51
   },
   agreeText: {
     color: '#75777B',
     paddingLeft: 10,
-    paddingRight: 2,
-  },
-});
+    paddingRight: 2
+  }
+})
 
-export default Password;
+Password.defaultProps = {}
+
+Password.propTypes = {
+  navigation: PropTypes.object
+}
+
+export default Password

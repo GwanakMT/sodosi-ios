@@ -1,28 +1,29 @@
-import React, {useMemo} from 'react';
-import PropTypes from 'prop-types';
-import Colors from '../../assets/theme/colors';
-import {Typography} from '../common';
-import {Pressable, StyleSheet} from 'react-native';
+import React, { useMemo } from 'react'
+import PropTypes from 'prop-types'
+import Typography from './Typography'
+import { GlobalStyles, Colors } from '../../assets/theme'
+import { Pressable, StyleSheet } from 'react-native'
 
 function Button(props) {
-  const {type, size, textColor, children, customStyles, disabled, onPress} =
-    props;
+  const { type, size, textColor, children, customStyles, disabled, onPress } =
+    props
 
   const color = useMemo(() => {
     if (textColor) {
-      return textColor;
+      return textColor
     } else if (type === 'primary') {
-      return Colors.base_white;
+      return Colors.base_white
     } else if (type === 'secondary') {
-      return Colors.green_600;
+      return Colors.green_600
     } else {
-      return Colors.text_secondary;
+      return Colors.text_secondary
     }
-  }, [textColor, type]);
+  }, [textColor, type])
 
   return (
     <Pressable
       style={[
+        GlobalStyles.center,
         styles.button,
         type === 'primary' && styles.primary,
         type === 'secondary' && styles.secondary,
@@ -30,7 +31,7 @@ function Button(props) {
         type === 'primary' && disabled && styles.disabled,
         size === 'small' && styles.small,
         size === 'large' && styles.large,
-        customStyles,
+        customStyles
       ]}
       disabled={disabled}
       onPress={onPress}>
@@ -39,74 +40,69 @@ function Button(props) {
         color={color}
         customStyles={[
           size === 'large' && styles.largeText,
-          size === 'large' && type === 'primary' && styles.bold,
+          size === 'large' && type === 'primary' && GlobalStyles.bold
         ]}>
         {children}
       </Typography>
     </Pressable>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   button: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: Colors.system_grey_6,
+    backgroundColor: Colors.system_grey_6
   },
   primary: {
     backgroundColor: Colors.green_600,
-    lineHeight: 24,
+    lineHeight: 24
   },
   secondary: {
     backgroundColor: 'transparent',
     borderWidth: 1,
-    borderColor: Colors.green_600,
+    borderColor: Colors.green_600
   },
   outlined: {
     backgroundColor: 'transparent',
     borderWidth: 1,
     borderColor: Colors.system_grey_6,
     lineHeight: 22,
-    letterSpacing: -0.32,
+    letterSpacing: -0.32
   },
   small: {
     height: 32,
     borderRadius: 4,
-    paddingHorizontal: 12,
+    paddingHorizontal: 12
   },
   large: {
     height: 56,
-    borderRadius: 8,
+    borderRadius: 8
   },
   disabled: {
-    backgroundColor: 'rgba(1, 222, 0, 0.3)',
+    backgroundColor: 'rgba(1, 222, 0, 0.3)'
   },
   smallText: {
     fontSize: 13,
-    lineHeight: 20,
+    lineHeight: 20
   },
   largeText: {
     fontSize: 16,
-    lineHeight: 24,
-  },
-  bold: {
-    fontFamily: 'Pretendard-Bold',
-  },
-});
+    lineHeight: 24
+  }
+})
 
 Button.defaultProps = {
   disabled: false,
-  size: 'large',
-};
+  size: 'large'
+}
 
 Button.propTypes = {
   type: PropTypes.string,
   size: PropTypes.oneOf(['small', 'large']),
   textColor: PropTypes.string,
   children: PropTypes.any,
-  customStyles: PropTypes.object,
+  customStyles: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   disabled: PropTypes.bool,
-  onPress: PropTypes.func,
-};
+  onPress: PropTypes.func
+}
 
-export default Button;
+export default Button

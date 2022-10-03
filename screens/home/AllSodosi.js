@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
-import Colors from '../../assets/theme/colors';
-import ListItem from './ListItem';
-import {StatusBar, View, Pressable, FlatList, StyleSheet} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {Typography} from '../../components/common';
+import React, { useState } from 'react'
+import ListItem from './ListItem'
+import { GlobalStyles, Colors } from '../../assets/theme'
+import { StatusBar, View, Pressable, FlatList, StyleSheet } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { Typography } from '../../components/common'
 
-function AllSodosi(props) {
-  const [view, setView] = useState('popular');
+function AllSodosi() {
+  const [view, setView] = useState('popular')
 
   return (
     <SafeAreaView style={styles.safeArea} edges={['left', 'right', 'bottom']}>
@@ -14,8 +14,13 @@ function AllSodosi(props) {
       <View style={styles.container}>
         <FlatList
           ListHeaderComponent={() => (
-            <View style={[styles.listHeader, styles.row]}>
-              <View style={styles.row}>
+            <View
+              style={[
+                GlobalStyles.flexRow,
+                GlobalStyles.flexSpaceBetween,
+                styles.listHeader
+              ]}>
+              <View style={GlobalStyles.flexRow}>
                 <Typography variant="caption" color={Colors.text_primary}>
                   전체
                 </Typography>
@@ -27,7 +32,7 @@ function AllSodosi(props) {
                   56
                 </Typography>
               </View>
-              <View style={styles.order}>
+              <View style={[GlobalStyles.flexRow, GlobalStyles.center]}>
                 <Pressable onPress={() => setView('popular')}>
                   <Typography
                     variant="caption"
@@ -42,7 +47,7 @@ function AllSodosi(props) {
                 </Pressable>
                 <Typography
                   color={Colors.system_grey_2}
-                  customStyles={{paddingHorizontal: 6}}>
+                  customStyles={{ paddingHorizontal: 6 }}>
                   |
                 </Typography>
                 <Pressable onPress={() => setView('recent')}>
@@ -65,64 +70,64 @@ function AllSodosi(props) {
               id: 0,
               name: '힙에 취하고 싶을 때',
               people: 34,
-              moment: 50,
+              moment: 50
             },
             {
               id: 1,
               name: '동국대 새내기들 필수코스',
               people: 34,
-              moment: 50,
+              moment: 50
             },
             {
               id: 2,
               name: '힙에 취하고 싶을 때',
               people: 34,
-              moment: 50,
+              moment: 50
             },
             {
               id: 3,
               name: '동국대 새내기들 필수코스',
               people: 34,
-              moment: 50,
+              moment: 50
             },
             {
               id: 4,
               name: '힙에 취하고 싶을 때',
               people: 34,
-              moment: 50,
+              moment: 50
             },
             {
               id: 5,
               name: '동국대 새내기들 필수코스',
               people: 34,
-              moment: 50,
+              moment: 50
             },
             {
               id: 6,
               name: '힙에 취하고 싶을 때',
               people: 34,
-              moment: 50,
+              moment: 50
             },
             {
               id: 7,
               name: '동국대 새내기들 필수코스',
               people: 34,
-              moment: 50,
+              moment: 50
             },
             {
               id: 8,
               name: '힙에 취하고 싶을 때',
               people: 34,
-              moment: 50,
+              moment: 50
             },
             {
               id: 9,
               name: '동국대 새내기들 필수코스',
               people: 34,
-              moment: 50,
-            },
+              moment: 50
+            }
           ]}
-          renderItem={({item, i}) => (
+          renderItem={({ item, i }) => (
             <ListItem
               index={i}
               data={item}
@@ -131,44 +136,35 @@ function AllSodosi(props) {
             />
           )}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
-          keyExtractor={item => item.id.toString()}
+          keyExtractor={(item) => item.id.toString()}
           showsVerticalScrollIndicator={false}
         />
       </View>
     </SafeAreaView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: Colors.base_white,
+    backgroundColor: Colors.base_white
   },
   container: {
     flex: 1,
     justifyContent: 'space-between',
     backgroundColor: Colors.base_white,
-    paddingHorizontal: 20,
+    paddingHorizontal: 20
   },
   listHeader: {
-    paddingTop: 14,
-    justifyContent: 'space-between',
-  },
-  row: {
-    flexDirection: 'row',
-  },
-  order: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    paddingTop: 14
   },
   count: {
-    paddingLeft: 4,
+    paddingLeft: 4
   },
   separator: {
     backgroundColor: Colors.system_grey_6,
-    height: 1,
-  },
-});
+    height: 1
+  }
+})
 
-export default AllSodosi;
+export default AllSodosi

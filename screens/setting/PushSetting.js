@@ -1,13 +1,12 @@
-import React, {useState} from 'react';
-import Colors from '../../assets/theme/colors';
-import GlobalStyles from '../../assets/theme/globalStyles';
-import {StatusBar, View, Switch, StyleSheet} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {Typography} from '../../components/common';
+import React, { useState } from 'react'
+import { GlobalStyles, Colors } from '../../assets/theme'
+import { StatusBar, View, Switch, StyleSheet } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { Typography } from '../../components/common'
 
-function PushSetting(props) {
-  const [isNotification, setNotification] = useState(false);
-  const [isRecommend, setRecommend] = useState(false);
+function PushSetting() {
+  const [isNotification, setNotification] = useState(false)
+  const [isRecommend, setRecommend] = useState(false)
 
   return (
     <SafeAreaView style={styles.safeArea} edges={['left', 'right']}>
@@ -19,7 +18,7 @@ function PushSetting(props) {
             GlobalStyles.flexSpaceBetween,
             GlobalStyles.centerVertical,
             styles.item,
-            styles.border,
+            styles.border
           ]}>
           <View>
             <Typography
@@ -33,7 +32,7 @@ function PushSetting(props) {
             </Typography>
           </View>
           <Switch
-            trackColor={{false: Colors.system_grey_5, true: Colors.green_600}}
+            trackColor={{ false: Colors.system_grey_5, true: Colors.green_600 }}
             thumbColor={Colors.base_white}
             ios_backgroundColor={Colors.system_grey_5}
             onValueChange={() => setNotification(!isNotification)}
@@ -45,7 +44,7 @@ function PushSetting(props) {
             GlobalStyles.flexRow,
             GlobalStyles.flexSpaceBetween,
             GlobalStyles.centerVertical,
-            styles.item,
+            styles.item
           ]}>
           <View>
             <Typography
@@ -59,7 +58,7 @@ function PushSetting(props) {
             </Typography>
           </View>
           <Switch
-            trackColor={{false: Colors.system_grey_5, true: Colors.green_600}}
+            trackColor={{ false: Colors.system_grey_5, true: Colors.green_600 }}
             thumbColor={Colors.base_white}
             ios_backgroundColor={Colors.system_grey_5}
             onValueChange={() => setRecommend(!isRecommend)}
@@ -68,29 +67,29 @@ function PushSetting(props) {
         </View>
       </View>
     </SafeAreaView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: Colors.base_white,
+    backgroundColor: Colors.base_white
   },
   container: {
     flex: 1,
     backgroundColor: Colors.base_white,
-    paddingHorizontal: 20,
+    paddingHorizontal: 20
   },
   item: {
-    paddingVertical: 20,
+    paddingVertical: 20
   },
   border: {
     borderBottomWidth: 1,
-    borderColor: Colors.system_grey_6,
+    borderColor: Colors.system_grey_6
   },
   title: {
-    marginBottom: 4,
-  },
-});
+    marginBottom: 4
+  }
+})
 
-export default PushSetting;
+export default PushSetting

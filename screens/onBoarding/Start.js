@@ -1,16 +1,19 @@
-import React from 'react';
-import Colors from '../../assets/theme/colors';
-import CafeGif from '../../assets/images/cafe.gif';
-import {StatusBar, View, Image, StyleSheet} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {Typography, Button} from '../../components/common';
+import React from 'react'
+import PropTypes from 'prop-types'
+import CafeGif from '../../assets/images/cafe.gif'
+import { GlobalStyles, Colors } from '../../assets/theme'
+import { StatusBar, View, Image, StyleSheet } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { Typography, Button } from '../../components/common'
 
-function Start({navigation}) {
+function Start(props) {
+  const { navigation } = props
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar barStyle="light-content" />
       <View style={styles.container}>
-        <View style={styles.content}>
+        <View style={[GlobalStyles.flex1, GlobalStyles.center]}>
           <Image source={CafeGif} style={styles.gif} />
           <Typography
             variant="title2"
@@ -20,6 +23,7 @@ function Start({navigation}) {
             공부하기 좋은 카페 어디지?
           </Typography>
           <Typography
+            variant="subheadline"
             align="center"
             color="white"
             customStyles={styles.description}>
@@ -42,53 +46,52 @@ function Start({navigation}) {
         </View>
       </View>
     </SafeAreaView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#1C1C1E',
+    backgroundColor: '#1C1C1E'
   },
   container: {
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#1C1C1E',
-    padding: 20,
-  },
-  content: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    padding: 20
   },
   buttonWrap: {
-    width: '100%',
+    width: '100%'
   },
   gif: {
     width: 260,
     height: 260,
-    marginBottom: 32,
+    marginBottom: 32
   },
   title: {
-    paddingBottom: 14,
+    paddingBottom: 14
   },
   description: {
-    fontSize: 15,
     opacity: 0.7,
-    lineHeight: 22,
-    letterSpacing: -0.24,
+    lineHeight: 22
   },
   startButton: {
-    marginBottom: 14,
+    marginBottom: 14
   },
   outlinedButton: {
     backgroundColor: 'transparent',
     borderWidth: 1,
     borderColor: '#FFFFFF99',
     lineHeight: 22,
-    letterSpacing: -0.32,
-  },
-});
+    letterSpacing: -0.32
+  }
+})
 
-export default Start;
+Start.defaultProps = {}
+
+Start.propTypes = {
+  navigation: PropTypes.object
+}
+
+export default Start

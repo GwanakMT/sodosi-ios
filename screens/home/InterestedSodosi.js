@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import PropTypes from 'prop-types';
-import _ from 'lodash';
-import Colors from '../../assets/theme/colors';
-import ListItem from './ListItem';
-import AddIcon from '../../assets/images/icon/add.svg';
-import {StatusBar, View, Pressable, FlatList, StyleSheet} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {Button, Typography} from '../../components/common';
+import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
+import _ from 'lodash'
+import ListItem from './ListItem'
+import AddIcon from '../../assets/images/icon/add.svg'
+import { GlobalStyles, Colors } from '../../assets/theme'
+import { StatusBar, View, Pressable, FlatList, StyleSheet } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { Button, Typography } from '../../components/common'
 
 function InterestedSodosi(props) {
   const {
@@ -15,37 +15,37 @@ function InterestedSodosi(props) {
     isModify,
     setModify,
     interestedSodosiList,
-    setInterestedSodosiList,
-  } = props;
+    setInterestedSodosiList
+  } = props
 
-  const [data, setData] = useState([
+  const [data] = useState([
     {
       id: 0,
       name: '올빼미들을 위한 새벽 바이브',
       people: 34,
       moment: 50,
-      selected: false,
+      selected: false
     },
     {
       id: 1,
       name: '동국대 새내기들 필수코스',
       people: 34,
       moment: 50,
-      selected: false,
-    },
-  ]);
+      selected: false
+    }
+  ])
 
   useEffect(() => {
-    return _ => {
-      setAdd(false);
-      setModify(false);
-      setInterestedSodosiList([]);
-    };
-  }, [setAdd, setInterestedSodosiList, setModify]);
+    return () => {
+      setAdd(false)
+      setModify(false)
+      setInterestedSodosiList([])
+    }
+  }, [setAdd, setInterestedSodosiList, setModify])
 
   useEffect(() => {
-    setInterestedSodosiList(data);
-  }, [data, setInterestedSodosiList]);
+    setInterestedSodosiList(data)
+  }, [data, setInterestedSodosiList])
 
   return (
     <SafeAreaView style={styles.safeArea} edges={['left', 'right', 'bottom']}>
@@ -53,7 +53,7 @@ function InterestedSodosi(props) {
       <View style={styles.container}>
         <FlatList
           data={interestedSodosiList}
-          renderItem={({item, i}) => (
+          renderItem={({ item, i }) => (
             <ListItem
               index={i}
               data={item}
@@ -61,20 +61,20 @@ function InterestedSodosi(props) {
               hasBookmark={isAdd}
               onClickCheckbox={() => {
                 const index = interestedSodosiList.findIndex(
-                  sodosi => sodosi.id === item.id,
-                );
+                  (sodosi) => sodosi.id === item.id
+                )
                 if (index > -1) {
                   const _interestedSodosiList =
-                    _.cloneDeep(interestedSodosiList);
+                    _.cloneDeep(interestedSodosiList)
                   _interestedSodosiList[index].selected =
-                    !_interestedSodosiList[index].selected;
-                  setInterestedSodosiList(_interestedSodosiList);
+                    !_interestedSodosiList[index].selected
+                  setInterestedSodosiList(_interestedSodosiList)
                 }
               }}
             />
           )}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
-          keyExtractor={item => item.id.toString()}
+          keyExtractor={(item) => item.id.toString()}
           showsVerticalScrollIndicator={false}
           ListFooterComponent={
             !isAdd &&
@@ -83,10 +83,15 @@ function InterestedSodosi(props) {
                 <View style={styles.separator} />
                 <Pressable
                   onPress={() => {
-                    setAdd(true);
+                    setAdd(true)
                   }}>
-                  <View style={styles.addItem}>
-                    <View style={styles.circle}>
+                  <View
+                    style={[
+                      GlobalStyles.flexRow,
+                      GlobalStyles.centerVertical,
+                      styles.addItem
+                    ]}>
+                    <View style={[GlobalStyles.center, styles.circle]}>
                       <AddIcon color={Colors.green_600} />
                     </View>
                     <Typography color={Colors.text_secondary} bold>
@@ -106,42 +111,38 @@ function InterestedSodosi(props) {
         {isModify && <Button type="secondary">삭제</Button>}
       </View>
     </SafeAreaView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: Colors.base_white,
+    backgroundColor: Colors.base_white
   },
   container: {
     flex: 1,
     justifyContent: 'space-between',
     backgroundColor: Colors.base_white,
-    paddingHorizontal: 20,
+    paddingHorizontal: 20
   },
   separator: {
     backgroundColor: Colors.system_grey_6,
-    height: 1,
+    height: 1
   },
   addItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 20,
+    paddingVertical: 20
   },
   circle: {
     width: 72,
     height: 72,
-    justifyContent: 'center',
-    alignItems: 'center',
     borderWidth: 1,
     borderColor: Colors.system_grey_5,
     borderRadius: 37,
-    marginRight: 14,
-  },
-});
+    marginRight: 14
+  }
+})
 
-InterestedSodosi.defaultProps = {};
+InterestedSodosi.defaultProps = {}
 
 InterestedSodosi.propTypes = {
   isAdd: PropTypes.bool,
@@ -149,7 +150,7 @@ InterestedSodosi.propTypes = {
   isModify: PropTypes.bool,
   setModify: PropTypes.func,
   interestedSodosiList: PropTypes.array,
-  setInterestedSodosiList: PropTypes.func,
-};
+  setInterestedSodosiList: PropTypes.func
+}
 
-export default InterestedSodosi;
+export default InterestedSodosi

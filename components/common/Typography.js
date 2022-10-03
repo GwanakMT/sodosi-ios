@@ -1,9 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {Text, StyleSheet} from 'react-native';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { GlobalStyles } from '../../assets/theme'
+import { Text, StyleSheet } from 'react-native'
 
 function Typography(props) {
-  const {variant, bold, semiBold, align, color, customStyles, children} = props;
+  const { variant, bold, semiBold, align, color, customStyles, children } =
+    props
 
   return (
     <Text
@@ -25,101 +27,95 @@ function Typography(props) {
           variant === 'subheadline' ||
           variant === 'body' ||
           variant === 'caption'
-            ? styles.semiBold
-            : styles.bold),
-        semiBold && styles.semiBold,
+            ? GlobalStyles.semiBold
+            : GlobalStyles.bold),
+        semiBold && GlobalStyles.semiBold,
         align === 'left' && styles.left,
         align === 'center' && styles.center,
         align === 'right' && styles.right,
-        {color: color},
-        customStyles,
+        { color: color },
+        customStyles
       ]}>
       {children}
     </Text>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   typography: {
-    fontFamily: 'Pretendard-Regular',
+    fontFamily: 'Pretendard-Regular'
   },
   hugeTitle1: {
     fontSize: 56,
     lineHeight: 84,
-    letterSpacing: 0.25,
+    letterSpacing: 0.25
   },
   hugeTitle2: {
     fontSize: 50,
     lineHeight: 75,
-    letterSpacing: 0.25,
+    letterSpacing: 0.25
   },
   largeTitle: {
     fontSize: 34,
     lineHeight: 42,
-    letterSpacing: 0.374,
+    letterSpacing: 0.374
   },
   title1: {
     fontSize: 26,
     lineHeight: 36,
-    letterSpacing: 0.364,
+    letterSpacing: 0.364
   },
   title2: {
     fontSize: 22,
-    lineHeight: 32,
+    lineHeight: 32
   },
   title3: {
     fontSize: 20,
     lineHeight: 24,
-    letterSpacing: 0.38,
+    letterSpacing: 0.38
   },
   headline: {
     fontSize: 18,
     lineHeight: 22,
     letterSpacing: -0.32,
-    fontFamily: 'Pretendard-Bold',
+    fontFamily: 'Pretendard-Bold'
     // fontFeatureSettings: 'ss03' on,
   },
   callout: {
     fontSize: 16,
     lineHeight: 22,
-    letterSpacing: -0.32,
+    letterSpacing: -0.32
   },
   subheadline: {
     fontSize: 15,
     lineHeight: 20,
-    letterSpacing: -0.24,
+    letterSpacing: -0.24
   },
   body: {
     fontSize: 14,
     lineHeight: 22,
-    letterSpacing: -0.408,
+    letterSpacing: -0.408
   },
   caption: {
     fontSize: 13,
-    lineHeight: 20,
-  },
-  semiBold: {
-    fontFamily: 'Pretendard-SemiBold',
-  },
-  bold: {
-    fontFamily: 'Pretendard-bold',
+    lineHeight: 20
   },
   left: {
-    textAlign: 'left',
+    textAlign: 'left'
   },
   center: {
-    textAlign: 'center',
+    textAlign: 'center'
   },
   right: {
-    textAlign: 'right',
-  },
-});
+    textAlign: 'right'
+  }
+})
 
 Typography.defaultProps = {
   bold: false,
   semiBold: false,
-  align: 'left',
-};
+  align: 'left'
+}
 
 Typography.propTypes = {
   variant: PropTypes.string,
@@ -128,7 +124,7 @@ Typography.propTypes = {
   align: PropTypes.string,
   color: PropTypes.string,
   customStyles: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  children: PropTypes.any,
-};
+  children: PropTypes.any
+}
 
-export default Typography;
+export default Typography

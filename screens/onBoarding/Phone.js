@@ -1,37 +1,38 @@
-import React, {useState} from 'react';
-import Colors from '../../assets/theme/colors';
-import WarningIcon from '../../assets/images/icon/warning.svg';
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+import WarningIcon from '../../assets/images/icon/warning.svg'
+import { GlobalStyles, Colors } from '../../assets/theme'
 import {
   StatusBar,
   KeyboardAvoidingView,
   Platform,
   View,
-  StyleSheet,
-} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {Header, Typography, Input, Button} from '../../components/common';
+  StyleSheet
+} from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { Header, Typography, Input, Button } from '../../components/common'
 
 function Phone(props) {
-  const {navigation} = props;
+  const { navigation } = props
 
-  const [phone, setPhone] = useState('');
-  const [isError, setIsError] = useState(false);
+  const [phone, setPhone] = useState('')
+  const [isError, setIsError] = useState(false)
 
   const handleOnSubmit = () => {
     if (phone.replace(/[^0-9]/g).length === 11) {
-      console.log('전화번호 유효성 검사 완료');
-      setIsError(false);
-      navigation.navigate('CertificationNumber');
+      console.log('전화번호 유효성 검사 완료')
+      setIsError(false)
+      navigation.navigate('CertificationNumber')
     } else {
-      setIsError(true);
+      setIsError(true)
     }
-  };
+  }
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar barStyle="dark-content" />
       <KeyboardAvoidingView
-        behavior={Platform.select({ios: 'padding'})}
+        behavior={Platform.select({ ios: 'padding' })}
         style={styles.avoid}>
         <Header onPress={() => navigation.goBack()} />
         <View style={styles.container}>
@@ -43,7 +44,7 @@ function Phone(props) {
               bold>
               휴대폰 번호를 입력해주세요
             </Typography>
-            <View style={styles.inputWrap}>
+            <View style={[GlobalStyles.flexRow, styles.inputWrap]}>
               <Input
                 defaultValue="+82"
                 editable={false}
@@ -55,13 +56,13 @@ function Phone(props) {
                 onChangeText={setPhone}
                 placeholder="01012345678"
                 keyboardType="number-pad"
-                customStyles={styles.input}
+                customStyles={GlobalStyles.flex1}
                 isError={isError}
                 autoFocus
               />
             </View>
             {isError && (
-              <View style={styles.errorWrap}>
+              <View style={[GlobalStyles.flexRow, GlobalStyles.centerVertical]}>
                 <WarningIcon />
                 <Typography
                   variant="caption"
@@ -90,48 +91,46 @@ function Phone(props) {
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: Colors.base_white,
+    backgroundColor: Colors.base_white
   },
   avoid: {
-    flex: 1,
+    flex: 1
   },
   container: {
     flex: 1,
     justifyContent: 'space-between',
     backgroundColor: Colors.base_white,
     paddingTop: 36,
-    padding: 20,
+    padding: 20
   },
   title: {
-    paddingBottom: 24,
+    paddingBottom: 24
   },
   inputWrap: {
-    flexDirection: 'row',
-    paddingBottom: 10,
+    paddingBottom: 10
   },
   countryCode: {
     width: 68,
-    marginRight: 8,
-  },
-  input: {
-    flex: 1,
-  },
-  errorWrap: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    marginRight: 8
   },
   errorText: {
-    marginLeft: 6,
+    marginLeft: 6
   },
   description: {
-    paddingBottom: 18,
-  },
-});
+    paddingBottom: 18
+  }
+})
 
-export default Phone;
+Phone.defaultProps = {}
+
+Phone.propTypes = {
+  navigation: PropTypes.object
+}
+
+export default Phone

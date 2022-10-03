@@ -1,17 +1,16 @@
-import React from 'react';
-import _ from 'lodash';
-import Colors from '../../assets/theme/colors';
-import GlobalStyles from '../../assets/theme/globalStyles';
-import UserIcon from '../../assets/images/icon/user.svg';
-import CameraIcon from '../../assets/images/icon/camera.svg';
-import EditIcon from '../../assets/images/icon/edit.svg';
-import RightArrow from '../../assets/images/icon/rightArrow.svg';
-import {StatusBar, View, StyleSheet, Pressable} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {Typography} from '../../components/common';
-import {ScrollView} from 'react-native-gesture-handler';
+import React from 'react'
+import _ from 'lodash'
+import UserIcon from '../../assets/images/icon/user.svg'
+import CameraIcon from '../../assets/images/icon/camera.svg'
+import EditIcon from '../../assets/images/icon/edit.svg'
+import RightArrow from '../../assets/images/icon/rightArrow.svg'
+import { GlobalStyles, Colors } from '../../assets/theme'
+import { StatusBar, View, StyleSheet, Pressable } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { ScrollView } from 'react-native-gesture-handler'
+import { Typography } from '../../components/common'
 
-function MyPage(props) {
+function MyPage() {
   return (
     <SafeAreaView style={styles.safeArea} edges={['left', 'right', 'bottom']}>
       <StatusBar barStyle="dark-content" />
@@ -114,7 +113,8 @@ function MyPage(props) {
                 </Typography>
                 <View>
                   <View style={GlobalStyles.flexRow}>
-                    <View style={styles.imageWrap}>
+                    <View
+                      style={[GlobalStyles.centerVertical, styles.imageWrap]}>
                       <View style={styles.userImage} />
                       <View style={styles.verticalLine} />
                     </View>
@@ -122,7 +122,7 @@ function MyPage(props) {
                       <View
                         style={[
                           GlobalStyles.flexRow,
-                          styles.placeUserNameWrap,
+                          styles.placeUserNameWrap
                         ]}>
                         <Typography
                           variant="caption"
@@ -150,7 +150,7 @@ function MyPage(props) {
                     style={[
                       GlobalStyles.flexRow,
                       GlobalStyles.centerVertical,
-                      styles.sodosiInfo,
+                      styles.sodosiInfo
                     ]}>
                     <View style={styles.sodosiImage} />
                     <Typography
@@ -168,28 +168,28 @@ function MyPage(props) {
         </View>
       </ScrollView>
     </SafeAreaView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: Colors.base_white,
+    backgroundColor: Colors.base_white
   },
   container: {
     flex: 1,
-    backgroundColor: Colors.base_white,
+    backgroundColor: Colors.base_white
   },
   userInfo: {
     paddingTop: 14,
     paddingBottom: 22,
     paddingHorizontal: 20,
     borderBottomWidth: 1,
-    borderColor: Colors.system_grey_6,
+    borderColor: Colors.system_grey_6
   },
   profileWrap: {
     position: 'relative',
-    paddingRight: 18,
+    paddingRight: 18
   },
   profile: {
     width: 72,
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.system_grey_6,
     borderRadius: 8,
-    backgroundColor: Colors.system_bg_tertiary,
+    backgroundColor: Colors.system_bg_tertiary
   },
   camera: {
     position: 'absolute',
@@ -208,43 +208,42 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.system_grey_6,
     borderRadius: 32,
-    backgroundColor: Colors.base_white,
+    backgroundColor: Colors.base_white
   },
   userName: {
-    paddingRight: 8,
+    paddingRight: 8
   },
   summary: {
     paddingTop: 19,
     paddingBottom: 20,
     borderBottomWidth: 8,
-    borderColor: Colors.system_bg_tertiary,
+    borderColor: Colors.system_bg_tertiary
   },
   separator: {
     width: 1,
     height: 32,
-    backgroundColor: Colors.system_grey_6,
+    backgroundColor: Colors.system_grey_6
   },
   momentWrap: {
     paddingTop: 26,
-    paddingHorizontal: 20,
+    paddingHorizontal: 20
   },
   moment: {
-    paddingVertical: 20,
+    paddingVertical: 20
   },
   momentBorder: {
     borderTopWidth: 1,
-    borderColor: Colors.system_grey_6,
+    borderColor: Colors.system_grey_6
   },
   title: {
     marginBottom: 6,
-    lineHeight: 24,
+    lineHeight: 24
   },
   placeName: {
-    paddingBottom: 10,
+    paddingBottom: 10
   },
   imageWrap: {
-    marginRight: 10,
-    alignItems: 'center',
+    marginRight: 10
   },
   userImage: {
     width: 24,
@@ -252,40 +251,40 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: Colors.system_grey_6,
     marginTop: 4,
-    marginBottom: 8,
+    marginBottom: 8
   },
   verticalLine: {
     width: 2,
     height: 200,
-    backgroundColor: Colors.system_grey_6,
+    backgroundColor: Colors.system_grey_6
   },
   placeUserNameWrap: {
-    paddingBottom: 6,
+    paddingBottom: 6
   },
   placeUserName: {
-    paddingRight: 6,
+    paddingRight: 6
   },
   contents: {
-    paddingBottom: 12,
+    paddingBottom: 12
   },
   image: {
     height: 140,
     borderRadius: 8,
-    backgroundColor: Colors.system_grey_6,
+    backgroundColor: Colors.system_grey_6
   },
   sodosiInfo: {
-    marginTop: 8,
+    marginTop: 8
   },
   sodosiImage: {
     width: 24,
     height: 24,
     borderRadius: 40,
     backgroundColor: Colors.system_grey_5,
-    marginRight: 10,
+    marginRight: 10
   },
   sodosiName: {
-    paddingRight: 4,
-  },
-});
+    paddingRight: 4
+  }
+})
 
-export default MyPage;
+export default MyPage

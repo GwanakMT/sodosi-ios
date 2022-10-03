@@ -1,21 +1,21 @@
-import React, {useEffect, useMemo, useState} from 'react';
-import _ from 'lodash';
-import Colors from './assets/theme/colors';
-import SplashScreen from 'react-native-splash-screen';
-import Logo from './assets/images/logo.svg';
-import AddIcon from './assets/images/icon/add.svg';
-import NavigationIcon from './assets/images/icon/navigation.svg';
-import UserIcon from './assets/images/icon/user.svg';
-import BackArrow from './assets/images/icon/backArrow.svg';
-import SettingIcon from './assets/images/icon/setting.svg';
-import Close from './assets/images/icon/close.svg';
-import Toast from 'react-native-toast-message';
-import {View, Pressable, StyleSheet} from 'react-native';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Typography} from './components/common';
-import {Common} from './structure';
+import React, { useEffect, useMemo, useState } from 'react'
+import _ from 'lodash'
+import Colors from './assets/theme/colors'
+import SplashScreen from 'react-native-splash-screen'
+import Logo from './assets/images/logo.svg'
+import AddIcon from './assets/images/icon/add.svg'
+import NavigationIcon from './assets/images/icon/navigation.svg'
+import UserIcon from './assets/images/icon/user.svg'
+import BackArrow from './assets/images/icon/backArrow.svg'
+import SettingIcon from './assets/images/icon/setting.svg'
+import Close from './assets/images/icon/close.svg'
+import Toast from 'react-native-toast-message'
+import { View, Pressable, StyleSheet } from 'react-native'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { Typography } from './components/common'
+import { Common } from './structure'
 import {
   StartScreen,
   PhoneScreen,
@@ -30,65 +30,65 @@ import {
   MyPageScreen,
   SettingScreen,
   ChangePasswordScreen,
-  PushSettingScreen,
-} from './screens';
+  PushSettingScreen
+} from './screens'
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator()
 
 function App() {
-  const {toastConfig} = Common.toJSON();
+  const { toastConfig } = Common.toJSON()
 
   // 관심 소도시
-  const [isAdd, setAdd] = useState(false);
-  const [isModify, setModify] = useState(false);
-  const [interestedSodosiList, setInterestedSodosiList] = useState([]);
+  const [isAdd, setAdd] = useState(false)
+  const [isModify, setModify] = useState(false)
+  const [interestedSodosiList, setInterestedSodosiList] = useState([])
 
   // 소도시 생성
   const [createSodosiValues, setCreateSodosiValues] = useState({
     emoji: null,
     sodosiName: '',
-    isPublic: true,
-  });
-  const [isExpectOpen, setExpectOpen] = useState(false);
-  const [isCelebrationOpen, setCelebrationOpen] = useState(false);
+    isPublic: true
+  })
+  const [isExpectOpen, setExpectOpen] = useState(false)
+  const [isCelebrationOpen, setCelebrationOpen] = useState(false)
 
   // 비밀번호 변경
   const [changePasswordValue, setChangePasswordValue] = useState({
     password: '',
     newPassword: '',
-    reNewPassword: '',
-  });
+    reNewPassword: ''
+  })
   const [isChangePasswordError, setChangePasswordError] = useState({
     password: false,
     newPassword: false,
-    reNewPassword: false,
-  });
+    reNewPassword: false
+  })
 
   useEffect(() => {
     setTimeout(() => {
-      SplashScreen.hide();
-    }, 2000);
-  }, []);
+      SplashScreen.hide()
+    }, 2000)
+  }, [])
 
   const InterestedSodosiHeaderTitle = useMemo(() => {
-    let selected = 0;
-    interestedSodosiList.map(item => {
+    let selected = 0
+    interestedSodosiList.map((item) => {
       if (item.selected === true) {
-        selected++;
+        selected++
       }
-    });
+    })
     if (isModify && selected > 0) {
-      return `관심 소도시 (${selected})`;
+      return `관심 소도시 (${selected})`
     } else {
-      return '관심 소도시';
+      return '관심 소도시'
     }
-  }, [isModify, interestedSodosiList]);
+  }, [isModify, interestedSodosiList])
 
   return (
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Start"
+          initialRouteName="CertificationNumber"
           screenOptions={{
             headerShadowVisible: false,
             headerTitleStyle: {
@@ -97,42 +97,42 @@ function App() {
               fontWeight: 'bold',
               lineHeight: 22,
               letterSpacing: -0.32,
-              color: Colors.text_primary,
-            },
+              color: Colors.text_primary
+            }
           }}>
           <Stack.Screen
             name="Start"
             component={StartScreen}
             options={{
-              headerShown: false,
+              headerShown: false
             }}
           />
           <Stack.Screen
             name="Phone"
             component={PhoneScreen}
             options={{
-              headerShown: false,
+              headerShown: false
             }}
           />
           <Stack.Screen
             name="CertificationNumber"
             component={CertificationNumberScreen}
             options={{
-              headerShown: false,
+              headerShown: false
             }}
           />
           <Stack.Screen
             name="Password"
             component={PasswordScreen}
             options={{
-              headerShown: false,
+              headerShown: false
             }}
           />
           <Stack.Screen
             name="Nickname"
             component={NicknameScreen}
             options={{
-              headerShown: false,
+              headerShown: false
             }}
           />
           <Stack.Screen
@@ -140,14 +140,14 @@ function App() {
             component={WelcomeScreen}
             options={{
               headerShown: false,
-              gestureEnabled: false,
+              gestureEnabled: false
             }}
           />
 
           <Stack.Screen
             name="Home"
             component={HomeScreen}
-            options={({navigation}) => ({
+            options={({ navigation }) => ({
               headerTitle: '',
               headerLeft: () => <Logo />,
               headerRight: () => {
@@ -164,26 +164,26 @@ function App() {
                       <UserIcon color={Colors.base_black} />
                     </Pressable>
                   </View>
-                );
+                )
               },
-              gestureEnabled: false,
+              gestureEnabled: false
             })}
           />
           <Stack.Screen
             name="AllSodosi"
             component={AllSodosiScreen}
-            options={({navigation}) => ({
+            options={({ navigation }) => ({
               headerLeft: () => (
                 <Pressable onPress={() => navigation.goBack()}>
                   <BackArrow />
                 </Pressable>
               ),
-              headerTitle: '전체 소도시',
+              headerTitle: '전체 소도시'
             })}
           />
           <Stack.Screen
             name="CreateSodosi"
-            options={({navigation}) => ({
+            options={({ navigation }) => ({
               headerLeft: () => (
                 <Pressable
                   onPress={() => {
@@ -191,9 +191,9 @@ function App() {
                       createSodosiValues.emoji !== null ||
                       createSodosiValues.sodosiName !== ''
                     ) {
-                      setExpectOpen(true);
+                      setExpectOpen(true)
                     } else {
-                      navigation.goBack();
+                      navigation.goBack()
                     }
                   }}>
                   <BackArrow />
@@ -213,9 +213,9 @@ function App() {
                     완료
                   </Typography>
                 </Pressable>
-              ),
+              )
             })}>
-            {props => (
+            {({ navigation }) => (
               <CreateSodosiScreen
                 values={createSodosiValues}
                 setValues={setCreateSodosiValues}
@@ -223,24 +223,24 @@ function App() {
                 setExpectOpen={setExpectOpen}
                 isCelebrationOpen={isCelebrationOpen}
                 setCelebrationOpen={setCelebrationOpen}
-                navigation={props.navigation}
+                navigation={navigation}
               />
             )}
           </Stack.Screen>
           <Stack.Screen
             name="InterestedSodosi"
-            options={({navigation}) => ({
+            options={({ navigation }) => ({
               headerLeft: () => {
                 return isModify ? (
                   <Pressable
                     onPress={() => {
                       const _interestedSodosiList =
-                        _.cloneDeep(interestedSodosiList);
-                      _interestedSodosiList.map(sodosi => {
-                        sodosi.selected = false;
-                      });
-                      setInterestedSodosiList(_interestedSodosiList);
-                      setModify(false);
+                        _.cloneDeep(interestedSodosiList)
+                      _interestedSodosiList.map((sodosi) => {
+                        sodosi.selected = false
+                      })
+                      setInterestedSodosiList(_interestedSodosiList)
+                      setModify(false)
                     }}>
                     <Close color={Colors.base_black} />
                   </Pressable>
@@ -248,12 +248,12 @@ function App() {
                   <Pressable onPress={() => navigation.goBack()}>
                     <BackArrow />
                   </Pressable>
-                );
+                )
               },
               headerTitle: InterestedSodosiHeaderTitle,
               headerRight: () => {
                 if (isAdd) {
-                  return <></>;
+                  return <></>
                 } else {
                   return !isModify ? (
                     <Pressable onPress={() => setModify(true)}>
@@ -264,17 +264,17 @@ function App() {
                   ) : (
                     <Pressable
                       onPress={() => {
-                        setModify(false);
+                        setModify(false)
                       }}>
                       <Typography variant="callout" color={Colors.text_primary}>
                         완료
                       </Typography>
                     </Pressable>
-                  );
+                  )
                 }
-              },
+              }
             })}>
-            {props => (
+            {() => (
               <InterestedSodosiScreen
                 isAdd={isAdd}
                 setAdd={setAdd}
@@ -289,7 +289,7 @@ function App() {
           <Stack.Screen
             name="MyPage"
             component={MyPageScreen}
-            options={({navigation}) => ({
+            options={({ navigation }) => ({
               headerTitle: '',
               headerLeft: () => (
                 <Pressable onPress={() => navigation.goBack()}>
@@ -300,25 +300,25 @@ function App() {
                 <Pressable onPress={() => navigation.navigate('Setting')}>
                   <SettingIcon />
                 </Pressable>
-              ),
+              )
             })}
           />
 
           <Stack.Screen
             name="Setting"
             component={SettingScreen}
-            options={({navigation}) => ({
+            options={({ navigation }) => ({
               headerTitle: '설정',
               headerLeft: () => (
                 <Pressable onPress={() => navigation.goBack()}>
                   <BackArrow />
                 </Pressable>
-              ),
+              )
             })}
           />
           <Stack.Screen
             name="ChangePassword"
-            options={({navigation}) => ({
+            options={({ navigation }) => ({
               headerTitle: '비밀번호 변경',
               headerLeft: () => (
                 <Pressable onPress={() => navigation.goBack()}>
@@ -333,20 +333,20 @@ function App() {
                     changePasswordValue.reNewPassword === ''
                   }
                   onPress={() => {
-                    navigation.goBack();
+                    navigation.goBack()
                     setChangePasswordValue({
                       password: '',
                       newPassword: '',
-                      reNewPassword: '',
-                    });
+                      reNewPassword: ''
+                    })
                     setChangePasswordError({
                       password: false,
                       newPassword: false,
-                      reNewPassword: false,
-                    });
+                      reNewPassword: false
+                    })
                     Toast.show({
-                      text1: '비밀번호가 변경됐어요.',
-                    });
+                      text1: '비밀번호가 변경됐어요.'
+                    })
                   }}>
                   <Typography
                     variant="callout"
@@ -360,9 +360,9 @@ function App() {
                     완료
                   </Typography>
                 </Pressable>
-              ),
+              )
             })}>
-            {props => (
+            {() => (
               <ChangePasswordScreen
                 values={changePasswordValue}
                 setValues={setChangePasswordValue}
@@ -374,30 +374,30 @@ function App() {
           <Stack.Screen
             name="PushSetting"
             component={PushSettingScreen}
-            options={({navigation}) => ({
+            options={({ navigation }) => ({
               headerTitle: '앱 알림 설정',
               headerLeft: () => (
                 <Pressable onPress={() => navigation.goBack()}>
                   <BackArrow />
                 </Pressable>
-              ),
+              )
             })}
           />
         </Stack.Navigator>
       </NavigationContainer>
       <Toast position={'bottom'} config={toastConfig} />
     </SafeAreaProvider>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   iconWrap: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   icon: {
-    marginRight: 20,
-  },
-});
+    marginRight: 20
+  }
+})
 
-export default App;
+export default App

@@ -1,17 +1,23 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Colors from '../../assets/theme/colors';
-import SmileIcon from '../../assets/images/icon/smile.svg';
-import AddIcon from '../../assets/images/icon/add.svg';
-import {StatusBar, ScrollView, View, Pressable, StyleSheet} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import React from 'react'
+import PropTypes from 'prop-types'
+import SmileIcon from '../../assets/images/icon/smile.svg'
+import AddIcon from '../../assets/images/icon/add.svg'
+import { GlobalStyles, Colors } from '../../assets/theme'
+import {
+  StatusBar,
+  ScrollView,
+  View,
+  Pressable,
+  StyleSheet
+} from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import {
   Checkbox,
   Input,
   Typography,
   Modal,
-  Button,
-} from '../../components/common';
+  Button
+} from '../../components/common'
 
 function CreateSodosi(props) {
   const {
@@ -21,24 +27,24 @@ function CreateSodosi(props) {
     setExpectOpen,
     isCelebrationOpen,
     setCelebrationOpen,
-    navigation,
-  } = props;
+    navigation
+  } = props
 
   const handleClose = (type, isReset = false) => {
     if (type === 'expect') {
-      setExpectOpen(false);
+      setExpectOpen(false)
     } else if (type === 'celebration') {
-      setCelebrationOpen(false);
+      setCelebrationOpen(false)
     }
     if (isReset) {
-      navigation.goBack();
+      navigation.goBack()
       setValues({
         emoji: null,
         sodosiName: '',
-        isPublic: true,
-      });
+        isPublic: true
+      })
     }
-  };
+  }
 
   return (
     <SafeAreaView style={styles.safeArea} edges={['left', 'right', 'bottom']}>
@@ -46,8 +52,8 @@ function CreateSodosi(props) {
       <ScrollView>
         <View style={styles.container}>
           <View>
-            <View style={styles.createWrap}>
-              <View style={styles.circle}>
+            <View style={[GlobalStyles.centerVertical, styles.createWrap]}>
+              <View style={[GlobalStyles.center, styles.circle]}>
                 {values.emoji !== null ? (
                   <Typography customStyles={styles.emoji}>
                     {String.fromCodePoint(values.emoji)}
@@ -55,14 +61,14 @@ function CreateSodosi(props) {
                 ) : (
                   <Pressable
                     onPress={() => {
-                      const min = 128512;
-                      const max = 128591;
+                      const min = 128512
+                      const max = 128591
                       const emoji = Math.floor(
-                        Math.random() * (max - min + 1) + min,
-                      );
-                      setValues({...values, emoji: `0x${emoji.toString(16)}`});
+                        Math.random() * (max - min + 1) + min
+                      )
+                      setValues({ ...values, emoji: `0x${emoji.toString(16)}` })
                     }}
-                    style={styles.addWrap}>
+                    style={[GlobalStyles.center, styles.addWrap]}>
                     <SmileIcon style={styles.smileIcon} />
                     <AddIcon
                       width={18}
@@ -76,8 +82,8 @@ function CreateSodosi(props) {
 
               <Input
                 value={values.sodosiName}
-                onChangeText={value => {
-                  setValues({...values, sodosiName: value});
+                onChangeText={(value) => {
+                  setValues({ ...values, sodosiName: value })
                 }}
                 placeholder="ex. 선릉역 직장인들의 점심 맛집"
                 customStyles={styles.input}
@@ -95,10 +101,15 @@ function CreateSodosi(props) {
                 bold>
                 소도시 공개여부
               </Typography>
-              <View style={[styles.checkboxWrap, {marginBottom: 18}]}>
+              <View
+                style={[
+                  GlobalStyles.flexRow,
+                  GlobalStyles.centerVertical,
+                  { marginBottom: 18 }
+                ]}>
                 <Checkbox
                   active={values.isPublic}
-                  onPress={() => setValues({...values, isPublic: true})}
+                  onPress={() => setValues({ ...values, isPublic: true })}
                   customStyles={styles.checkbox}
                 />
                 <View>
@@ -111,10 +122,10 @@ function CreateSodosi(props) {
                 </View>
               </View>
 
-              <View style={styles.checkboxWrap}>
+              <View style={[GlobalStyles.flexRow, GlobalStyles.centerVertical]}>
                 <Checkbox
                   active={!values.isPublic}
-                  onPress={() => setValues({...values, isPublic: false})}
+                  onPress={() => setValues({ ...values, isPublic: false })}
                   customStyles={styles.checkbox}
                 />
                 <View>
@@ -142,10 +153,14 @@ function CreateSodosi(props) {
                 정말 나가시겠어요?
               </Typography>
             </View>
-            <View style={styles.expectButtonWrap}>
+            <View style={GlobalStyles.flexRow}>
               <Pressable
                 textColor={Colors.text_primary}
-                style={styles.expectButton}
+                style={[
+                  GlobalStyles.flex1,
+                  GlobalStyles.centerVertical,
+                  styles.expectButton
+                ]}
                 onPress={() => handleClose('expect', true)}>
                 <Typography variant="callout" bold>
                   나가기
@@ -153,7 +168,11 @@ function CreateSodosi(props) {
               </Pressable>
               <Pressable
                 textColor={Colors.green_600}
-                style={styles.expectButton}
+                style={[
+                  GlobalStyles.flex1,
+                  GlobalStyles.centerVertical,
+                  styles.expectButton
+                ]}
                 onPress={() => handleClose('expect')}>
                 <Typography variant="callout" color={Colors.green_600} bold>
                   이어하기
@@ -179,7 +198,7 @@ function CreateSodosi(props) {
               <Button type="primary">장소 추가하기</Button>
               <Pressable
                 textColor={Colors.text_primary}
-                style={styles.celebrationButton}
+                style={[GlobalStyles.centerVertical, styles.celebrationButton]}
                 onPress={() => handleClose('celebration', true)}>
                 <Typography variant="callout" bold>
                   나중에 하기
@@ -190,109 +209,94 @@ function CreateSodosi(props) {
         </View>
       </ScrollView>
     </SafeAreaView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: Colors.base_white,
+    backgroundColor: Colors.base_white
   },
   avoid: {
-    flex: 1,
+    flex: 1
   },
   container: {
     flex: 1,
     justifyContent: 'space-between',
     backgroundColor: Colors.base_white,
-    paddingHorizontal: 20,
+    paddingHorizontal: 20
   },
   createWrap: {
-    paddingTop: 24,
-    alignItems: 'center',
+    paddingTop: 24
   },
   circle: {
     width: 222,
     height: 222,
-    justifyContent: 'center',
-    alignItems: 'center',
     borderRadius: 222,
     backgroundColor: Colors.system_bg_tertiary,
-    marginBottom: 34,
+    marginBottom: 34
   },
   emoji: {
-    fontSize: 70,
+    fontSize: 70
   },
   addWrap: {
     position: 'relative',
     width: 65,
     height: 65,
-    justifyContent: 'center',
-    alignItems: 'center',
     borderRadius: 65,
     backgroundColor: Colors.base_white,
     boxShadow:
-      '0px 8px 28px -6px rgba(24, 39, 75, 0.12), 0px 18px 88px -4px rgba(24, 39, 75, 0.14)',
+      '0px 8px 28px -6px rgba(24, 39, 75, 0.12), 0px 18px 88px -4px rgba(24, 39, 75, 0.14)'
   },
   smileIcon: {
     position: 'absolute',
     top: 23.27,
-    left: 14.28,
+    left: 14.28
   },
   addIcon: {
     position: 'absolute',
     top: 13,
-    right: 11,
+    right: 11
   },
   input: {
-    backgroundColor: 'transparent',
+    backgroundColor: 'transparent'
   },
   separator: {
     backgroundColor: Colors.system_grey_6,
     height: 1,
-    marginVertical: 28,
+    marginVertical: 28
   },
   subheadline: {
-    marginBottom: 24,
-  },
-  checkboxWrap: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    marginBottom: 24
   },
   checkbox: {
-    marginRight: 16,
+    marginRight: 16
   },
   expectTitleWrap: {
     paddingTop: 24,
     paddingHorizontal: 24,
-    marginBottom: 8,
-  },
-  expectButtonWrap: {
-    flexDirection: 'row',
+    marginBottom: 8
   },
   expectButton: {
-    flex: 1,
-    alignItems: 'center',
-    padding: 24,
+    padding: 24
   },
   celebrationTitleWrap: {
     padding: 24,
-    marginBottom: 8,
+    marginBottom: 8
   },
   celebrationButtonWrap: {
     paddingHorizontal: 24,
-    paddingBottom: 8,
+    paddingBottom: 8
   },
   celebrationButton: {
-    alignItems: 'center',
-    paddingVertical: 16,
+    paddingVertical: 16
   },
   modalTitle: {
-    marginBottom: 12,
-  },
-});
+    marginBottom: 12
+  }
+})
 
-CreateSodosi.defaultProps = {};
+CreateSodosi.defaultProps = {}
 
 CreateSodosi.propTypes = {
   values: PropTypes.object,
@@ -301,7 +305,7 @@ CreateSodosi.propTypes = {
   setExpectOpen: PropTypes.func,
   isCelebrationOpen: PropTypes.bool,
   setCelebrationOpen: PropTypes.func,
-  navigation: PropTypes.object,
-};
+  navigation: PropTypes.object
+}
 
-export default CreateSodosi;
+export default CreateSodosi
