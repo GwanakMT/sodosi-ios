@@ -28,6 +28,7 @@ import {
   CreateSodosiScreen,
   InterestedSodosiScreen,
   MyPageScreen,
+  ChangeNicknameScreen,
   SettingScreen,
   ChangePasswordScreen,
   PushSettingScreen
@@ -88,7 +89,7 @@ function App() {
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="CertificationNumber"
+          initialRouteName="Start"
           screenOptions={{
             headerShadowVisible: false,
             headerTitleStyle: {
@@ -299,6 +300,18 @@ function App() {
               headerRight: () => (
                 <Pressable onPress={() => navigation.navigate('Setting')}>
                   <SettingIcon />
+                </Pressable>
+              )
+            })}
+          />
+          <Stack.Screen
+            name="ChangeNickname"
+            component={ChangeNicknameScreen}
+            options={({ navigation}) => ({
+              headerTitle: '닉네임 설정',
+              headerLeft: () => (
+                <Pressable onPress={() => navigation.goBack()}>
+                  <BackArrow />
                 </Pressable>
               )
             })}

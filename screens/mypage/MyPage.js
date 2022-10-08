@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import _ from 'lodash'
 import UserIcon from '../../assets/images/icon/user.svg'
 import CameraIcon from '../../assets/images/icon/camera.svg'
@@ -10,7 +11,9 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { ScrollView } from 'react-native-gesture-handler'
 import { Typography } from '../../components/common'
 
-function MyPage() {
+function MyPage(props) {
+  const { navigation } = props
+
   return (
     <SafeAreaView style={styles.safeArea} edges={['left', 'right', 'bottom']}>
       <StatusBar barStyle="dark-content" />
@@ -36,7 +39,9 @@ function MyPage() {
                     bold>
                     중구구립도서관
                   </Typography>
-                  <EditIcon />
+                  <Pressable onPress={() => navigation.navigate('ChangeNickname')}>
+                    <EditIcon />
+                  </Pressable>
                 </View>
                 <Typography variant="caption" color={Colors.text_secondary}>
                   n시간 전 방문
@@ -286,5 +291,11 @@ const styles = StyleSheet.create({
     paddingRight: 4
   }
 })
+
+MyPage.defaultProps = {}
+
+MyPage.propTypes = {
+  navigation: PropTypes.object
+}
 
 export default MyPage
