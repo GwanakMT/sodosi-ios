@@ -1,15 +1,90 @@
-import React from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 import PropTypes from 'prop-types'
+import Toast from 'react-native-toast-message'
 import { GlobalStyles, Colors } from '../../assets/theme'
-import { StatusBar, View, StyleSheet } from 'react-native'
+import { StatusBar, View, Pressable, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Typography, Input, Icons } from '../../components/common'
 
 function ChangePassword(props) {
-  const { values, setValues, isError } = props
+  const { navigation } = props
+
+  const [values, setValues] = useState({
+    password: '',
+    newPassword: '',
+    reNewPassword: ''
+  })
+  const [isError, setError] = useState({
+    password: false,
+    newPassword: false,
+    reNewPassword: false
+  })
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Pressable
+          disabled={
+            values.password === '' ||
+            values.newPassword === '' ||
+            values.reNewPassword === ''
+          }
+          onPress={handleOnSubmit}
+        >
+          <Typography
+            variant="callout"
+            color={
+              values.password !== '' &&
+              values.newPassword !== '' &&
+              values.reNewPassword !== ''
+                ? Colors.text_primary
+                : Colors.text_tertiary
+            }>
+            완료
+          </Typography>
+        </Pressable>
+      )
+    })
+  }, [values])
+
+  const reset = () => {
+    setValues({
+      password: '',
+      newPassword: '',
+      reNewPassword: ''
+    })
+    setError({
+      password: false,
+      newPassword: false,
+      reNewPassword: false
+    })
+  }
 
   const handleOnChange = (key, value) => {
     setValues({ ...values, [key]: value })
+  }
+
+  const handleOnSubmit = () => {
+    // TODO: 현재 비밀번호 일치 여부 체크
+    if (values.newPassword.length < 8) {
+      setError({
+        password: false,
+        newPassword: true,
+        reNewPassword: false
+      })
+    } else if (values.newPassword !== values.reNewPassword) {
+      setError({
+        password: false,
+        newPassword: false,
+        reNewPassword: true
+      })
+    } else {
+      navigation.goBack()
+      reset()
+      Toast.show({
+        text1: '비밀번호가 변경됐어요.'
+      })
+    }
   }
 
   return (
@@ -186,9 +261,7 @@ const styles = StyleSheet.create({
 ChangePassword.defaultProps = {}
 
 ChangePassword.propTypes = {
-  values: PropTypes.object,
-  setValues: PropTypes.func,
-  isError: PropTypes.object
+  navigation: PropTypes.object
 }
 
 export default ChangePassword

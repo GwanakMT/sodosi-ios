@@ -53,18 +53,6 @@ function App() {
   const [isExpectOpen, setExpectOpen] = useState(false)
   const [isCelebrationOpen, setCelebrationOpen] = useState(false)
 
-  // 비밀번호 변경
-  const [changePasswordValue, setChangePasswordValue] = useState({
-    password: '',
-    newPassword: '',
-    reNewPassword: ''
-  })
-  const [isChangePasswordError, setChangePasswordError] = useState({
-    password: false,
-    newPassword: false,
-    reNewPassword: false
-  })
-
   useEffect(() => {
     setTimeout(() => {
       SplashScreen.hide()
@@ -331,59 +319,16 @@ function App() {
           />
           <Stack.Screen
             name="ChangePassword"
+            component={ChangePasswordScreen}
             options={({ navigation }) => ({
               headerTitle: '비밀번호 변경',
               headerLeft: () => (
                 <Pressable onPress={() => navigation.goBack()}>
                   <BackArrow />
                 </Pressable>
-              ),
-              headerRight: () => (
-                <Pressable
-                  disabled={
-                    changePasswordValue.password === '' ||
-                    changePasswordValue.newPassword === '' ||
-                    changePasswordValue.reNewPassword === ''
-                  }
-                  onPress={() => {
-                    navigation.goBack()
-                    setChangePasswordValue({
-                      password: '',
-                      newPassword: '',
-                      reNewPassword: ''
-                    })
-                    setChangePasswordError({
-                      password: false,
-                      newPassword: false,
-                      reNewPassword: false
-                    })
-                    Toast.show({
-                      text1: '비밀번호가 변경됐어요.'
-                    })
-                  }}>
-                  <Typography
-                    variant="callout"
-                    color={
-                      changePasswordValue.password !== '' &&
-                      changePasswordValue.newPassword !== '' &&
-                      changePasswordValue.reNewPassword !== ''
-                        ? Colors.text_primary
-                        : Colors.text_tertiary
-                    }>
-                    완료
-                  </Typography>
-                </Pressable>
               )
-            })}>
-            {() => (
-              <ChangePasswordScreen
-                values={changePasswordValue}
-                setValues={setChangePasswordValue}
-                isError={isChangePasswordError}
-                setError={setChangePasswordError}
-              />
-            )}
-          </Stack.Screen>
+            })}
+          />
           <Stack.Screen
             name="PushSetting"
             component={PushSettingScreen}

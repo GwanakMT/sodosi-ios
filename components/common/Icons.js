@@ -47,7 +47,7 @@ export default function Icons(props) {
       viewBox={viewBox}
       style={{
         verticalAlign: 'middle',
-        customStyles
+        ...customStyles
       }}
       {...rest}>
       {mapping[id]}
