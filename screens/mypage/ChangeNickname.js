@@ -1,4 +1,4 @@
-import React, { useState} from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Colors } from '../../assets/theme'
 import { StatusBar, View, StyleSheet, Pressable } from 'react-native'
@@ -10,7 +10,7 @@ function ChangeNickname(props) {
 
   const [nickname, setNickname] = useState('')
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <Pressable onPress={handleOnSubmit}>
