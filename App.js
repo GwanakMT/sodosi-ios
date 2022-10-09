@@ -44,15 +44,6 @@ function App() {
   const [isModify, setModify] = useState(false)
   const [interestedSodosiList, setInterestedSodosiList] = useState([])
 
-  // 소도시 생성
-  const [createSodosiValues, setCreateSodosiValues] = useState({
-    emoji: null,
-    sodosiName: '',
-    isPublic: true
-  })
-  const [isExpectOpen, setExpectOpen] = useState(false)
-  const [isCelebrationOpen, setCelebrationOpen] = useState(false)
-
   useEffect(() => {
     setTimeout(() => {
       SplashScreen.hide()
@@ -172,50 +163,11 @@ function App() {
           />
           <Stack.Screen
             name="CreateSodosi"
-            options={({ navigation }) => ({
-              headerLeft: () => (
-                <Pressable
-                  onPress={() => {
-                    if (
-                      createSodosiValues.emoji !== null ||
-                      createSodosiValues.sodosiName !== ''
-                    ) {
-                      setExpectOpen(true)
-                    } else {
-                      navigation.goBack()
-                    }
-                  }}>
-                  <BackArrow />
-                </Pressable>
-              ),
-              headerTitle: '새로운 소도시',
-              headerRight: () => (
-                <Pressable onPress={() => setCelebrationOpen(true)}>
-                  <Typography
-                    variant="callout"
-                    color={
-                      createSodosiValues.emoji !== null &&
-                      createSodosiValues.sodosiName !== ''
-                        ? Colors.text_primary
-                        : Colors.text_tertiary
-                    }>
-                    완료
-                  </Typography>
-                </Pressable>
-              )
-            })}>
-            {({ navigation }) => (
-              <CreateSodosiScreen
-                values={createSodosiValues}
-                setValues={setCreateSodosiValues}
-                isExpectOpen={isExpectOpen}
-                setExpectOpen={setExpectOpen}
-                isCelebrationOpen={isCelebrationOpen}
-                setCelebrationOpen={setCelebrationOpen}
-                navigation={navigation}
-              />
-            )}
-          </Stack.Screen>
+            component={CreateSodosiScreen}
+            options={() => ({
+              headerTitle: '새로운 소도시'
+            })}
+          />
           <Stack.Screen
             name="InterestedSodosi"
             options={({ navigation }) => ({

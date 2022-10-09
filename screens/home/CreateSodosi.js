@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useLayoutEffect,  useState } from 'react'
 import PropTypes from 'prop-types'
 import SmileIcon from '../../assets/images/icon/smile.svg'
 import AddIcon from '../../assets/images/icon/add.svg'
@@ -16,19 +16,69 @@ import {
   Input,
   Typography,
   Modal,
-  Button
+  Button,
+  Icons
 } from '../../components/common'
 
 function CreateSodosi(props) {
-  const {
-    values,
-    setValues,
-    isExpectOpen,
-    setExpectOpen,
-    isCelebrationOpen,
-    setCelebrationOpen,
-    navigation
-  } = props
+  const { navigation } = props
+
+  const [values, setValues] = useState({
+    emoji: null,
+    sodosiName: '',
+    isPublic: true
+  })
+  const [isExpectOpen, setExpectOpen] = useState(false)
+  const [isCelebrationOpen, setCelebrationOpen] = useState(false)
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <Pressable
+          onPress={() => {
+            if (
+              values.emoji !== null ||
+              values.sodosiName !== ''
+            ) {
+              setExpectOpen(true)
+            } else {
+              navigation.goBack()
+            }
+          }}>
+          <Icons
+            id="back-arrow"
+            width={24}
+            height={24}
+            viewBox="0 0 24 24"
+          />
+        </Pressable>
+      ),
+      headerRight: () => (
+        <Pressable
+          disabled={
+            values.emoji === null ||
+            values.sodosiName === ''
+          }
+          onPress={handleOnSubmit}
+        >
+          <Typography
+            variant="callout"
+            color={
+              values.emoji !== null &&
+              values.sodosiName !== ''
+                ? Colors.text_primary
+                : Colors.text_tertiary
+            }>
+            완료
+          </Typography>
+        </Pressable>
+      )
+    })
+  }, [values])
+
+  const handleOnSubmit = () => {
+    setCelebrationOpen(true)
+  }
 
   const handleClose = (type, isReset = false) => {
     if (type === 'expect') {
@@ -162,7 +212,7 @@ function CreateSodosi(props) {
                   styles.expectButton
                 ]}
                 onPress={() => handleClose('expect', true)}>
-                <Typography variant="callout" bold>
+                <Typography variant="callout" color={Colors.text_primary} bold>
                   나가기
                 </Typography>
               </Pressable>
@@ -200,7 +250,7 @@ function CreateSodosi(props) {
                 textColor={Colors.text_primary}
                 style={[GlobalStyles.centerVertical, styles.celebrationButton]}
                 onPress={() => handleClose('celebration', true)}>
-                <Typography variant="callout" bold>
+                <Typography variant="callout" color={Colors.text_primary} bold>
                   나중에 하기
                 </Typography>
               </Pressable>
@@ -299,12 +349,6 @@ const styles = StyleSheet.create({
 CreateSodosi.defaultProps = {}
 
 CreateSodosi.propTypes = {
-  values: PropTypes.object,
-  setValues: PropTypes.func,
-  isExpectOpen: PropTypes.bool,
-  setExpectOpen: PropTypes.func,
-  isCelebrationOpen: PropTypes.bool,
-  setCelebrationOpen: PropTypes.func,
   navigation: PropTypes.object
 }
 
