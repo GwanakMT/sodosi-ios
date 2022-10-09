@@ -1,9 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import BookmarkIcon from '../../assets/images/icon/bookmark.svg'
 import { GlobalStyles, Colors } from '../../assets/theme'
 import { View, StyleSheet } from 'react-native'
-import { Typography, Checkbox } from '../../components/common'
+import { Typography, Checkbox, Icons } from '../../components/common'
 
 function ListItem(props) {
   const {
@@ -69,7 +68,13 @@ function ListItem(props) {
         </View>
         {hasBookmark && (
           <View>
-            <BookmarkIcon />
+            <Icons
+              id="bookmark"
+              width={24}
+              height={24}
+              viewBox="0 0 24 24"
+              color={Colors.system_grey_3}
+            />
           </View>
         )}
       </View>

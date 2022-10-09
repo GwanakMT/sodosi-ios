@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Svg, { Path } from 'react-native-svg'
 
 export default function Icons(props) {
-  const { id, width, height, viewBox, color, customStyles, ...rest } = props
+  const { id, width, height, viewBox, color, fill, customStyles, ...rest } = props
 
   const mapping = {
     warning: (
@@ -31,6 +31,16 @@ export default function Icons(props) {
           stroke-linejoin="round"
         />
       </>
+    ),
+    bookmark: (
+      <Path
+        d="M17 4H7C6.44772 4 6 4.44772 6 5V20.1315C6 20.9302 6.89014 21.4066 7.5547 20.9635L11.4453 18.3698C11.7812 18.1459 12.2188 18.1459 12.5547 18.3698L16.4453 20.9635C17.1099 21.4066 18 20.9302 18 20.1315V5C18 4.44772 17.5523 4 17 4Z"
+        stroke={color}
+        fill={fill}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     ),
     'right-arrow': (
       <Path
@@ -68,5 +78,6 @@ Icons.propTypes = {
   height: PropTypes.number,
   viewBox: PropTypes.string,
   color: PropTypes.string,
+  fill: PropTypes.string,
   customStyles: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 }

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import Camera from '../../assets/images/camera.png'
 import Cafe from '../../assets/images/cafe.png'
 import Qwanak from '../../assets/images/qwanak.svg'
-import BookmarkIcon from '../../assets/images/icon/bookmark.svg'
 import TopButton from '../../assets/images/icon/topButton.svg'
 import ListItem from './ListItem'
 import { Colors } from '../../assets/theme'
@@ -17,7 +16,7 @@ import {
   StyleSheet
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { Typography, Button } from '../../components/common'
+import { Typography, Button, Icons } from '../../components/common'
 
 function Home(props) {
   const { navigation } = props
@@ -33,7 +32,10 @@ function Home(props) {
   return (
     <SafeAreaView style={styles.safeArea} edges={['left', 'right']}>
       <StatusBar barStyle="dark-content" />
-      <ScrollView ref={scrollView}>
+      <ScrollView
+        ref={scrollView}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.container}>
           <View style={styles.suggestion}>
             <Typography variant="headline" customStyles={{ paddingBottom: 8 }}>
@@ -59,7 +61,7 @@ function Home(props) {
           </View>
         </View>
 
-        <View style={{ marginBottom: 43 }}>
+        <View style={styles.bannerWrap}>
           <FlatList
             data={[
               {
@@ -81,35 +83,23 @@ function Home(props) {
                 color: Colors.system_tint_orange
               }
             ]}
-            renderItem={({ item }) => (
-              <View
-                style={{
-                  position: 'relative',
-                  height: 363,
-                  marginLeft: 6,
-                  marginRight: 6
-                }}>
+            renderItem={({item}) => (
+              <View style={styles.bannerContainer}>
                 <View
-                  style={{
-                    width: 281,
-                    height: 308,
-                    backgroundColor: item.color,
-                    borderRadius: 8,
-                    padding: 24,
-                    overflow: 'hidden'
-                  }}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      paddingBottom: 6
-                    }}>
+                  style={[styles.bannerItem, {backgroundColor: item.color}]}>
+                  <View style={styles.bannerTitle}>
                     <Typography variant="title3" color={Colors.base_white} bold>
                       {item.title}
                     </Typography>
-                    <BookmarkIcon />
+                    <Icons
+                      id="bookmark"
+                      width={24}
+                      height={24}
+                      viewBox="0 0 24 24"
+                      color={Colors.base_white}
+                    />
                   </View>
-                  <View style={{ flexDirection: 'row' }}>
+                  <View style={styles.bannerContents}>
                     <Typography variant="body" color={Colors.base_white}>
                       34명의 소시민들
                     </Typography>
@@ -120,28 +110,10 @@ function Home(props) {
                       50개의 순간
                     </Typography>
                   </View>
-                  <View
-                    style={{
-                      position: 'absolute',
-                      left: -6,
-                      bottom: -48,
-                      width: 298,
-                      height: 149,
-                      backgroundColor: '#00000014',
-                      borderRadius: 298
-                    }}
-                  />
+                  <View style={styles.bannerShadow} />
                 </View>
-                <View
-                  style={{
-                    position: 'absolute',
-                    left: 17,
-                    bottom: 0
-                  }}>
-                  <Image
-                    source={item.image}
-                    style={[styles.gif, { width: 247, height: 255 }]}
-                  />
+                <View style={styles.bannerImage}>
+                  <Image source={item.image} style={styles.gif} />
                 </View>
               </View>
             )}
@@ -151,9 +123,7 @@ function Home(props) {
               )
               setPage(currentPage)
             }}
-            contentContainerStyle={{
-              paddingHorizontal: 47 + 12 / 6
-            }}
+            contentContainerStyle={{ paddingLeft: 14 }}
             automaticallyAdjustContentInsets={false}
             showsHorizontalScrollIndicator={false}
             snapToInterval={293}
@@ -210,7 +180,9 @@ function Home(props) {
                 shadowRadius: 18
               }
             ]}>
-            <Typography variant="headline" customStyles={styles.title}>
+            <Typography
+              variant="headline"
+              customStyles={[styles.title, styles.headline]}>
               내가 참여 중인 소도시 🔨
             </Typography>
             {[
@@ -245,11 +217,13 @@ function Home(props) {
                 alignItems: 'center',
                 marginBottom: 24
               }}>
-              <Typography variant="headline">내 관심 소도시 👍</Typography>
+              <Typography variant="headline" customStyles={styles.headline}>
+                내 관심 소도시 👍
+              </Typography>
               <Pressable
                 onPress={() => navigation.navigate('InterestedSodosi')}>
                 <Typography variant="subheadline" color={Colors.text_secondary}>
-                  전체 보기
+                  편집하기
                 </Typography>
               </Pressable>
             </View>
@@ -301,7 +275,9 @@ function Home(props) {
           </View>
 
           <View style={styles.sodosiContent}>
-            <Typography variant="headline" customStyles={styles.title}>
+            <Typography
+              variant="headline"
+              customStyles={[styles.title, styles.headline]}>
               지금 HOT한 소도시 🔥
             </Typography>
             {[
@@ -332,14 +308,19 @@ function Home(props) {
                 hasBookmark={true}
               />
             ))}
-            <Button type="outlined" customStyles={{ marginTop: 8 }}>
-              더보기
+            <Button type="outlined" customStyles={styles.moreButton}>
+              펼쳐보기
             </Button>
           </View>
 
-          <View style={[styles.sodosiContent, { marginBottom: 0 }]}>
-            <Typography variant="headline" customStyles={styles.title}>
+          <View style={[styles.sodosiContent, {marginBottom: 0}]}>
+            <Typography
+              variant="headline"
+              customStyles={[styles.headline, { marginBottom: 6 }]}>
               새롭게 추천하는 소도시 👋
+            </Typography>
+            <Typography variant="caption" color={Colors.text_tertiary} customStyles={{ marginBottom: 8 }}>
+              오전 12:00 업데이트됨
             </Typography>
             {[
               {
@@ -363,7 +344,7 @@ function Home(props) {
             ].map((data, i) => (
               <ListItem key={i} data={data} hasBookmark={true} />
             ))}
-            <Button type="outlined" customStyles={{ marginTop: 8 }}>
+            <Button type="outlined" customStyles={styles.moreButton}>
               더보기
             </Button>
           </View>
@@ -429,6 +410,48 @@ const styles = StyleSheet.create({
   buttonWrap: {
     flexDirection: 'row'
   },
+  bannerWrap: {
+    marginBottom: 43
+  },
+  bannerContainer: {
+    position: 'relative',
+    height: 363,
+    marginLeft: 6,
+    marginRight: 6
+  },
+  bannerItem: {
+    width: 281,
+    height: 308,
+    borderRadius: 8,
+    padding: 24,
+    overflow: 'hidden'
+  },
+  bannerTitle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingBottom: 6
+  },
+  bannerContents: {
+    flexDirection: 'row'
+  },
+  bannerShadow: {
+    position: 'absolute',
+    left: -6,
+    bottom: -48,
+    width: 298,
+    height: 149,
+    backgroundColor: '#00000014',
+    borderRadius: 298
+  },
+  bannerImage: {
+    position: 'absolute',
+    left: 17,
+    bottom: 0
+  },
+  gif: {
+    width: 247,
+    height: 255
+  },
   sodosiContainer: {
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -443,6 +466,9 @@ const styles = StyleSheet.create({
   title: {
     marginBottom: 8
   },
+  headline: {
+    lineHeight: 24
+  },
   saveBox: {
     width: 154,
     height: 106,
@@ -451,6 +477,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.system_grey_6,
     marginBottom: 12
+  },
+  moreButton: {
+    marginTop: 8
   },
   footer: {
     position: 'relative',
