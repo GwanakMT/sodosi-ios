@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import WarningIcon from '../../assets/images/icon/warning.svg'
 import { GlobalStyles, Colors } from '../../assets/theme'
 import {
   StatusBar,
@@ -10,7 +9,7 @@ import {
   StyleSheet
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { Header, Typography, Input, Button } from '../../components/common'
+import { Typography, Input, Button, Icons } from '../../components/common'
 
 function Nickname(props) {
   const { navigation } = props
@@ -24,12 +23,11 @@ function Nickname(props) {
   }
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={styles.safeArea} edges={['left', 'right', 'bottom']}>
       <StatusBar barStyle="dark-content" />
       <KeyboardAvoidingView
         behavior={Platform.select({ ios: 'padding' })}
         style={styles.avoid}>
-        <Header onPress={() => navigation.goBack()} />
         <View style={styles.container}>
           <View>
             <Typography
@@ -53,7 +51,7 @@ function Nickname(props) {
             </View>
             {isError && (
               <View style={[GlobalStyles.flexRow, GlobalStyles.centerVertical]}>
-                <WarningIcon />
+                <Icons id="warning" width={16} height={16} />
                 <Typography
                   variant="caption"
                   color={Colors.system_tint_pink}
@@ -67,7 +65,9 @@ function Nickname(props) {
             type="primary"
             disabled={nickname.length < 1}
             onPress={handleOnSubmit}>
-            입주하기
+            <Typography variant="callout" color={Colors.base_white} bold>
+              입주하기
+            </Typography>
           </Button>
         </View>
       </KeyboardAvoidingView>
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10
   },
   errorText: {
-    marginLeft: 6
+    marginLeft: 4
   }
 })
 

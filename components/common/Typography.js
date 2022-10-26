@@ -22,13 +22,7 @@ function Typography(props) {
         variant === 'subheadline' && styles.subheadline,
         variant === 'body' && styles.body,
         variant === 'caption' && styles.caption,
-        bold &&
-          (variant === 'callout' ||
-          variant === 'subheadline' ||
-          variant === 'body' ||
-          variant === 'caption'
-            ? GlobalStyles.semiBold
-            : GlobalStyles.bold),
+        bold && GlobalStyles.bold,
         semiBold && GlobalStyles.semiBold,
         align === 'left' && styles.left,
         align === 'center' && styles.center,

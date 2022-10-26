@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef, useMemo, useCallback } from 'react'
 import PropTypes from 'prop-types'
-import WarningIcon from '../../assets/images/icon/warning.svg'
 import { GlobalStyles, Colors } from '../../assets/theme'
 import {
   StatusBar,
@@ -10,6 +9,7 @@ import {
   StyleSheet
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useFocusEffect } from '@react-navigation/native'
 import {
   BottomSheetModalProvider,
   BottomSheetModal
@@ -20,11 +20,11 @@ import {
   useAnimatedStyle
 } from 'react-native-reanimated'
 import {
-  Header,
   Typography,
   Input,
   Button,
-  Checkbox
+  Checkbox,
+  Icons
 } from '../../components/common'
 
 const CustomBackdrop = (props) => {
@@ -73,6 +73,17 @@ function Password(props) {
 
   const snapPoints = useMemo(() => [350], [])
 
+  useFocusEffect(
+    React.useCallback(() => {
+      bottomSheetModalRef.current?.close()
+      navigation.setOptions({
+        headerStyle: {
+          backgroundColor: Colors.base_white
+        }
+      })
+    }, [])
+  )
+
   useEffect(() => {
     if (
       !values.all &&
@@ -101,6 +112,11 @@ function Password(props) {
 
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present()
+    navigation.setOptions({
+      headerStyle: {
+        backgroundColor: '#7f7f7f'
+      }
+    })
   }, [])
 
   const handleOnChangeCheck = (name, value) => {
@@ -118,12 +134,11 @@ function Password(props) {
 
   return (
     <BottomSheetModalProvider>
-      <SafeAreaView style={styles.safeArea}>
+      <SafeAreaView style={styles.safeArea} edges={['left', 'right', 'bottom']}>
         <StatusBar barStyle="dark-content" />
         <KeyboardAvoidingView
           behavior={Platform.select({ ios: 'padding' })}
           style={styles.avoid}>
-          <Header onPress={() => navigation.goBack()} />
           <View style={styles.container}>
             <View>
               <Typography
@@ -142,6 +157,7 @@ function Password(props) {
                   isError={isError}
                   customStyles={styles.input}
                   autoFocus
+                  returnKeyType="next"
                 />
                 <Input
                   value={rePassword}
@@ -151,12 +167,13 @@ function Password(props) {
                   editable={password.length >= 8}
                   isError={isError}
                   autoFocus
+                  returnKeyType="next"
                 />
               </View>
               {isError && (
                 <View
                   style={[GlobalStyles.flexRow, GlobalStyles.centerVertical]}>
-                  <WarningIcon />
+                  <Icons id="warning" width={16} height={16} />
                   <Typography
                     variant="caption"
                     color={Colors.system_tint_pink}
@@ -170,7 +187,9 @@ function Password(props) {
               type="primary"
               disabled={password.length < 8}
               onPress={handleOnSubmit}>
-              다음
+              <Typography variant="callout" color={Colors.base_white} bold>
+                다음
+              </Typography>
             </Button>
           </View>
         </KeyboardAvoidingView>
@@ -268,7 +287,9 @@ function Password(props) {
                 bottomSheetModalRef.current.close()
                 navigation.navigate('Nickname')
               }}>
-              확인
+              <Typography variant="callout" color={Colors.base_white} bold>
+                확인
+              </Typography>
             </Button>
           </View>
         </BottomSheetModal>

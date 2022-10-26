@@ -152,7 +152,6 @@ function Setting(props) {
           </View>
           <View style={GlobalStyles.flexRow}>
             <Pressable
-              textColor={Colors.text_primary}
               style={[
                 GlobalStyles.flex1,
                 GlobalStyles.centerVertical,
@@ -163,7 +162,6 @@ function Setting(props) {
               </Typography>
             </Pressable>
             <Pressable
-              textColor={Colors.green_600}
               style={[
                 GlobalStyles.flex1,
                 GlobalStyles.centerVertical,

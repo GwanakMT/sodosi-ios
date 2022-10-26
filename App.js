@@ -3,18 +3,12 @@ import _ from 'lodash'
 import Colors from './assets/theme/colors'
 import SplashScreen from 'react-native-splash-screen'
 import Logo from './assets/images/logo.svg'
-import AddIcon from './assets/images/icon/add.svg'
-import NavigationIcon from './assets/images/icon/navigation.svg'
-import UserIcon from './assets/images/icon/user.svg'
-import BackArrow from './assets/images/icon/backArrow.svg'
-import SettingIcon from './assets/images/icon/setting.svg'
-import Close from './assets/images/icon/close.svg'
 import Toast from 'react-native-toast-message'
 import { View, Pressable, StyleSheet } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { Typography } from './components/common'
+import { Typography, Icons } from './components/common'
 import { Common } from './structure'
 import {
   StartScreen,
@@ -90,30 +84,50 @@ function App() {
           <Stack.Screen
             name="Phone"
             component={PhoneScreen}
-            options={{
-              headerShown: false
-            }}
+            options={({ navigation }) => ({
+              headerTitle: '',
+              headerLeft: () => (
+                <Pressable onPress={() => navigation.goBack()}>
+                  <Icons id="back-arrow" width={24} height={24} />
+                </Pressable>
+              )
+            })}
           />
           <Stack.Screen
             name="CertificationNumber"
             component={CertificationNumberScreen}
-            options={{
-              headerShown: false
-            }}
+            options={({ navigation }) => ({
+              headerTitle: '',
+              headerLeft: () => (
+                <Pressable onPress={() => navigation.goBack()}>
+                  <Icons id="back-arrow" width={24} height={24} />
+                </Pressable>
+              )
+            })}
           />
           <Stack.Screen
             name="Password"
             component={PasswordScreen}
-            options={{
-              headerShown: false
-            }}
+            options={({ navigation }) => ({
+              headerTitle: '',
+              headerLeft: () => (
+                <Pressable onPress={() => navigation.goBack()}>
+                  <Icons id="back-arrow" width={24} height={24} />
+                </Pressable>
+              )
+            })}
           />
           <Stack.Screen
             name="Nickname"
             component={NicknameScreen}
-            options={{
-              headerShown: false
-            }}
+            options={({ navigation }) => ({
+              headerTitle: '',
+              headerLeft: () => (
+                <Pressable onPress={() => navigation.goBack()}>
+                  <Icons id="back-arrow" width={24} height={24} />
+                </Pressable>
+              )
+            })}
           />
           <Stack.Screen
             name="Welcome"
@@ -135,13 +149,30 @@ function App() {
                   <View style={styles.iconWrap}>
                     <Pressable
                       onPress={() => navigation.navigate('CreateSodosi')}>
-                      <AddIcon style={styles.icon} color={Colors.base_black} />
+                      <Icons
+                        id="add"
+                        width={24}
+                        height={24}
+                        color={Colors.base_black}
+                        customStyles={styles.icon}
+                      />
                     </Pressable>
                     <Pressable onPress={() => navigation.navigate('AllSodosi')}>
-                      <NavigationIcon style={styles.icon} />
+                      <Icons
+                        id="navigation"
+                        width={24}
+                        height={24}
+                        color={Colors.base_black}
+                        customStyles={styles.icon}
+                      />
                     </Pressable>
                     <Pressable onPress={() => navigation.navigate('MyPage')}>
-                      <UserIcon color={Colors.base_black} />
+                      <Icons
+                        id="user"
+                        width={14}
+                        height={17}
+                        color={Colors.base_black}
+                      />
                     </Pressable>
                   </View>
                 )
@@ -155,7 +186,7 @@ function App() {
             options={({ navigation }) => ({
               headerLeft: () => (
                 <Pressable onPress={() => navigation.goBack()}>
-                  <BackArrow />
+                  <Icons id="back-arrow" width={24} height={24} />
                 </Pressable>
               ),
               headerTitle: '전체 소도시'
@@ -183,11 +214,16 @@ function App() {
                       setInterestedSodosiList(_interestedSodosiList)
                       setModify(false)
                     }}>
-                    <Close color={Colors.base_black} />
+                    <Icons
+                      id="close"
+                      width={24}
+                      height={24}
+                      color={Colors.base_black}
+                    />
                   </Pressable>
                 ) : (
                   <Pressable onPress={() => navigation.goBack()}>
-                    <BackArrow />
+                    <Icons id="back-arrow" width={24} height={24} />
                   </Pressable>
                 )
               },
@@ -234,12 +270,17 @@ function App() {
               headerTitle: '',
               headerLeft: () => (
                 <Pressable onPress={() => navigation.goBack()}>
-                  <BackArrow />
+                  <Icons id="back-arrow" width={24} height={24} />
                 </Pressable>
               ),
               headerRight: () => (
                 <Pressable onPress={() => navigation.navigate('Setting')}>
-                  <SettingIcon />
+                  <Icons
+                    id="setting"
+                    width={24}
+                    height={24}
+                    color={Colors.base_black}
+                  />
                 </Pressable>
               )
             })}
@@ -247,11 +288,11 @@ function App() {
           <Stack.Screen
             name="ChangeNickname"
             component={ChangeNicknameScreen}
-            options={({ navigation}) => ({
+            options={({ navigation }) => ({
               headerTitle: '닉네임 설정',
               headerLeft: () => (
                 <Pressable onPress={() => navigation.goBack()}>
-                  <BackArrow />
+                  <Icons id="back-arrow" width={24} height={24} />
                 </Pressable>
               )
             })}
@@ -264,7 +305,7 @@ function App() {
               headerTitle: '설정',
               headerLeft: () => (
                 <Pressable onPress={() => navigation.goBack()}>
-                  <BackArrow />
+                  <Icons id="back-arrow" width={24} height={24} />
                 </Pressable>
               )
             })}
@@ -276,7 +317,7 @@ function App() {
               headerTitle: '비밀번호 변경',
               headerLeft: () => (
                 <Pressable onPress={() => navigation.goBack()}>
-                  <BackArrow />
+                  <Icons id="back-arrow" width={24} height={24} />
                 </Pressable>
               )
             })}
@@ -288,7 +329,7 @@ function App() {
               headerTitle: '앱 알림 설정',
               headerLeft: () => (
                 <Pressable onPress={() => navigation.goBack()}>
-                  <BackArrow />
+                  <Icons id="back-arrow" width={24} height={24} />
                 </Pressable>
               )
             })}

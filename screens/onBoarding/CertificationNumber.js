@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo, useRef } from 'react'
 import PropTypes from 'prop-types'
-import WarningIcon from '../../assets/images/icon/warning.svg'
+import _ from 'lodash'
 import { GlobalStyles, Colors } from '../../assets/theme'
 import {
   StatusBar,
@@ -11,7 +11,7 @@ import {
   StyleSheet
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { Header, Typography, Input, Button } from '../../components/common'
+import { Typography, Input, Button, Icons } from '../../components/common'
 
 function useInterval(callback, delay) {
   const savedCallback = useRef()
@@ -32,6 +32,8 @@ function useInterval(callback, delay) {
 
 function CertificationNumber(props) {
   const { navigation } = props
+
+  const inputRef = React.useRef()
 
   const [certificationNumber, setCertificationNumber] = useState('')
   const [isError, setIsError] = useState(false)
@@ -69,12 +71,11 @@ function CertificationNumber(props) {
   }
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={styles.safeArea} edges={['left', 'right', 'bottom']}>
       <StatusBar barStyle="dark-content" />
       <KeyboardAvoidingView
         behavior={Platform.select({ ios: 'padding' })}
         style={styles.avoid}>
-        <Header onPress={() => navigation.goBack()} />
         <View style={styles.container}>
           <View>
             <Typography
@@ -85,64 +86,25 @@ function CertificationNumber(props) {
               인증번호를 입력하세요
             </Typography>
             <View style={[GlobalStyles.flexRow, styles.inputWrap]}>
-              <Input
-                value={certificationNumber[0]}
-                keyboardType="number-pad"
-                customStyles={[GlobalStyles.flex1, styles.input]}
-                isError={isError}
-                textAlign="center"
-                maxLength={1}
-                editable={false}
-              />
-              <Input
-                value={certificationNumber[1]}
-                keyboardType="number-pad"
-                customStyles={[GlobalStyles.flex1, styles.input]}
-                isError={isError}
-                textAlign="center"
-                maxLength={1}
-                editable={false}
-              />
-              <Input
-                value={certificationNumber[2]}
-                keyboardType="number-pad"
-                customStyles={[GlobalStyles.flex1, styles.input]}
-                isError={isError}
-                textAlign="center"
-                maxLength={1}
-                editable={false}
-              />
-              <Input
-                value={certificationNumber[3]}
-                keyboardType="number-pad"
-                customStyles={[GlobalStyles.flex1, styles.input]}
-                isError={isError}
-                textAlign="center"
-                maxLength={1}
-                editable={false}
-              />
-              <Input
-                value={certificationNumber[4]}
-                keyboardType="number-pad"
-                customStyles={[GlobalStyles.flex1, styles.input]}
-                isError={isError}
-                textAlign="center"
-                maxLength={1}
-                editable={false}
-              />
-              <Input
-                value={certificationNumber[5]}
-                keyboardType="number-pad"
-                customStyles={[GlobalStyles.flex1, styles.input]}
-                isError={isError}
-                textAlign="center"
-                maxLength={1}
-                editable={false}
-              />
+              {_.range(0, 6, 1).map((i) => (
+                <Input
+                  key={i}
+                  value={certificationNumber[i]}
+                  keyboardType="number-pad"
+                  customStyles={[GlobalStyles.flex1, styles.input]}
+                  isError={isError}
+                  textAlign="center"
+                  maxLength={1}
+                  onPressOut={() => {
+                    inputRef.current.focus()
+                  }}
+                  editable={false}
+                />
+              ))}
             </View>
             {isError && (
               <View style={[GlobalStyles.flexRow, GlobalStyles.centerVertical]}>
-                <WarningIcon />
+                <Icons id="warning" width={16} height={16} />
                 <Typography
                   variant="caption"
                   color={Colors.system_tint_pink}
@@ -155,12 +117,14 @@ function CertificationNumber(props) {
             )}
             <View style={GlobalStyles.none}>
               <Input
+                ref={inputRef}
                 value={certificationNumber}
                 onChangeText={setCertificationNumber}
                 keyboardType="number-pad"
                 isError={isError}
                 maxLength={6}
                 autoFocus
+                returnKeyType="next"
               />
             </View>
           </View>
@@ -176,7 +140,7 @@ function CertificationNumber(props) {
                 align="center"
                 color={Colors.text_secondary}
                 customStyles={styles.timer}
-                bold>
+                semiBold>
                 {timeText}
               </Typography>
               <Pressable
@@ -190,7 +154,7 @@ function CertificationNumber(props) {
                   align="center"
                   color={Colors.text_secondary}
                   customStyles={styles.resend}
-                  bold>
+                  semiBold>
                   재전송
                 </Typography>
               </Pressable>
@@ -199,7 +163,9 @@ function CertificationNumber(props) {
               type="primary"
               disabled={certificationNumber.length !== 6}
               onPress={handleOnSubmit}>
-              다음
+              <Typography variant="callout" color={Colors.base_white} bold>
+                다음
+              </Typography>
             </Button>
           </View>
         </View>
@@ -239,7 +205,7 @@ const styles = StyleSheet.create({
     marginRight: 8
   },
   errorText: {
-    marginLeft: 6
+    marginLeft: 4
   },
   description: {
     paddingBottom: 20

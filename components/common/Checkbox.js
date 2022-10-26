@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import CheckIcon from '../../assets/images/icon/check.svg'
+import Icons from './Icons'
 import { GlobalStyles, Colors } from '../../assets/theme'
 import { Pressable, StyleSheet } from 'react-native'
 
@@ -18,7 +18,12 @@ function Checkbox(props) {
         boxType === 'circle' && styles.circle,
         customStyles
       ]}>
-      <CheckIcon color={active ? Colors.base_white : Colors.system_grey_5} />
+      <Icons
+        id="check"
+        width={15}
+        height={12}
+        color={active ? Colors.base_white : Colors.system_grey_5}
+      />
     </Pressable>
   )
 }

@@ -34,14 +34,23 @@ function Start(props) {
         <View style={styles.buttonWrap}>
           <Button
             type="primary"
+            height={52}
             customStyles={styles.startButton}
             onPress={() => navigation.navigate('Phone')}>
-            시작하기
+            <Typography
+              color={Colors.base_white}
+              customStyles={{
+                fontSize: 16,
+                lineHeight: 24
+              }}
+              bold>
+              시작하기
+            </Typography>
           </Button>
-          <Button
-            customStyles={styles.outlinedButton}
-            textColor={Colors.base_white}>
-            이미 소도시 회원이에요!
+          <Button height={50} customStyles={styles.outlinedButton}>
+            <Typography variant="callout" color={Colors.base_white}>
+              이미 소도시 회원이에요!
+            </Typography>
           </Button>
         </View>
       </View>

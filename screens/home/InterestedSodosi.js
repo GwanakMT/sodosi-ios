@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import ListItem from './ListItem'
-import AddIcon from '../../assets/images/icon/add.svg'
 import { GlobalStyles, Colors } from '../../assets/theme'
 import { StatusBar, View, Pressable, FlatList, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { Button, Typography } from '../../components/common'
+import { Button, Typography, Icons } from '../../components/common'
 
 function InterestedSodosi(props) {
   const {
@@ -92,7 +91,12 @@ function InterestedSodosi(props) {
                       styles.addItem
                     ]}>
                     <View style={[GlobalStyles.center, styles.circle]}>
-                      <AddIcon color={Colors.green_600} />
+                      <Icons
+                        id="add"
+                        width={24}
+                        height={24}
+                        color={Colors.green_600}
+                      />
                     </View>
                     <Typography color={Colors.text_secondary} bold>
                       관심 소도시 추가하기
@@ -105,10 +109,18 @@ function InterestedSodosi(props) {
         />
         {isAdd && (
           <Button type="primary" onPress={() => setAdd(false)}>
-            완료
+            <Typography variant="callout" color={Colors.base_white} bold>
+              완료
+            </Typography>
           </Button>
         )}
-        {isModify && <Button type="secondary">삭제</Button>}
+        {isModify && (
+          <Button type="secondary">
+            <Typography variant="callout" color={Colors.green_600} bold>
+              삭제
+            </Typography>
+          </Button>
+        )}
       </View>
     </SafeAreaView>
   )

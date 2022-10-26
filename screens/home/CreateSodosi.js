@@ -1,7 +1,5 @@
-import React, { useLayoutEffect,  useState } from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import SmileIcon from '../../assets/images/icon/smile.svg'
-import AddIcon from '../../assets/images/icon/add.svg'
 import { GlobalStyles, Colors } from '../../assets/theme'
 import {
   StatusBar,
@@ -36,39 +34,27 @@ function CreateSodosi(props) {
       headerLeft: () => (
         <Pressable
           onPress={() => {
-            if (
-              values.emoji !== null ||
-              values.sodosiName !== ''
-            ) {
+            if (values.emoji !== null || values.sodosiName !== '') {
               setExpectOpen(true)
             } else {
               navigation.goBack()
             }
           }}>
-          <Icons
-            id="back-arrow"
-            width={24}
-            height={24}
-            viewBox="0 0 24 24"
-          />
+          <Icons id="back-arrow" width={24} height={24} />
         </Pressable>
       ),
       headerRight: () => (
         <Pressable
-          disabled={
-            values.emoji === null ||
-            values.sodosiName === ''
-          }
-          onPress={handleOnSubmit}
-        >
+          disabled={values.emoji === null || values.sodosiName === ''}
+          onPress={handleOnSubmit}>
           <Typography
             variant="callout"
             color={
-              values.emoji !== null &&
-              values.sodosiName !== ''
+              values.emoji !== null && values.sodosiName !== ''
                 ? Colors.text_primary
                 : Colors.text_tertiary
             }>
+            {' '}
             완료
           </Typography>
         </Pressable>
@@ -119,12 +105,19 @@ function CreateSodosi(props) {
                       setValues({ ...values, emoji: `0x${emoji.toString(16)}` })
                     }}
                     style={[GlobalStyles.center, styles.addWrap]}>
-                    <SmileIcon style={styles.smileIcon} />
-                    <AddIcon
+                    <Icons
+                      id="smile"
+                      width={28}
+                      height={28}
+                      color={Colors.system_grey_3}
+                      customStyles={styles.smileIcon}
+                    />
+                    <Icons
+                      id="add"
                       width={18}
                       height={18}
                       color={Colors.system_grey_3}
-                      style={styles.addIcon}
+                      customStyles={styles.addIcon}
                     />
                   </Pressable>
                 )}
@@ -205,7 +198,6 @@ function CreateSodosi(props) {
             </View>
             <View style={GlobalStyles.flexRow}>
               <Pressable
-                textColor={Colors.text_primary}
                 style={[
                   GlobalStyles.flex1,
                   GlobalStyles.centerVertical,
@@ -217,7 +209,6 @@ function CreateSodosi(props) {
                 </Typography>
               </Pressable>
               <Pressable
-                textColor={Colors.green_600}
                 style={[
                   GlobalStyles.flex1,
                   GlobalStyles.centerVertical,
@@ -245,9 +236,12 @@ function CreateSodosi(props) {
               </Typography>
             </View>
             <View style={styles.celebrationButtonWrap}>
-              <Button type="primary">장소 추가하기</Button>
+              <Button type="primary" height={48}>
+                <Typography variant="callout" color={Colors.base_white} bold>
+                  장소 추가하기
+                </Typography>
+              </Button>
               <Pressable
-                textColor={Colors.text_primary}
                 style={[GlobalStyles.centerVertical, styles.celebrationButton]}
                 onPress={() => handleClose('celebration', true)}>
                 <Typography variant="callout" color={Colors.text_primary} bold>

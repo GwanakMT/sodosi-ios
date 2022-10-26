@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
-import { Colors } from '../../assets/theme'
+import { Colors, GlobalStyles } from '../../assets/theme'
 import { TextInput, StyleSheet } from 'react-native'
 
-function Input(props) {
+const Input = forwardRef((props, ref) => {
   const {
     value,
     defaultValue,
@@ -18,11 +18,13 @@ function Input(props) {
     returnKeyType,
     textAlign,
     maxLength,
-    onPress
+    onPress,
+    ...rest
   } = props
 
   return (
     <TextInput
+      ref={ref}
       value={value}
       defaultValue={defaultValue}
       onChangeText={onChangeText}
@@ -31,16 +33,22 @@ function Input(props) {
       secureTextEntry={secureTextEntry}
       keyboardType={keyboardType}
       selectionColor={Colors.system_tint_blue}
-      style={[styles.input, isError && styles.error, customStyles]}
+      style={[
+        styles.input,
+        isError && styles.error,
+        customStyles,
+        !(value?.length > 0 || defaultValue?.length > 0) && GlobalStyles.normal
+      ]}
       onSubmitEditing={onPress}
       returnKeyType={returnKeyType}
       textAlign={textAlign}
       maxLength={maxLength}
       editable={editable}
       autoFocus={autoFocus}
+      {...rest}
     />
   )
-}
+})
 
 const styles = StyleSheet.create({
   input: {

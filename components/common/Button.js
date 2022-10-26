@@ -1,24 +1,19 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import Typography from './Typography'
 import { GlobalStyles, Colors } from '../../assets/theme'
 import { Pressable, StyleSheet } from 'react-native'
 
 function Button(props) {
-  const { type, size, textColor, children, customStyles, disabled, onPress } =
-    props
-
-  const color = useMemo(() => {
-    if (textColor) {
-      return textColor
-    } else if (type === 'primary') {
-      return Colors.base_white
-    } else if (type === 'secondary') {
-      return Colors.green_600
-    } else {
-      return Colors.text_secondary
-    }
-  }, [textColor, type])
+  const {
+    type,
+    width,
+    height,
+    borderRadius,
+    children,
+    customStyles,
+    disabled,
+    onPress
+  } = props
 
   return (
     <Pressable
@@ -29,21 +24,12 @@ function Button(props) {
         type === 'secondary' && styles.secondary,
         type === 'outlined' && styles.outlined,
         type === 'primary' && disabled && styles.disabled,
-        size === 'small' && styles.small,
-        size === 'large' && styles.large,
+        { width, height, borderRadius },
         customStyles
       ]}
       disabled={disabled}
       onPress={onPress}>
-      <Typography
-        variant={size === 'small' ? 'caption' : ''}
-        color={color}
-        customStyles={[
-          size === 'large' && styles.largeText,
-          size === 'large' && type === 'primary' && GlobalStyles.bold
-        ]}>
-        {children}
-      </Typography>
+      {children}
     </Pressable>
   )
 }
@@ -91,14 +77,16 @@ const styles = StyleSheet.create({
 })
 
 Button.defaultProps = {
-  disabled: false,
-  size: 'large'
+  height: 56,
+  borderRadius: 8,
+  disabled: false
 }
 
 Button.propTypes = {
   type: PropTypes.string,
-  size: PropTypes.oneOf(['small', 'large']),
-  textColor: PropTypes.string,
+  width: PropTypes.any,
+  height: PropTypes.any,
+  borderRadius: PropTypes.number,
   children: PropTypes.any,
   customStyles: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   disabled: PropTypes.bool,

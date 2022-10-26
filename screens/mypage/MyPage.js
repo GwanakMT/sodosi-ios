@@ -1,15 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
-import UserIcon from '../../assets/images/icon/user.svg'
-import CameraIcon from '../../assets/images/icon/camera.svg'
-import EditIcon from '../../assets/images/icon/edit.svg'
-import RightArrow from '../../assets/images/icon/rightArrow.svg'
 import { GlobalStyles, Colors } from '../../assets/theme'
 import { StatusBar, View, StyleSheet, Pressable } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { ScrollView } from 'react-native-gesture-handler'
-import { Typography } from '../../components/common'
+import { Typography, Icons } from '../../components/common'
 
 function MyPage(props) {
   const { navigation } = props
@@ -17,16 +13,26 @@ function MyPage(props) {
   return (
     <SafeAreaView style={styles.safeArea} edges={['left', 'right', 'bottom']}>
       <StatusBar barStyle="dark-content" />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
           <View style={styles.userInfo}>
             <View style={[GlobalStyles.flexRow, GlobalStyles.centerVertical]}>
               <View style={styles.profileWrap}>
                 <View style={[GlobalStyles.center, styles.profile]}>
-                  <UserIcon color={Colors.system_grey_3} />
+                  <Icons
+                    id="profile"
+                    width={42}
+                    height={42}
+                    color={Colors.system_grey_3}
+                  />
                 </View>
                 <View style={[GlobalStyles.center, styles.camera]}>
-                  <CameraIcon />
+                  <Icons
+                    id="camera"
+                    width={18}
+                    height={18}
+                    color={Colors.system_grey_3}
+                  />
                 </View>
               </View>
               <View>
@@ -39,8 +45,14 @@ function MyPage(props) {
                     bold>
                     중구구립도서관
                   </Typography>
-                  <Pressable onPress={() => navigation.navigate('ChangeNickname')}>
-                    <EditIcon />
+                  <Pressable
+                    onPress={() => navigation.navigate('ChangeNickname')}>
+                    <Icons
+                      id="edit"
+                      width={20}
+                      height={20}
+                      color={Colors.system_grey_3}
+                    />
                   </Pressable>
                 </View>
                 <Typography variant="caption" color={Colors.text_secondary}>
@@ -108,7 +120,9 @@ function MyPage(props) {
               최근 내가 남긴 순간 💬
             </Typography>
             {_.range(0, 3, 1).map((data, i) => (
-              <View style={[styles.moment, i !== 0 && styles.momentBorder]}>
+              <View
+                key={i}
+                style={[styles.moment, i !== 0 && styles.momentBorder]}>
                 <Typography
                   variant="subheadline"
                   color={Colors.text_primary}
@@ -164,7 +178,12 @@ function MyPage(props) {
                       customStyles={styles.sodosiName}>
                       “우리 동네 힙한 LP바”에서
                     </Typography>
-                    <RightArrow />
+                    <Icons
+                      id="right-arrow"
+                      width={16}
+                      height={16}
+                      color={Colors.base_black}
+                    />
                   </View>
                 </View>
               </View>

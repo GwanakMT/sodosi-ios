@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import WarningIcon from '../../assets/images/icon/warning.svg'
 import { GlobalStyles, Colors } from '../../assets/theme'
 import {
   StatusBar,
@@ -10,7 +9,9 @@ import {
   StyleSheet
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { Header, Typography, Input, Button } from '../../components/common'
+import { useFocusEffect } from '@react-navigation/native'
+import { useHeaderHeight } from '@react-navigation/elements'
+import { Typography, Input, Button, Icons } from '../../components/common'
 
 function Phone(props) {
   const { navigation } = props
@@ -28,13 +29,24 @@ function Phone(props) {
     }
   }
 
+  const inputRef = React.useRef()
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const unsubscribe = navigation.addListener('transitionEnd', () => {
+        inputRef.current?.focus()
+      })
+      return unsubscribe
+    }, [])
+  )
+
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={styles.safeArea} edges={['left', 'right', 'bottom']}>
       <StatusBar barStyle="dark-content" />
       <KeyboardAvoidingView
         behavior={Platform.select({ ios: 'padding' })}
+        keyboardVerticalOffset={useHeaderHeight()}
         style={styles.avoid}>
-        <Header onPress={() => navigation.goBack()} />
         <View style={styles.container}>
           <View>
             <Typography
@@ -44,7 +56,12 @@ function Phone(props) {
               bold>
               휴대폰 번호를 입력해주세요
             </Typography>
-            <View style={[GlobalStyles.flexRow, styles.inputWrap]}>
+            <View
+              style={[
+                GlobalStyles.flexRow,
+                GlobalStyles.centerVertical,
+                styles.inputWrap
+              ]}>
               <Input
                 defaultValue="+82"
                 editable={false}
@@ -52,18 +69,19 @@ function Phone(props) {
                 isError={isError}
               />
               <Input
+                ref={inputRef}
                 value={phone}
                 onChangeText={setPhone}
                 placeholder="01012345678"
                 keyboardType="number-pad"
                 customStyles={GlobalStyles.flex1}
                 isError={isError}
-                autoFocus
+                returnKeyType="next"
               />
             </View>
             {isError && (
               <View style={[GlobalStyles.flexRow, GlobalStyles.centerVertical]}>
-                <WarningIcon />
+                <Icons id="warning" width={16} height={16} />
                 <Typography
                   variant="caption"
                   color={Colors.system_tint_pink}
@@ -85,7 +103,9 @@ function Phone(props) {
               type="primary"
               disabled={phone.length < 11}
               onPress={handleOnSubmit}>
-              다음
+              <Typography variant="callout" color={Colors.base_white} bold>
+                다음
+              </Typography>
             </Button>
           </View>
         </View>
@@ -117,10 +137,11 @@ const styles = StyleSheet.create({
   },
   countryCode: {
     width: 68,
+    height: 54,
     marginRight: 8
   },
   errorText: {
-    marginLeft: 6
+    marginLeft: 4
   },
   description: {
     paddingBottom: 18

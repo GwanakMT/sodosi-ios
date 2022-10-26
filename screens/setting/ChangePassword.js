@@ -29,8 +29,7 @@ function ChangePassword(props) {
             values.newPassword === '' ||
             values.reNewPassword === ''
           }
-          onPress={handleOnSubmit}
-        >
+          onPress={handleOnSubmit}>
           <Typography
             variant="callout"
             color={
@@ -119,7 +118,6 @@ function ChangePassword(props) {
                 id="warning"
                 width={16}
                 height={16}
-                viewBox="0 0 16 16"
                 customStyles={styles.errorIcon}
               />
               <Typography
@@ -162,7 +160,6 @@ function ChangePassword(props) {
                 id="warning"
                 width={16}
                 height={16}
-                viewBox="0 0 16 16"
                 customStyles={styles.errorIcon}
               />
 
@@ -210,7 +207,6 @@ function ChangePassword(props) {
                 id="warning"
                 width={16}
                 height={16}
-                viewBox="0 0 16 16"
                 customStyles={styles.errorIcon}
               />
               <Typography

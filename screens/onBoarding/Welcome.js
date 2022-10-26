@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import Marker from '../../assets/images/marker.svg'
 import { Colors } from '../../assets/theme'
 import { StatusBar, View, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { Typography } from '../../components/common'
+import { Typography, Icons } from '../../components/common'
 
 function Welcome(props) {
   const { navigation } = props
@@ -20,7 +19,7 @@ function Welcome(props) {
       <StatusBar barStyle="dark-content" />
       <View style={styles.container}>
         <View style={styles.markerWrap}>
-          <Marker />
+          <Icons id="welcome-marker" width={42} height={70} />
         </View>
         <Typography variant="title2" align="center" bold>
           소도시장님의{'\n'}입주를 환영합니다 👋

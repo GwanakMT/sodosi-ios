@@ -3,9 +3,8 @@ import PropTypes from 'prop-types'
 import Camera from '../../assets/images/camera.png'
 import Cafe from '../../assets/images/cafe.png'
 import Qwanak from '../../assets/images/qwanak.svg'
-import TopButton from '../../assets/images/icon/topButton.svg'
 import ListItem from './ListItem'
-import { Colors } from '../../assets/theme'
+import { GlobalStyles, Colors } from '../../assets/theme'
 import {
   StatusBar,
   ScrollView,
@@ -32,10 +31,7 @@ function Home(props) {
   return (
     <SafeAreaView style={styles.safeArea} edges={['left', 'right']}>
       <StatusBar barStyle="dark-content" />
-      <ScrollView
-        ref={scrollView}
-        showsVerticalScrollIndicator={false}
-      >
+      <ScrollView ref={scrollView} showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
           <View style={styles.suggestion}>
             <Typography variant="headline" customStyles={{ paddingBottom: 8 }}>
@@ -51,12 +47,26 @@ function Home(props) {
             <View style={styles.buttonWrap}>
               <Button
                 type="primary"
-                size="small"
+                width={95}
+                height={32}
+                borderRadius={4}
                 customStyles={{ marginRight: 8 }}
                 onPress={() => navigation.navigate('CreateSodosi')}>
-                지금 시작하기
+                <Typography
+                  variant="caption"
+                  color={Colors.base_white}
+                  semiBold>
+                  지금 시작하기
+                </Typography>
               </Button>
-              <Button size="small">일단 구경하기</Button>
+              <Button width={95} height={32} borderRadius={4}>
+                <Typography
+                  variant="caption"
+                  color={Colors.text_secondary}
+                  semiBold>
+                  일단 구경하기
+                </Typography>
+              </Button>
             </View>
           </View>
         </View>
@@ -83,10 +93,10 @@ function Home(props) {
                 color: Colors.system_tint_orange
               }
             ]}
-            renderItem={({item}) => (
+            renderItem={({ item }) => (
               <View style={styles.bannerContainer}>
                 <View
-                  style={[styles.bannerItem, {backgroundColor: item.color}]}>
+                  style={[styles.bannerItem, { backgroundColor: item.color }]}>
                   <View style={styles.bannerTitle}>
                     <Typography variant="title3" color={Colors.base_white} bold>
                       {item.title}
@@ -95,7 +105,6 @@ function Home(props) {
                       id="bookmark"
                       width={24}
                       height={24}
-                      viewBox="0 0 24 24"
                       color={Colors.base_white}
                     />
                   </View>
@@ -308,18 +317,36 @@ function Home(props) {
                 hasBookmark={true}
               />
             ))}
-            <Button type="outlined" customStyles={styles.moreButton}>
-              펼쳐보기
+            <Button
+              type="outlined"
+              height={48}
+              customStyles={[GlobalStyles.flexRow, styles.moreButton]}>
+              <Icons
+                id="bottom-arrow"
+                width={18}
+                height={18}
+                color={Colors.system_grey_3}
+                customStyles={{ marginRight: 6 }}
+              />
+              <Typography
+                color={Colors.text_secondary}
+                customStyles={{ fontSize: 16, lineHeight: 24 }}
+                bold>
+                펼쳐보기
+              </Typography>
             </Button>
           </View>
 
-          <View style={[styles.sodosiContent, {marginBottom: 0}]}>
+          <View style={[styles.sodosiContent, { marginBottom: 0 }]}>
             <Typography
               variant="headline"
               customStyles={[styles.headline, { marginBottom: 6 }]}>
               새롭게 추천하는 소도시 👋
             </Typography>
-            <Typography variant="caption" color={Colors.text_tertiary} customStyles={{ marginBottom: 8 }}>
+            <Typography
+              variant="caption"
+              color={Colors.text_tertiary}
+              customStyles={{ marginBottom: 8 }}>
               오전 12:00 업데이트됨
             </Typography>
             {[
@@ -344,8 +371,16 @@ function Home(props) {
             ].map((data, i) => (
               <ListItem key={i} data={data} hasBookmark={true} />
             ))}
-            <Button type="outlined" customStyles={styles.moreButton}>
-              더보기
+            <Button
+              type="outlined"
+              height={48}
+              customStyles={styles.moreButton}>
+              <Typography
+                color={Colors.text_secondary}
+                customStyles={{ fontSize: 16, lineHeight: 24 }}
+                bold>
+                더보기
+              </Typography>
             </Button>
           </View>
         </View>
@@ -355,7 +390,12 @@ function Home(props) {
           <Pressable
             style={styles.topButton}
             onPress={() => handleScrollToTop(0, 0, true)}>
-            <TopButton />
+            <Icons
+              id="top"
+              width={26}
+              height={26}
+              color={Colors.system_grey_3}
+            />
           </Pressable>
           <View style={styles.linkWrap}>
             <Typography

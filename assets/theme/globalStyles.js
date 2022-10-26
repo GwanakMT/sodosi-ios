@@ -32,6 +32,9 @@ const globalStyles = StyleSheet.create({
   none: {
     display: 'none'
   },
+  normal: {
+    fontFamily: 'Pretendard-Regular'
+  },
   semiBold: {
     fontFamily: 'Pretendard-SemiBold'
   },
