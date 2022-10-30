@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import _ from 'lodash'
 import Colors from './assets/theme/colors'
 import SplashScreen from 'react-native-splash-screen'
 import Logo from './assets/images/logo.svg'
 import Toast from 'react-native-toast-message'
+import { cloneDeep } from 'lodash-es'
 import { View, Pressable, StyleSheet } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { NavigationContainer } from '@react-navigation/native'
@@ -207,7 +207,7 @@ function App() {
                   <Pressable
                     onPress={() => {
                       const _interestedSodosiList =
-                        _.cloneDeep(interestedSodosiList)
+                        cloneDeep(interestedSodosiList)
                       _interestedSodosiList.map((sodosi) => {
                         sodosi.selected = false
                       })

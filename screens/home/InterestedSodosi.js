@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import _ from 'lodash'
 import ListItem from './ListItem'
 import { GlobalStyles, Colors } from '../../assets/theme'
+import { cloneDeep } from 'lodash-es'
 import { StatusBar, View, Pressable, FlatList, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Button, Typography, Icons } from '../../components/common'
@@ -63,8 +63,7 @@ function InterestedSodosi(props) {
                   (sodosi) => sodosi.id === item.id
                 )
                 if (index > -1) {
-                  const _interestedSodosiList =
-                    _.cloneDeep(interestedSodosiList)
+                  const _interestedSodosiList = cloneDeep(interestedSodosiList)
                   _interestedSodosiList[index].selected =
                     !_interestedSodosiList[index].selected
                   setInterestedSodosiList(_interestedSodosiList)

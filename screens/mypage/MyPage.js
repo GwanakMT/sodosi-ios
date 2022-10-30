@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import _ from 'lodash'
 import { GlobalStyles, Colors } from '../../assets/theme'
+import { range } from 'lodash-es'
 import { StatusBar, View, StyleSheet, Pressable } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { ScrollView } from 'react-native-gesture-handler'
@@ -119,7 +119,7 @@ function MyPage(props) {
               customStyles={styles.title}>
               최근 내가 남긴 순간 💬
             </Typography>
-            {_.range(0, 3, 1).map((data, i) => (
+            {range(0, 3, 1).map((data, i) => (
               <View
                 key={i}
                 style={[styles.moment, i !== 0 && styles.momentBorder]}>

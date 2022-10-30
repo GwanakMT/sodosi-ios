@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo, useRef } from 'react'
 import PropTypes from 'prop-types'
-import _ from 'lodash'
 import { GlobalStyles, Colors } from '../../assets/theme'
+import { range } from 'lodash-es'
 import {
   StatusBar,
   KeyboardAvoidingView,
@@ -86,7 +86,7 @@ function CertificationNumber(props) {
               인증번호를 입력하세요
             </Typography>
             <View style={[GlobalStyles.flexRow, styles.inputWrap]}>
-              {_.range(0, 6, 1).map((i) => (
+              {range(0, 6, 1).map((i) => (
                 <Input
                   key={i}
                   value={certificationNumber[i]}
