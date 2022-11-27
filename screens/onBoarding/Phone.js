@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { GlobalStyles, Colors } from '../../assets/theme'
 import {
@@ -13,17 +13,45 @@ import { useFocusEffect } from '@react-navigation/native'
 import { useHeaderHeight } from '@react-navigation/elements'
 import { Typography, Input, Button, Icons } from '../../components/common'
 
+import { useRecoilState } from 'recoil'
+import { isRegisterState, phoneState } from '../../atoms/onboarding'
+import { useMutation } from 'react-query'
+import * as AuthService from '../../services/auth.service'
+
 function Phone(props) {
   const { navigation } = props
 
-  const [phone, setPhone] = useState('')
+  const [isRegister, setRegister] = useRecoilState(isRegisterState)
+  const [phone, setPhone] = useRecoilState(phoneState)
   const [isError, setIsError] = useState(false)
+
+  const {
+    data,
+    mutate: checkPhoneNumber,
+    isLoading
+  } = useMutation(AuthService.getCheckPhoneNumber)
+
+  useEffect(() => {
+    if (data) {
+      const { code, valid } = data.data
+      if (!valid) {
+        setIsError(true)
+      } else {
+        setIsError(false)
+        if (code === 'NOT_JOINED') {
+          navigation.navigate('CertificationNumber')
+        } else {
+          setRegister(true)
+          navigation.navigate('Password')
+        }
+      }
+    }
+  }, [data])
 
   const handleOnSubmit = () => {
     if (phone.replace(/[^0-9]/g).length === 11) {
-      console.log('전화번호 유효성 검사 완료')
-      setIsError(false)
-      navigation.navigate('CertificationNumber')
+      if (isLoading) return
+      checkPhoneNumber({ phoneNumber: phone })
     } else {
       setIsError(true)
     }
@@ -92,16 +120,18 @@ function Phone(props) {
             )}
           </View>
           <View>
-            <Typography
-              variant="caption"
-              align="center"
-              color={Colors.text_secondary}
-              customStyles={styles.description}>
-              안전한 소도시 커뮤니티를 위해 휴대폰 번호로 가입해요
-            </Typography>
+            {!isRegister && (
+              <Typography
+                variant="caption"
+                align="center"
+                color={Colors.text_secondary}
+                customStyles={styles.description}>
+                안전한 소도시 커뮤니티를 위해 휴대폰 번호로 가입해요
+              </Typography>
+            )}
             <Button
               type="primary"
-              disabled={phone.length < 11}
+              disabled={!phone || phone.length < 11}
               onPress={handleOnSubmit}>
               <Typography variant="callout" color={Colors.base_white} bold>
                 다음

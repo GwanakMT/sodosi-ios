@@ -1,13 +1,23 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import CafeGif from '../../assets/images/cafe.gif'
 import { GlobalStyles, Colors } from '../../assets/theme'
 import { StatusBar, View, Image, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useNavigation } from '@react-navigation/native'
 import { Typography, Button } from '../../components/common'
 
-function Start(props) {
-  const { navigation } = props
+import { useSetRecoilState } from 'recoil'
+import { isRegisterState } from '../../atoms/onboarding'
+
+function Start() {
+  const navigation = useNavigation()
+
+  const setRegister = useSetRecoilState(isRegisterState)
+
+  const onPress = (isRegister) => {
+    setRegister(isRegister)
+    navigation.navigate('Phone')
+  }
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -36,7 +46,7 @@ function Start(props) {
             type="primary"
             height={52}
             customStyles={styles.startButton}
-            onPress={() => navigation.navigate('Phone')}>
+            onPress={() => onPress(false)}>
             <Typography
               color={Colors.base_white}
               customStyles={{
@@ -47,7 +57,10 @@ function Start(props) {
               시작하기
             </Typography>
           </Button>
-          <Button height={50} customStyles={styles.outlinedButton}>
+          <Button
+            height={50}
+            customStyles={styles.outlinedButton}
+            onPress={() => onPress(true)}>
             <Typography variant="callout" color={Colors.base_white}>
               이미 소도시 회원이에요!
             </Typography>
@@ -96,11 +109,5 @@ const styles = StyleSheet.create({
     letterSpacing: -0.32
   }
 })
-
-Start.defaultProps = {}
-
-Start.propTypes = {
-  navigation: PropTypes.object
-}
 
 export default Start

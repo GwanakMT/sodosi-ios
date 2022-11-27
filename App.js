@@ -8,6 +8,8 @@ import { View, Pressable, StyleSheet } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { RecoilRoot } from 'recoil'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import { Typography, Icons } from './components/common'
 import { Common } from './structure'
 import {
@@ -29,6 +31,8 @@ import {
 } from './screens'
 
 const Stack = createNativeStackNavigator()
+
+const queryClient = new QueryClient()
 
 function App() {
   const { toastConfig } = Common.toJSON()
@@ -59,285 +63,295 @@ function App() {
   }, [isModify, interestedSodosiList])
 
   return (
-    <SafeAreaProvider>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="Start"
-          screenOptions={{
-            headerShadowVisible: false,
-            headerTitleStyle: {
-              fontFamily: 'Pretendard-Regular',
-              fontSize: 16,
-              fontWeight: 'bold',
-              lineHeight: 22,
-              letterSpacing: -0.32,
-              color: Colors.text_primary
-            }
-          }}>
-          <Stack.Screen
-            name="Start"
-            component={StartScreen}
-            options={{
-              headerShown: false
-            }}
-          />
-          <Stack.Screen
-            name="Phone"
-            component={PhoneScreen}
-            options={({ navigation }) => ({
-              headerTitle: '',
-              headerLeft: () => (
-                <Pressable onPress={() => navigation.goBack()}>
-                  <Icons id="back-arrow" width={24} height={24} />
-                </Pressable>
-              )
-            })}
-          />
-          <Stack.Screen
-            name="CertificationNumber"
-            component={CertificationNumberScreen}
-            options={({ navigation }) => ({
-              headerTitle: '',
-              headerLeft: () => (
-                <Pressable onPress={() => navigation.goBack()}>
-                  <Icons id="back-arrow" width={24} height={24} />
-                </Pressable>
-              )
-            })}
-          />
-          <Stack.Screen
-            name="Password"
-            component={PasswordScreen}
-            options={({ navigation }) => ({
-              headerTitle: '',
-              headerLeft: () => (
-                <Pressable onPress={() => navigation.goBack()}>
-                  <Icons id="back-arrow" width={24} height={24} />
-                </Pressable>
-              )
-            })}
-          />
-          <Stack.Screen
-            name="Nickname"
-            component={NicknameScreen}
-            options={({ navigation }) => ({
-              headerTitle: '',
-              headerLeft: () => (
-                <Pressable onPress={() => navigation.goBack()}>
-                  <Icons id="back-arrow" width={24} height={24} />
-                </Pressable>
-              )
-            })}
-          />
-          <Stack.Screen
-            name="Welcome"
-            component={WelcomeScreen}
-            options={{
-              headerShown: false,
-              gestureEnabled: false
-            }}
-          />
-
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={({ navigation }) => ({
-              headerTitle: '',
-              headerLeft: () => <Logo />,
-              headerRight: () => {
-                return (
-                  <View style={styles.iconWrap}>
-                    <Pressable
-                      onPress={() => navigation.navigate('CreateSodosi')}>
-                      <Icons
-                        id="add"
-                        width={24}
-                        height={24}
-                        color={Colors.base_black}
-                        customStyles={styles.icon}
-                      />
-                    </Pressable>
-                    <Pressable onPress={() => navigation.navigate('AllSodosi')}>
-                      <Icons
-                        id="navigation"
-                        width={24}
-                        height={24}
-                        color={Colors.base_black}
-                        customStyles={styles.icon}
-                      />
-                    </Pressable>
-                    <Pressable onPress={() => navigation.navigate('MyPage')}>
-                      <Icons
-                        id="user"
-                        width={14}
-                        height={17}
-                        color={Colors.base_black}
-                      />
-                    </Pressable>
-                  </View>
-                )
-              },
-              gestureEnabled: false
-            })}
-          />
-          <Stack.Screen
-            name="AllSodosi"
-            component={AllSodosiScreen}
-            options={({ navigation }) => ({
-              headerLeft: () => (
-                <Pressable onPress={() => navigation.goBack()}>
-                  <Icons id="back-arrow" width={24} height={24} />
-                </Pressable>
-              ),
-              headerTitle: '전체 소도시'
-            })}
-          />
-          <Stack.Screen
-            name="CreateSodosi"
-            component={CreateSodosiScreen}
-            options={() => ({
-              headerTitle: '새로운 소도시'
-            })}
-          />
-          <Stack.Screen
-            name="InterestedSodosi"
-            options={({ navigation }) => ({
-              headerLeft: () => {
-                return isModify ? (
-                  <Pressable
-                    onPress={() => {
-                      const _interestedSodosiList =
-                        cloneDeep(interestedSodosiList)
-                      _interestedSodosiList.map((sodosi) => {
-                        sodosi.selected = false
-                      })
-                      setInterestedSodosiList(_interestedSodosiList)
-                      setModify(false)
-                    }}>
-                    <Icons
-                      id="close"
-                      width={24}
-                      height={24}
-                      color={Colors.base_black}
-                    />
-                  </Pressable>
-                ) : (
-                  <Pressable onPress={() => navigation.goBack()}>
-                    <Icons id="back-arrow" width={24} height={24} />
-                  </Pressable>
-                )
-              },
-              headerTitle: InterestedSodosiHeaderTitle,
-              headerRight: () => {
-                if (isAdd) {
-                  return <></>
-                } else {
-                  return !isModify ? (
-                    <Pressable onPress={() => setModify(true)}>
-                      <Typography variant="callout" color={Colors.text_primary}>
-                        편집
-                      </Typography>
-                    </Pressable>
-                  ) : (
-                    <Pressable
-                      onPress={() => {
-                        setModify(false)
-                      }}>
-                      <Typography variant="callout" color={Colors.text_primary}>
-                        완료
-                      </Typography>
+    <RecoilRoot>
+      <QueryClientProvider client={queryClient}>
+        <SafeAreaProvider>
+          <NavigationContainer>
+            <Stack.Navigator
+              initialRouteName="Start"
+              screenOptions={{
+                headerShadowVisible: false,
+                headerTitleStyle: {
+                  fontFamily: 'Pretendard-Regular',
+                  fontSize: 16,
+                  fontWeight: 'bold',
+                  lineHeight: 22,
+                  letterSpacing: -0.32,
+                  color: Colors.text_primary
+                }
+              }}>
+              <Stack.Screen
+                name="Start"
+                component={StartScreen}
+                options={{
+                  headerShown: false
+                }}
+              />
+              <Stack.Screen
+                name="Phone"
+                component={PhoneScreen}
+                options={({ navigation }) => ({
+                  headerTitle: '',
+                  headerLeft: () => (
+                    <Pressable onPress={() => navigation.goBack()}>
+                      <Icons id="back-arrow" width={24} height={24} />
                     </Pressable>
                   )
-                }
-              }
-            })}>
-            {() => (
-              <InterestedSodosiScreen
-                isAdd={isAdd}
-                setAdd={setAdd}
-                isModify={isModify}
-                setModify={setModify}
-                interestedSodosiList={interestedSodosiList}
-                setInterestedSodosiList={setInterestedSodosiList}
+                })}
               />
-            )}
-          </Stack.Screen>
+              <Stack.Screen
+                name="CertificationNumber"
+                component={CertificationNumberScreen}
+                options={({ navigation }) => ({
+                  headerTitle: '',
+                  headerLeft: () => (
+                    <Pressable onPress={() => navigation.goBack()}>
+                      <Icons id="back-arrow" width={24} height={24} />
+                    </Pressable>
+                  )
+                })}
+              />
+              <Stack.Screen
+                name="Password"
+                component={PasswordScreen}
+                options={({ navigation }) => ({
+                  headerTitle: '',
+                  headerLeft: () => (
+                    <Pressable onPress={() => navigation.goBack()}>
+                      <Icons id="back-arrow" width={24} height={24} />
+                    </Pressable>
+                  )
+                })}
+              />
+              <Stack.Screen
+                name="Nickname"
+                component={NicknameScreen}
+                options={({ navigation }) => ({
+                  headerTitle: '',
+                  headerLeft: () => (
+                    <Pressable onPress={() => navigation.goBack()}>
+                      <Icons id="back-arrow" width={24} height={24} />
+                    </Pressable>
+                  )
+                })}
+              />
+              <Stack.Screen
+                name="Welcome"
+                component={WelcomeScreen}
+                options={{
+                  headerShown: false,
+                  gestureEnabled: false
+                }}
+              />
 
-          <Stack.Screen
-            name="MyPage"
-            component={MyPageScreen}
-            options={({ navigation }) => ({
-              headerTitle: '',
-              headerLeft: () => (
-                <Pressable onPress={() => navigation.goBack()}>
-                  <Icons id="back-arrow" width={24} height={24} />
-                </Pressable>
-              ),
-              headerRight: () => (
-                <Pressable onPress={() => navigation.navigate('Setting')}>
-                  <Icons
-                    id="setting"
-                    width={24}
-                    height={24}
-                    color={Colors.base_black}
+              <Stack.Screen
+                name="Home"
+                component={HomeScreen}
+                options={({ navigation }) => ({
+                  headerTitle: '',
+                  headerLeft: () => <Logo />,
+                  headerRight: () => {
+                    return (
+                      <View style={styles.iconWrap}>
+                        <Pressable
+                          onPress={() => navigation.navigate('CreateSodosi')}>
+                          <Icons
+                            id="add"
+                            width={24}
+                            height={24}
+                            color={Colors.base_black}
+                            customStyles={styles.icon}
+                          />
+                        </Pressable>
+                        <Pressable
+                          onPress={() => navigation.navigate('AllSodosi')}>
+                          <Icons
+                            id="navigation"
+                            width={24}
+                            height={24}
+                            color={Colors.base_black}
+                            customStyles={styles.icon}
+                          />
+                        </Pressable>
+                        <Pressable
+                          onPress={() => navigation.navigate('MyPage')}>
+                          <Icons
+                            id="user"
+                            width={14}
+                            height={17}
+                            color={Colors.base_black}
+                          />
+                        </Pressable>
+                      </View>
+                    )
+                  },
+                  gestureEnabled: false
+                })}
+              />
+              <Stack.Screen
+                name="AllSodosi"
+                component={AllSodosiScreen}
+                options={({ navigation }) => ({
+                  headerLeft: () => (
+                    <Pressable onPress={() => navigation.goBack()}>
+                      <Icons id="back-arrow" width={24} height={24} />
+                    </Pressable>
+                  ),
+                  headerTitle: '전체 소도시'
+                })}
+              />
+              <Stack.Screen
+                name="CreateSodosi"
+                component={CreateSodosiScreen}
+                options={() => ({
+                  headerTitle: '새로운 소도시'
+                })}
+              />
+              <Stack.Screen
+                name="InterestedSodosi"
+                options={({ navigation }) => ({
+                  headerLeft: () => {
+                    return isModify ? (
+                      <Pressable
+                        onPress={() => {
+                          const _interestedSodosiList =
+                            cloneDeep(interestedSodosiList)
+                          _interestedSodosiList.map((sodosi) => {
+                            sodosi.selected = false
+                          })
+                          setInterestedSodosiList(_interestedSodosiList)
+                          setModify(false)
+                        }}>
+                        <Icons
+                          id="close"
+                          width={24}
+                          height={24}
+                          color={Colors.base_black}
+                        />
+                      </Pressable>
+                    ) : (
+                      <Pressable onPress={() => navigation.goBack()}>
+                        <Icons id="back-arrow" width={24} height={24} />
+                      </Pressable>
+                    )
+                  },
+                  headerTitle: InterestedSodosiHeaderTitle,
+                  headerRight: () => {
+                    if (isAdd) {
+                      return <></>
+                    } else {
+                      return !isModify ? (
+                        <Pressable onPress={() => setModify(true)}>
+                          <Typography
+                            variant="callout"
+                            color={Colors.text_primary}>
+                            편집
+                          </Typography>
+                        </Pressable>
+                      ) : (
+                        <Pressable
+                          onPress={() => {
+                            setModify(false)
+                          }}>
+                          <Typography
+                            variant="callout"
+                            color={Colors.text_primary}>
+                            완료
+                          </Typography>
+                        </Pressable>
+                      )
+                    }
+                  }
+                })}>
+                {() => (
+                  <InterestedSodosiScreen
+                    isAdd={isAdd}
+                    setAdd={setAdd}
+                    isModify={isModify}
+                    setModify={setModify}
+                    interestedSodosiList={interestedSodosiList}
+                    setInterestedSodosiList={setInterestedSodosiList}
                   />
-                </Pressable>
-              )
-            })}
-          />
-          <Stack.Screen
-            name="ChangeNickname"
-            component={ChangeNicknameScreen}
-            options={({ navigation }) => ({
-              headerTitle: '닉네임 설정',
-              headerLeft: () => (
-                <Pressable onPress={() => navigation.goBack()}>
-                  <Icons id="back-arrow" width={24} height={24} />
-                </Pressable>
-              )
-            })}
-          />
+                )}
+              </Stack.Screen>
 
-          <Stack.Screen
-            name="Setting"
-            component={SettingScreen}
-            options={({ navigation }) => ({
-              headerTitle: '설정',
-              headerLeft: () => (
-                <Pressable onPress={() => navigation.goBack()}>
-                  <Icons id="back-arrow" width={24} height={24} />
-                </Pressable>
-              )
-            })}
-          />
-          <Stack.Screen
-            name="ChangePassword"
-            component={ChangePasswordScreen}
-            options={({ navigation }) => ({
-              headerTitle: '비밀번호 변경',
-              headerLeft: () => (
-                <Pressable onPress={() => navigation.goBack()}>
-                  <Icons id="back-arrow" width={24} height={24} />
-                </Pressable>
-              )
-            })}
-          />
-          <Stack.Screen
-            name="PushSetting"
-            component={PushSettingScreen}
-            options={({ navigation }) => ({
-              headerTitle: '앱 알림 설정',
-              headerLeft: () => (
-                <Pressable onPress={() => navigation.goBack()}>
-                  <Icons id="back-arrow" width={24} height={24} />
-                </Pressable>
-              )
-            })}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-      <Toast position={'bottom'} config={toastConfig} />
-    </SafeAreaProvider>
+              <Stack.Screen
+                name="MyPage"
+                component={MyPageScreen}
+                options={({ navigation }) => ({
+                  headerTitle: '',
+                  headerLeft: () => (
+                    <Pressable onPress={() => navigation.goBack()}>
+                      <Icons id="back-arrow" width={24} height={24} />
+                    </Pressable>
+                  ),
+                  headerRight: () => (
+                    <Pressable onPress={() => navigation.navigate('Setting')}>
+                      <Icons
+                        id="setting"
+                        width={24}
+                        height={24}
+                        color={Colors.base_black}
+                      />
+                    </Pressable>
+                  )
+                })}
+              />
+              <Stack.Screen
+                name="ChangeNickname"
+                component={ChangeNicknameScreen}
+                options={({ navigation }) => ({
+                  headerTitle: '닉네임 설정',
+                  headerLeft: () => (
+                    <Pressable onPress={() => navigation.goBack()}>
+                      <Icons id="back-arrow" width={24} height={24} />
+                    </Pressable>
+                  )
+                })}
+              />
+
+              <Stack.Screen
+                name="Setting"
+                component={SettingScreen}
+                options={({ navigation }) => ({
+                  headerTitle: '설정',
+                  headerLeft: () => (
+                    <Pressable onPress={() => navigation.goBack()}>
+                      <Icons id="back-arrow" width={24} height={24} />
+                    </Pressable>
+                  )
+                })}
+              />
+              <Stack.Screen
+                name="ChangePassword"
+                component={ChangePasswordScreen}
+                options={({ navigation }) => ({
+                  headerTitle: '비밀번호 변경',
+                  headerLeft: () => (
+                    <Pressable onPress={() => navigation.goBack()}>
+                      <Icons id="back-arrow" width={24} height={24} />
+                    </Pressable>
+                  )
+                })}
+              />
+              <Stack.Screen
+                name="PushSetting"
+                component={PushSettingScreen}
+                options={({ navigation }) => ({
+                  headerTitle: '앱 알림 설정',
+                  headerLeft: () => (
+                    <Pressable onPress={() => navigation.goBack()}>
+                      <Icons id="back-arrow" width={24} height={24} />
+                    </Pressable>
+                  )
+                })}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+          <Toast position={'bottom'} config={toastConfig} />
+        </SafeAreaProvider>
+      </QueryClientProvider>
+    </RecoilRoot>
   )
 }
 
